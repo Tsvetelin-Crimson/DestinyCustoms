@@ -1,26 +1,26 @@
-﻿namespace Sandbox
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
+
+using DestinyCustoms.Data;
+using DestinyCustoms.Data.Common;
+using DestinyCustoms.Data.Common.Repositories;
+using DestinyCustoms.Data.Models;
+using DestinyCustoms.Data.Repositories;
+using DestinyCustoms.Data.Seeding;
+using DestinyCustoms.Services.Data;
+using DestinyCustoms.Services.Messaging;
+
+using CommandLine;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+namespace Sandbox
 {
-    using System;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Threading.Tasks;
-
-    using DestinyCustoms.Data;
-    using DestinyCustoms.Data.Common;
-    using DestinyCustoms.Data.Common.Repositories;
-    using DestinyCustoms.Data.Models;
-    using DestinyCustoms.Data.Repositories;
-    using DestinyCustoms.Data.Seeding;
-    using DestinyCustoms.Services.Data;
-    using DestinyCustoms.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-
     public static class Program
     {
         public static int Main(string[] args)
