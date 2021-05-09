@@ -8,7 +8,7 @@
 
     using DestinyCustoms.Data.Common.Models;
     using DestinyCustoms.Data.Models;
-
+    using DestinyCustoms.Data.Models.ApplicationModels;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +24,16 @@
         {
         }
 
+        // TODO: Remove Settings class fully
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Exotic> Exotics { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<ItemClass> ItemClasses { get; set; }
+
+        public DbSet<Suggestion> Suggestions { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
