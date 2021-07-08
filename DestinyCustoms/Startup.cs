@@ -59,6 +59,8 @@ namespace DestinyCustoms
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.ApplicationServices.GetService<DestinyCustomsDbContext>().Database.Migrate();
         }
     }
 }

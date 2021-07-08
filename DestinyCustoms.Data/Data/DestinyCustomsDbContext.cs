@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using DestinyCustoms.Data.Models;
+using DestinyCustoms.Data.Models.ApplicationModels;
 
 namespace DestinyCustoms.Data
 {
