@@ -1,4 +1,5 @@
 using DestinyCustoms.Data;
+using DestinyCustoms.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,8 @@ namespace DestinyCustoms
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.SetUpDatabase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -44,11 +47,10 @@ namespace DestinyCustoms
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -59,8 +61,6 @@ namespace DestinyCustoms
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-
-            app.ApplicationServices.GetService<DestinyCustomsDbContext>().Database.Migrate();
         }
     }
 }

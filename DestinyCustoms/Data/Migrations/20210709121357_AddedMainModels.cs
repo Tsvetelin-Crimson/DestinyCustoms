@@ -12,7 +12,7 @@ namespace DestinyCustoms.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,11 +25,11 @@ namespace DestinyCustoms.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WeaponIntrinsic = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    Catalyst = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CatalystCompletionRequirement = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    WeaponIntrinsicName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    WeaponIntrinsicDescription = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CatalystName = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CatalystCompletionRequirement = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ItemClassId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -50,8 +50,6 @@ namespace DestinyCustoms.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Likes = table.Column<int>(type: "int", nullable: false),
-                    Dislikes = table.Column<int>(type: "int", nullable: false),
                     ExoticId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -71,8 +69,7 @@ namespace DestinyCustoms.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ExoticId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -28,15 +28,10 @@ namespace DestinyCustoms.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Dislikes")
-                        .HasColumnType("int");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("ExoticId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Likes")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -46,53 +41,46 @@ namespace DestinyCustoms.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("DestinyCustoms.Data.Models.Exotic", b =>
+            modelBuilder.Entity("DestinyCustoms.Data.Models.ExoticWeapon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Catalyst")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CatalystCompletionRequirement")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("ItemClassId")
-                        .HasColumnType("int");
+                    b.Property<string>("CatalystName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("Rating")
+                    b.Property<int>("WeaponClassId")
                         .HasColumnType("int");
 
-                    b.Property<string>("WeaponIntrinsic")
+                    b.Property<string>("WeaponIntrinsicDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("WeaponIntrinsicName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemClassId");
+                    b.HasIndex("WeaponClassId");
 
                     b.ToTable("Exotics");
-                });
-
-            modelBuilder.Entity("DestinyCustoms.Data.Models.ItemClass", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ItemClasses");
                 });
 
             modelBuilder.Entity("DestinyCustoms.Data.Models.Suggestion", b =>
@@ -104,19 +92,34 @@ namespace DestinyCustoms.Data.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("ExoticId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExoticId");
 
                     b.ToTable("Suggestions");
+                });
+
+            modelBuilder.Entity("DestinyCustoms.Data.Models.WeaponClass", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemClasses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -321,7 +324,7 @@ namespace DestinyCustoms.Data.Migrations
 
             modelBuilder.Entity("DestinyCustoms.Data.Models.Comment", b =>
                 {
-                    b.HasOne("DestinyCustoms.Data.Models.Exotic", "Exotic")
+                    b.HasOne("DestinyCustoms.Data.Models.ExoticWeapon", "Exotic")
                         .WithMany("Comments")
                         .HasForeignKey("ExoticId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,20 +333,20 @@ namespace DestinyCustoms.Data.Migrations
                     b.Navigation("Exotic");
                 });
 
-            modelBuilder.Entity("DestinyCustoms.Data.Models.Exotic", b =>
+            modelBuilder.Entity("DestinyCustoms.Data.Models.ExoticWeapon", b =>
                 {
-                    b.HasOne("DestinyCustoms.Data.Models.ItemClass", "ItemClass")
+                    b.HasOne("DestinyCustoms.Data.Models.WeaponClass", "WeaponClass")
                         .WithMany("Exotics")
-                        .HasForeignKey("ItemClassId")
+                        .HasForeignKey("WeaponClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ItemClass");
+                    b.Navigation("WeaponClass");
                 });
 
             modelBuilder.Entity("DestinyCustoms.Data.Models.Suggestion", b =>
                 {
-                    b.HasOne("DestinyCustoms.Data.Models.Exotic", "Exotic")
+                    b.HasOne("DestinyCustoms.Data.Models.ExoticWeapon", "Exotic")
                         .WithMany("Suggestions")
                         .HasForeignKey("ExoticId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -403,14 +406,14 @@ namespace DestinyCustoms.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DestinyCustoms.Data.Models.Exotic", b =>
+            modelBuilder.Entity("DestinyCustoms.Data.Models.ExoticWeapon", b =>
                 {
                     b.Navigation("Comments");
 
                     b.Navigation("Suggestions");
                 });
 
-            modelBuilder.Entity("DestinyCustoms.Data.Models.ItemClass", b =>
+            modelBuilder.Entity("DestinyCustoms.Data.Models.WeaponClass", b =>
                 {
                     b.Navigation("Exotics");
                 });
