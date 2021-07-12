@@ -1,9 +1,9 @@
-﻿using DestinyCustoms.Data;
+﻿using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Models.Weapons;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DestinyCustoms.Controllers
 {
@@ -48,6 +48,38 @@ namespace DestinyCustoms.Controllers
             this.db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult All()
+        {
+            var weapons = db.Exotics.Select(e =>new AllWeaponsViewModel
+            {
+                Id = e.Id,
+                Name = e.Name,
+                ClassName = e.WeaponClass.Name,
+            });
+
+            return View(weapons);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var weapon = db.Exotics
+                .Where(e => e.Id == id)
+                .Select(e => new DetailsWeaponViewModel
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    IntrinsicName = e.WeaponIntrinsicName,
+                    IntrinsicDescription = e.WeaponIntrinsicDescription,
+                    CatalystName = e.CatalystName,
+                    CatalystCompletionRequirement = e.CatalystCompletionRequirement,
+                    ClassName = e.WeaponClass.Name,
+                })
+                .FirstOrDefault();
+            //TODO: Remove unneeded classes in View
+            //TODO: Ask for opinions on the Views
+            return weapon != null ? View(weapon) : NotFound();
         }
 
         private IEnumerable<WeaponClassViewModel> getClasses()

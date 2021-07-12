@@ -30,7 +30,10 @@ namespace DestinyCustoms
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<DestinyCustomsDbContext>();
-            services.AddControllersWithViews();
+            
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
