@@ -24,8 +24,12 @@ namespace DestinyCustoms.Models.Weapons
         public string CatalystName { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponCatalystDescriptionLength, MinimumLength = MinWeaponCatalystDescriptionLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
+        [StringLength(MaxWeaponCatalystCompletionLength, MinimumLength = MinWeaponCatalystCompletionLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
         public string CatalystCompletionRequirement { get; set; }
+
+        [Required]
+        [StringLength(MaxWeaponCatalystEffectLength, MinimumLength = MinWeaponCatalystEffectLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
+        public string CatalystEffect { get; set; }
 
         [Display(Name = "Class")]
         public int ClassId { get; set; }

@@ -44,7 +44,7 @@ namespace DestinyCustoms.Controllers
                 WeaponClassId = weapon.ClassId,
             };
 
-            this.db.Exotics.Add(weaponData);
+            this.db.Weapons.Add(weaponData);
             this.db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
@@ -52,7 +52,7 @@ namespace DestinyCustoms.Controllers
 
         public IActionResult All()
         {
-            var weapons = db.Exotics.Select(e =>new AllWeaponsViewModel
+            var weapons = db.Weapons.Select(e =>new AllWeaponsViewModel
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -64,7 +64,7 @@ namespace DestinyCustoms.Controllers
 
         public IActionResult Details(int id)
         {
-            var weapon = db.Exotics
+            var weapon = db.Weapons
                 .Where(e => e.Id == id)
                 .Select(e => new DetailsWeaponViewModel
                 {
@@ -74,6 +74,7 @@ namespace DestinyCustoms.Controllers
                     IntrinsicDescription = e.WeaponIntrinsicDescription,
                     CatalystName = e.CatalystName,
                     CatalystCompletionRequirement = e.CatalystCompletionRequirement,
+                    CatalystEffect = e.CatalystEffect,
                     ClassName = e.WeaponClass.Name,
                 })
                 .FirstOrDefault();

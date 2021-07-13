@@ -28,8 +28,12 @@ namespace DestinyCustoms.Data.Models
         public string CatalystName { get; set; }
 
         [Required]
-        [MaxLength(MaxWeaponCatalystDescriptionLength)] //TODO: add catalyst bonus
+        [MaxLength(MaxWeaponCatalystCompletionLength)]
         public string CatalystCompletionRequirement { get; set; }
+
+        [Required]
+        [MaxLength(MaxWeaponCatalystEffectLength)]
+        public string CatalystEffect { get; set; }
 
         public int WeaponClassId { get; set; }
 

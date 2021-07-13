@@ -15,6 +15,8 @@
 
         public string CatalystCompletionRequirement { get; set; }
 
+        public string CatalystEffect { get; set; }
+
         public string ClassName { get; set; }
     }
 }

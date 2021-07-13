@@ -10,8 +10,10 @@
         public const int MinWeaponIntrinsicDescriptionLength = 10;
         public const int MaxWeaponCatalystNameLength = 40;
         public const int MinWeaponCatalystNameLength = 5;
-        public const int MaxWeaponCatalystDescriptionLength = 100;
-        public const int MinWeaponCatalystDescriptionLength = 10;
+        public const int MaxWeaponCatalystCompletionLength = 100;
+        public const int MinWeaponCatalystCompletionLength = 10;
+        public const int MaxWeaponCatalystEffectLength = 100;
+        public const int MinWeaponCatalystEffectLength = 10;
 
         public const int MaxWeaponClassNameLength = 30;
 

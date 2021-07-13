@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyCustoms", "DestinyCustoms\DestinyCustoms.csproj", "{AAC30461-0657-45FA-9FBC-58714B226554}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Data", "DestinyCustoms.Data\DestinyCustoms.Data.csproj", "{2BBE0EC8-7B80-4A78-B315-640DCD36D70C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Common", "DestinyCustoms.Common\DestinyCustoms.Common.csproj", "{D0AD6760-CE99-47FF-8EE6-C8D35D390334}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{AAC30461-0657-45FA-9FBC-58714B226554}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAC30461-0657-45FA-9FBC-58714B226554}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAC30461-0657-45FA-9FBC-58714B226554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BBE0EC8-7B80-4A78-B315-640DCD36D70C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BBE0EC8-7B80-4A78-B315-640DCD36D70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BBE0EC8-7B80-4A78-B315-640DCD36D70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BBE0EC8-7B80-4A78-B315-640DCD36D70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0AD6760-CE99-47FF-8EE6-C8D35D390334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0AD6760-CE99-47FF-8EE6-C8D35D390334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0AD6760-CE99-47FF-8EE6-C8D35D390334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0AD6760-CE99-47FF-8EE6-C8D35D390334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

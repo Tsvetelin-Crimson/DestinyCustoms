@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DestinyCustoms.Common\DestinyCustoms.Common.csproj" />
+    <ProjectReference Include="..\DestinyCustoms.Data\DestinyCustoms.Data.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -11,7 +11,7 @@ namespace DestinyCustoms.Data
         {
         }
 
-        public DbSet<ExoticWeapon> Exotics { get; set; }
+        public DbSet<ExoticWeapon> Weapons { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
 
