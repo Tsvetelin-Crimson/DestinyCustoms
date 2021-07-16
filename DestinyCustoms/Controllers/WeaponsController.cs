@@ -30,7 +30,6 @@ namespace DestinyCustoms.Controllers
             if (!this.ModelState.IsValid)
             {
                 weapon.Classes = getClasses();
-
                 return View(weapon);
             }
 
@@ -41,6 +40,7 @@ namespace DestinyCustoms.Controllers
                 WeaponIntrinsicDescription = weapon.IntrinsicDescription,
                 CatalystName = weapon.CatalystName,
                 CatalystCompletionRequirement = weapon.CatalystCompletionRequirement,
+                CatalystEffect = weapon.CatalystEffect,
                 WeaponClassId = weapon.ClassId,
             };
 
@@ -50,16 +50,37 @@ namespace DestinyCustoms.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery]AllWeaponsQueryModel query)
         {
-            var weapons = db.Weapons.Select(e =>new AllWeaponsViewModel
-            {
-                Id = e.Id,
-                Name = e.Name,
-                ClassName = e.WeaponClass.Name,
-            });
+            var weaponsQuery = db.Weapons.AsQueryable();
 
-            return View(weapons);
+            if (!string.IsNullOrEmpty(query.SearchTerm))
+            {
+                weaponsQuery = weaponsQuery.Where(w => w.Name.Contains(query.SearchTerm));
+            }
+
+            if (!string.IsNullOrEmpty(query.WeaponType) && query.WeaponType != "All")
+            {
+                weaponsQuery = weaponsQuery.Where(w => w.WeaponClass.Name == query.WeaponType);
+            }
+
+            var weapons = weaponsQuery
+                .OrderByDescending(w => w.Id)
+                .Skip(query.WeaponsPerPage * (query.CurrentPage - 1))
+                .Take(query.WeaponsPerPage)
+                .Select(w => new AllWeaponsViewModel
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    ClassName = w.WeaponClass.Name,
+                })
+                .ToList();
+
+            query.Weapons = weapons;
+            query.WeaponTypes = db.ItemClasses.Select(i => i.Name).ToList();
+            query.AllWeapons = weaponsQuery.Count();
+
+            return View(query);
         }
 
         public IActionResult Details(int id)
