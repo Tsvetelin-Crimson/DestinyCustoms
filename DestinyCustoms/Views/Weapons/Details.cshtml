@@ -1,29 +1,81 @@
-﻿@model DetailsWeaponViewModel
+﻿@model FullWeaponDetailsViewModel
 
 <div class="container bg-light">
     <div class="row">
         <div class="col-lg-4 col-md-5 xs-margin-30px-bottom ">
             <div class="bg-light-gray padding-30px-all md-padding-25px-all sm-padding-20px-all text-center" style="margin-top: 10px;">
-                <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 margin font-weight-600 ">@Model.Name</h4>
+                <h4 class="margin-10px-bottom font-size24 md-font-size22 sm-font-size20 margin font-weight-600 ">@Model.Weapon.Name</h4>
                 <div class="team-single-img ">
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="mx-auto d-block img-fluid" style="height: 100%; width: 100%; display: block; margin-top: 20px ">
                 </div>
-                <p class="sm-width-95 sm-margin-auto"><h4>Weapon class:</h4> @Model.ClassName</p>
+                <p class="sm-width-95 sm-margin-auto"><h4>Weapon class:</h4> @Model.Weapon.ClassName</p>
             </div>
         </div>
 
         <div class="col-lg-8 col-md-7">
             <div class="team-single-text padding-50px-left sm-no-padding-left">
-                <h4 class="font-size38 sm-font-size32 xs-font-size30" style="margin-top: 10px;">Intrinsic: @Model.IntrinsicName</h4>
-                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.IntrinsicDescription </p>
+                <h4 class="font-size38 sm-font-size32 xs-font-size30" style="margin-top: 10px;">Intrinsic: @Model.Weapon.IntrinsicName</h4>
+                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.Weapon.IntrinsicDescription </p>
             </div>
             <div class="team-single-text padding-50px-left sm-no-padding-left">
-                <h4 class="font-size38 sm-font-size32 xs-font-size30">Catalyst:@Model.CatalystName</h4>
+                <h4 class="font-size38 sm-font-size32 xs-font-size30">Catalyst:@Model.Weapon.CatalystName</h4>
                 <h6 class="font-size38 sm-font-size32 xs-font-size30" style="margin-left: 10px; outline-offset: 100px">How to complete Catalyst:</h6>
-                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.CatalystCompletionRequirement </p>
+                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.Weapon.CatalystCompletionRequirement </p>
                 <h6 class="font-size38 sm-font-size32 xs-font-size30" style="margin-left: 10px">What the Catalyst does:</h6>
-                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.CatalystEffect </p>
+                <p class="no-margin-bottom border border-primary rounded" style="margin-left: 10px">@Model.Weapon.CatalystEffect </p>
             </div>
         </div>
+    </div>
+</div>
+
+<form asp-controller="Comments" asp-action="Add" method="post" class="mt-5">
+    <div class="d-flex flex-row align-items-start">
+        <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+        <textarea class="form-control ml-1 shadow-none textarea" asp-for="@Model.CommentToBeAdded.Content" rows="3"></textarea>
+    </div>
+    <div>
+        <input type="text" asp-for="@Model.CommentToBeAdded.WeaponId" value="@Model.Weapon.Id" hidden />
+    </div>
+    <div class="mt-2 text-left">
+        <button class="btn btn-primary shadow-none" type="submit">Post Comment</button>
+    </div>
+</form>
+<div class="row mt-5">
+    <div class="container mt-5">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="d-flex justify-content-center row">
+                <div class="col-12">
+                    <div class="d-flex flex-column comment-section">
+                        <div class="bg-white p-2">
+                            <div class="d-flex flex-row user-info">
+                                <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="50">
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <span class="d-block font-weight-bold name">Marry Andrews</span><span class="date text-black-50">Jan 2020</span>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text">@comment.Content</p>
+                            </div>
+                        </div>
+                        <div class="bg-white">
+                            <div class="d-flex flex-row fs-12">
+                                <div class="like p-2 cursor"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">Like</span></div>
+                                @*<div class="like p-2 cursor"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>*@
+                            </div>
+                        </div>
+                        <div class="bg-light p-2 ml-3">
+                            <div class="d-flex flex-row align-items-start">
+                                <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
+                                <input type="text" class="form-control ml-1 shadow-none textarea" />
+                            </div>
+                            <div class="d-flex flex-row justify-content-end">
+                                <button class="btn btn-primary btn shadow-none mr-3" type="button">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

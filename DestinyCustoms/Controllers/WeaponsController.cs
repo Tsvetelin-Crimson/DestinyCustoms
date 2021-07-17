@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Models.Weapons;
+using DestinyCustoms.Models.Comments;
 
 namespace DestinyCustoms.Controllers
 {
@@ -12,9 +13,7 @@ namespace DestinyCustoms.Controllers
         private readonly DestinyCustomsDbContext db;
 
         public WeaponsController(DestinyCustomsDbContext db)
-        {
-            this.db = db;
-        }
+            => this.db = db;
 
         public IActionResult Add()
             => View(new AddWeaponFormModel { Classes = this.getClasses() });
@@ -99,9 +98,24 @@ namespace DestinyCustoms.Controllers
                     ClassName = e.WeaponClass.Name,
                 })
                 .FirstOrDefault();
+
+            if (weapon == null)
+            {
+                return NotFound();
+            }
+
+            var model = new FullWeaponDetailsViewModel
+            {
+                Weapon = weapon,
+                Comments = db.Comments
+                .Where(c => c.ExoticId == id)
+                .Select(c => new CommentViewModel() { Content = c.Content })
+                .ToList(),
+            };
+
             //TODO: Remove unneeded classes in View
             //TODO: Ask for opinions on the Views
-            return weapon != null ? View(weapon) : NotFound();
+            return View(model);
         }
 
         private IEnumerable<WeaponClassViewModel> getClasses()

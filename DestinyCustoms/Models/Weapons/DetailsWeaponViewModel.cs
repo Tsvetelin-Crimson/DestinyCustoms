@@ -1,6 +1,5 @@
 ﻿namespace DestinyCustoms.Models.Weapons
 {
- 
     public class DetailsWeaponViewModel
     {
         public int Id { get; set; }

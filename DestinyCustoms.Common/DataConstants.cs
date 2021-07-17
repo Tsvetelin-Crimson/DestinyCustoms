@@ -18,6 +18,7 @@
         public const int MaxWeaponClassNameLength = 30;
 
         public const int MaxCommentContentLength = 500;
+        public const int MinCommentContentLength = 5;
 
         public const int MaxSuggestionContentLength = 200;
 
