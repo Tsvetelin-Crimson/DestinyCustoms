@@ -22,7 +22,7 @@ namespace DestinyCustoms.Controllers
                 .Select(w => w.Id)
                 .FirstOrDefault();
 
-            if (weaponId == null)
+            if (weaponId == 0)
             {
                 this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.WeaponId), "Weapon does not exist");
             }
