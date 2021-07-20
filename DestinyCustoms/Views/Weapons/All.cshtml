@@ -26,7 +26,6 @@
         </div>
 </form>
     @{ 
-        var nextButtonString = "<<";
         var previousPage = Model.CurrentPage - 1;
 
         previousPage = previousPage <= 0 ?
@@ -46,7 +45,9 @@
                asp-route-currentPage="@previousPage"
                asp-route-weaponType="@Model.WeaponType"
                asp-route-searchTerm="@Model.SearchTerm"
-               class="btn btn-primary">@nextButtonString</a>
+               class="btn btn-primary">
+                    <i class="fa fa-chevron-left"></i>
+            </a>
         }
     </div>
     <div class="col-6">
@@ -57,12 +58,14 @@
                asp-route-currentPage="@(Model.CurrentPage + 1)"
                asp-route-weaponType="@Model.WeaponType"
                asp-route-searchTerm="@Model.SearchTerm"
-               class="float-right btn btn-primary">>></a>
+               class="float-right btn btn-primary">
+                    <i class="fa fa-chevron-right"></i>
+            </a>
         }
     </div>
 
 </div>
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             @foreach (var weapon in Model.Weapons)
             {
