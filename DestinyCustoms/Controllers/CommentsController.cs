@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using DestinyCustoms.Data;
 using DestinyCustoms.Models.Weapons;
-using System.Linq;
 using DestinyCustoms.Data.Models;
 
 namespace DestinyCustoms.Controllers
