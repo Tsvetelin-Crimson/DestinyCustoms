@@ -33,23 +33,25 @@
 </div>
 
 <form asp-controller="Comments" asp-action="Add" method="post" class="mt-5 bg-light">
-    <div class="d-flex flex-row align-items-start ">
+
+    <div class="d-flex flex-row ml-2 mt-2"><h3>Add a comment</h3></div>
+    <div class="d-flex flex-row align-items-start">
         @*<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">*@
-        <div class="d-flex flex-row user-info ">
+        <div class="d-flex flex-row">
             @*<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="50">*@
-            <div class="d-flex flex-column justify-content-start ml-2">
-                <span class="d-block font-weight-bold name">@User.Identity.Name</span><span class="date text-black-50">Jan 2020</span>
+            <div class="d-flex flex-column justify-content-start ml-4">
+                <span class="d-block font-weight-bold">@User.Identity.Name</span><span class="text-black-50">Jan 2020</span>
             </div>
         </div>
     </div>
-    <div class="d-flex flex-row align-items-start mt-1">
+    <div class="d-flex flex-row align-items-start mt-1 ml-4 mr-4">
         <textarea class="form-control ml-1 shadow-none textarea" asp-for="@Model.CommentToBeAdded.Content" rows="3"></textarea>
     </div>
     <div>
         <input type="text" asp-for="@Model.CommentToBeAdded.WeaponId" value="@Model.Weapon.Id" hidden />
     </div>
     <div class="mt-2 text-left">
-        <button class="btn btn-primary shadow-none ml-1" type="submit">Post Comment</button>
+        <button class="btn btn-primary shadow-none ml-5" type="submit">Post Comment</button>
     </div>
 </form>
 <div class="row mt-5 bg-light">

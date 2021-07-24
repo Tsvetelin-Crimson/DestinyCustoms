@@ -29,7 +29,7 @@ namespace DestinyCustoms.Controllers
                 this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.WeaponId), "Weapon does not exist");
             }
 
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
             {
                 return BadRequest();
             }

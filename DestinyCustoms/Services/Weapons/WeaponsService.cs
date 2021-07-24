@@ -64,7 +64,7 @@ namespace DestinyCustoms.Services.Weapons
                 ImageUrl = w.ImageURL,
                 UserId = w.UserId,
             })
-            .Take(4)
+            .Take(6)
             .ToList();
 
         public int Create(
