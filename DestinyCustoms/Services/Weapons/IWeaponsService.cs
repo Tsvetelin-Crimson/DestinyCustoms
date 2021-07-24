@@ -26,6 +26,17 @@ namespace DestinyCustoms.Services.Weapons
             string imageUrl,
             string userId);
 
+        int Edit(
+            int id,
+            string name,
+            string intrinsicName,
+            string intrinsicDescription,
+            string catalystName,
+            string catalystCompletionRequirement,
+            string catalystEffect,
+            int classId,
+            string imageUrl);
+
         int GetIdById(int id);
 
         IEnumerable<string> AllWeaponTypes();

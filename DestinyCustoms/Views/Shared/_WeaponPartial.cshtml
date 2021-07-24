@@ -11,6 +11,10 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="btn-group ">
                     <a class="btn btn-sm btn-outline-secondary " href="/Weapons/Details/@Model.Id">View</a>
+                    @if (this.User.GetId() == Model.UserId)
+                    {
+                    <a class="btn btn-sm btn-outline-secondary " href="/Weapons/Edit/@Model.Id">Edit</a>
+                    }
                 </div>
             </div>
         </div>

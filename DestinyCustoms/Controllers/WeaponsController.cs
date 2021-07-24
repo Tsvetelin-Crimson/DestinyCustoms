@@ -89,5 +89,78 @@ namespace DestinyCustoms.Controllers
             //TODO: Ask for opinions on the Views
             return View(model);
         }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var weapon = this.weaponsService.GetById(id);
+
+            if (weapon == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AddWeaponFormModel
+            {
+                Name = weapon.Name,
+                IntrinsicName = weapon.IntrinsicName,
+                IntrinsicDescription = weapon.IntrinsicDescription,
+                CatalystName = weapon.CatalystName,
+                CatalystCompletionRequirement = weapon.CatalystCompletionRequirement,
+                CatalystEffect = weapon.CatalystEffect,
+                ImageUrl = weapon.ImageUrl,
+                ClassId = weapon.ClassId,
+                Classes = this.weaponsService.AllClasses()
+            };
+
+            if (!this.weaponsService.WeaponClassExists(weapon.ClassId))
+            {
+                this.ModelState.AddModelError(nameof(model.ClassId), "Weapon class does not exist");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.Classes = this.weaponsService.AllClasses();
+                return View(weapon);
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(int id, AddWeaponFormModel newWeapon)
+        {
+            var weaponId = this.weaponsService.GetIdById(id);
+
+            if (weaponId == 0)
+            {
+                return NotFound();
+            }
+
+            if (!this.weaponsService.WeaponClassExists(newWeapon.ClassId))
+            {
+                this.ModelState.AddModelError(nameof(newWeapon.ClassId), "Weapon class does not exist");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                newWeapon.Classes = this.weaponsService.AllClasses();
+                return View(newWeapon);
+            }
+
+            this.weaponsService.Edit(
+                weaponId,
+                newWeapon.Name,
+                newWeapon.IntrinsicName, 
+                newWeapon.IntrinsicDescription,
+                newWeapon.CatalystName,
+                newWeapon.CatalystCompletionRequirement,
+                newWeapon.CatalystEffect,
+                newWeapon.ClassId,
+                newWeapon.ImageUrl);
+
+            return RedirectToAction("Details", "Weapons", new { id = weaponId });
+        }
     }
 }

@@ -42,6 +42,7 @@ namespace DestinyCustoms.Services.Weapons
                     Name = w.Name,
                     ClassName = w.WeaponClass.Name,
                     ImageUrl = w.ImageURL,
+                    UserId = w.UserId,
                 })
                 .ToList();
 
@@ -61,6 +62,7 @@ namespace DestinyCustoms.Services.Weapons
                 Name = w.Name,
                 ClassName = w.WeaponClass.Name,
                 ImageUrl = w.ImageURL,
+                UserId = w.UserId,
             })
             .Take(4)
             .ToList();
@@ -98,6 +100,34 @@ namespace DestinyCustoms.Services.Weapons
             return weaponData.Id;
         }
 
+
+        public int Edit(
+            int id,
+            string name, 
+            string intrinsicName, 
+            string intrinsicDescription, 
+            string catalystName, 
+            string catalystCompletionRequirement, 
+            string catalystEffect, int classId, 
+            string imageUrl)
+        {
+            var weapon = db.Weapons.Find(id);
+
+            weapon.Name = name;
+            weapon.WeaponIntrinsicName = intrinsicName;
+            weapon.WeaponIntrinsicDescription = intrinsicDescription;
+            weapon.CatalystName = catalystName;
+            weapon.CatalystCompletionRequirement = catalystCompletionRequirement;
+            weapon.CatalystEffect = catalystEffect;
+            weapon.WeaponClassId = classId;
+            weapon.ImageURL = imageUrl;
+            weapon.DateModified = DateTime.UtcNow;
+
+            db.SaveChanges();
+
+            return id;
+        }
+
         public DetailsWeaponServiceModel GetById(int id)
                 => db.Weapons
                     .Where(w => w.Id == id)
@@ -111,6 +141,7 @@ namespace DestinyCustoms.Services.Weapons
                         CatalystCompletionRequirement = w.CatalystCompletionRequirement,
                         CatalystEffect = w.CatalystEffect,
                         ClassName = w.WeaponClass.Name,
+                        ClassId = w.WeaponClassId,
                         ImageUrl = w.ImageURL,
                     })
                     .FirstOrDefault();

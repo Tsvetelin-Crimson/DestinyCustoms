@@ -1,6 +1,6 @@
-﻿using DestinyCustoms.Services.Weapons.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using DestinyCustoms.Services.Weapons.Models;
 
 namespace DestinyCustoms.Models.Weapons
 {

@@ -1,5 +1,5 @@
-﻿using DestinyCustoms.Services.Comments.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DestinyCustoms.Services.Comments.Models;
 
 namespace DestinyCustoms.Services.Comments
 {

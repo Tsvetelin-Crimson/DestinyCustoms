@@ -1,8 +1,8 @@
-﻿using DestinyCustoms.Data;
+﻿using System.Linq;
+using System.Collections.Generic;
+using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Comments.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DestinyCustoms.Services.Comments
 {
