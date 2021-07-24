@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Data.Models
@@ -21,6 +22,8 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxWeaponIntrinsicDescriptionLength)]
         public string WeaponIntrinsicDescription { get; set; }
 
+        public string ImageURL { get; set; }
+
         //TODO: Implement a rating system when you understand Identity and users
         //public int Rating { get; set; }
         [Required]
@@ -35,12 +38,17 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxWeaponCatalystEffectLength)]
         public string CatalystEffect { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
         public int WeaponClassId { get; set; }
 
         public WeaponClass WeaponClass { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
-
-        public ICollection<Suggestion> Suggestions { get; set; }
     }
 }

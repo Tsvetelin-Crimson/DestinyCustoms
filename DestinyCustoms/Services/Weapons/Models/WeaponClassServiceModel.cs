@@ -1,6 +1,6 @@
-﻿namespace DestinyCustoms.Models.Weapons
+﻿namespace DestinyCustoms.Services.Weapons.Models
 {
-    public class WeaponClassViewModel
+    public class WeaponClassServiceModel
     {
         public int Id { get; set; }
 

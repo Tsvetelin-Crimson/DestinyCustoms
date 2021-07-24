@@ -1,33 +1,20 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using DestinyCustoms.Models;
-using DestinyCustoms.Data;
-using System.Linq;
-using DestinyCustoms.Models.Weapons;
 using DestinyCustoms.Models.Home;
+using DestinyCustoms.Services.Weapons;
 
 namespace DestinyCustoms.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DestinyCustomsDbContext db;
+        private readonly IWeaponsService weaponsService;
 
-        public HomeController(DestinyCustomsDbContext db)
-            => this.db = db;
+        public HomeController(IWeaponsService weaponsService)
+            => this.weaponsService = weaponsService;
 
-        public IActionResult Index()
-        {
-            var weapons = db.Weapons.Select(w => new AllWeaponsViewModel
-            {
-                Id = w.Id,
-                Name = w.Name,
-                ClassName = w.WeaponClass.Name,
-            })
-            .Take(4)
-            .ToList();
-
-            return View(new HomeViewModel { Weapons = weapons });
-        }
+        public IActionResult Index() 
+            => View(new HomeViewModel { Weapons = this.weaponsService.MostRecentlyCreated() });
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DestinyCustoms.Services.Weapons.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Models.Weapons
@@ -18,6 +19,6 @@ namespace DestinyCustoms.Models.Weapons
         [Display(Name = "Search by weapon name:")]
         public string SearchTerm { get; set; }
 
-        public IEnumerable<AllWeaponsViewModel> Weapons { get; set; }
+        public IEnumerable<WeaponServiceModel> Weapons { get; set; }
     }
 }

@@ -15,9 +15,6 @@ namespace DestinyCustoms.Data
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<WeaponClass> ItemClasses { get; set; }
-
-        public DbSet<Suggestion> Suggestions { get; set; }
-
+        public DbSet<WeaponClass> WeaponClasses { get; set; }
     }
 }

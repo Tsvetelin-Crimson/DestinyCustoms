@@ -4,14 +4,16 @@ using DestinyCustoms.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DestinyCustoms.Data.Migrations
 {
     [DbContext(typeof(DestinyCustomsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210724101150_AddedDateCreatedAndModifiedCollumsAndRenamedWhereNeeded")]
+    partial class AddedDateCreatedAndModifiedCollumsAndRenamedWhereNeeded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

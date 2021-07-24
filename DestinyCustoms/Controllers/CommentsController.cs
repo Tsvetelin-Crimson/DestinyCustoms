@@ -1,26 +1,28 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using DestinyCustoms.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using DestinyCustoms.Models.Weapons;
-using DestinyCustoms.Data.Models;
+using DestinyCustoms.Services.Weapons;
+using DestinyCustoms.Services.Comments;
+using DestinyCustoms.Infrastructure;
 
 namespace DestinyCustoms.Controllers
 {
     public class CommentsController : Controller
     {
+        private readonly IWeaponsService weaponsService;
+        private readonly ICommentsService commentsService;
 
-        private readonly DestinyCustomsDbContext db;
-
-        public CommentsController(DestinyCustomsDbContext db)
-            => this.db = db;
+        public CommentsController(IWeaponsService weaponsService, ICommentsService commentsService)
+        {
+            this.weaponsService = weaponsService;
+            this.commentsService = commentsService;
+        }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(FullWeaponDetailsViewModel fullModel)
         {
-            var weaponId = db.Weapons
-                .Where(w => w.Id == fullModel.CommentToBeAdded.WeaponId)
-                .Select(w => w.Id)
-                .FirstOrDefault();
+            var weaponId = weaponsService.GetIdById(fullModel.CommentToBeAdded.WeaponId);
 
             if (weaponId == 0)
             {
@@ -32,14 +34,10 @@ namespace DestinyCustoms.Controllers
                 return BadRequest();
             }
 
-            var comment = new Comment()
-            {
-                Content = fullModel.CommentToBeAdded.Content,
-                ExoticId = fullModel.CommentToBeAdded.WeaponId,
-            };
-
-            db.Comments.Add(comment);
-            db.SaveChanges();
+            this.commentsService.Create(
+                fullModel.CommentToBeAdded.Content,
+                fullModel.CommentToBeAdded.WeaponId,
+                this.User.GetId());
 
             return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.WeaponId}");
         }

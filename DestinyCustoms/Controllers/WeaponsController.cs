@@ -1,130 +1,93 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using DestinyCustoms.Data;
-using DestinyCustoms.Data.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using DestinyCustoms.Models.Weapons;
-using DestinyCustoms.Models.Comments;
+using DestinyCustoms.Infrastructure;
+using DestinyCustoms.Services.Weapons;
+using DestinyCustoms.Services.Comments;
 
 namespace DestinyCustoms.Controllers
 {
     public class WeaponsController : Controller
     {
-        private readonly DestinyCustomsDbContext db;
+        private readonly IWeaponsService weaponsService;
+        private readonly ICommentsService commentsService;
 
-        public WeaponsController(DestinyCustomsDbContext db)
-            => this.db = db;
 
+        public WeaponsController(
+            IWeaponsService weaponsService, 
+            ICommentsService commentsService)
+        {
+            this.weaponsService = weaponsService;
+            this.commentsService = commentsService;
+        }
+
+        [Authorize]
         public IActionResult Add()
-            => View(new AddWeaponFormModel { Classes = this.getClasses() });
+            => View(new AddWeaponFormModel { Classes = this.weaponsService.AllClasses() });
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddWeaponFormModel weapon)
         {
-            if (!this.db.ItemClasses.Any(c => c.Id == weapon.ClassId))
+            if (!this.weaponsService.WeaponClassExists(weapon.ClassId))
             {
                 this.ModelState.AddModelError(nameof(weapon.ClassId), "Weapon class does not exist");
             }
 
             if (!this.ModelState.IsValid)
             {
-                weapon.Classes = getClasses();
+                weapon.Classes = this.weaponsService.AllClasses();
                 return View(weapon);
             }
 
-            var weaponData = new ExoticWeapon
-            {
-                Name = weapon.Name,
-                WeaponIntrinsicName = weapon.IntrinsicName,
-                WeaponIntrinsicDescription = weapon.IntrinsicDescription,
-                CatalystName = weapon.CatalystName,
-                CatalystCompletionRequirement = weapon.CatalystCompletionRequirement,
-                CatalystEffect = weapon.CatalystEffect,
-                WeaponClassId = weapon.ClassId,
-            };
-
-            this.db.Weapons.Add(weaponData);
-            this.db.SaveChanges();
+            this.weaponsService.Create(
+                    weapon.Name,
+                    weapon.IntrinsicName,
+                    weapon.IntrinsicDescription,
+                    weapon.CatalystName,
+                    weapon.CatalystCompletionRequirement,
+                    weapon.CatalystEffect,
+                    weapon.ClassId,
+                    weapon.ImageUrl,
+                    this.User.GetId());
 
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult All([FromQuery]AllWeaponsQueryModel query)
         {
-            var weaponsQuery = db.Weapons.AsQueryable();
+            var weapons = this.weaponsService.All(
+                        query.SearchTerm, 
+                        query.WeaponType, 
+                        query.WeaponsPerPage,
+                        query.CurrentPage);
 
-            if (!string.IsNullOrEmpty(query.SearchTerm))
-            {
-                weaponsQuery = weaponsQuery.Where(w => w.Name.Contains(query.SearchTerm));
-            }
-
-            if (!string.IsNullOrEmpty(query.WeaponType) && query.WeaponType != "All")
-            {
-                weaponsQuery = weaponsQuery.Where(w => w.WeaponClass.Name == query.WeaponType);
-            }
-
-            var weapons = weaponsQuery
-                .OrderByDescending(w => w.Id)
-                .Skip(query.WeaponsPerPage * (query.CurrentPage - 1))
-                .Take(query.WeaponsPerPage)
-                .Select(w => new AllWeaponsViewModel
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    ClassName = w.WeaponClass.Name,
-                })
-                .ToList();
-
-            query.Weapons = weapons;
-            query.WeaponTypes = db.ItemClasses.Select(i => i.Name).ToList();
-            query.AllWeapons = weaponsQuery.Count();
+            query.Weapons = weapons.Weapons;
+            query.WeaponTypes = this.weaponsService.AllWeaponTypes();
+            query.AllWeapons = weapons.AllWeapons;
 
             return View(query);
         }
 
+        [Authorize]
         public IActionResult Details(int id)
         {
-            var weapon = db.Weapons
-                .Where(e => e.Id == id)
-                .Select(e => new DetailsWeaponViewModel
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    IntrinsicName = e.WeaponIntrinsicName,
-                    IntrinsicDescription = e.WeaponIntrinsicDescription,
-                    CatalystName = e.CatalystName,
-                    CatalystCompletionRequirement = e.CatalystCompletionRequirement,
-                    CatalystEffect = e.CatalystEffect,
-                    ClassName = e.WeaponClass.Name,
-                })
-                .FirstOrDefault();
+            var weapon = this.weaponsService.GetById(id);
 
             if (weapon == null)
             {
                 return NotFound();
             }
-
+            //TODO: Add DateCreated and DateModified(?) to comments
             var model = new FullWeaponDetailsViewModel
             {
                 Weapon = weapon,
-                Comments = db.Comments
-                .Where(c => c.ExoticId == id)
-                .Select(c => new CommentViewModel() { Content = c.Content })
-                .ToList(),
+                Comments = this.commentsService.GetByWeaponId(id),
             };
 
             //TODO: Remove unneeded classes in View
             //TODO: Ask for opinions on the Views
             return View(model);
         }
-
-        private IEnumerable<WeaponClassViewModel> getClasses()
-            => db.ItemClasses
-            .Select(x => new WeaponClassViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-            .ToList();
     }
 }

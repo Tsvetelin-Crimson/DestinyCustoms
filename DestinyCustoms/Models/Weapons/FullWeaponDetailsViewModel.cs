@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using DestinyCustoms.Models.Comments;
+using DestinyCustoms.Services.Comments.Models;
+using DestinyCustoms.Services.Weapons.Models;
 
 namespace DestinyCustoms.Models.Weapons
 {
     public class FullWeaponDetailsViewModel
     {
-        public DetailsWeaponViewModel Weapon { get; init; }
+        public DetailsWeaponServiceModel Weapon { get; init; }
 
         public AddCommentFormModel CommentToBeAdded { get; set; }
 
-        public IEnumerable<CommentViewModel> Comments { get; set; }
+        public IEnumerable<CommentServiceModel> Comments { get; set; }
 
     }
 }

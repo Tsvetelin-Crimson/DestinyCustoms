@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Data.Models
 {
@@ -15,8 +16,11 @@ namespace DestinyCustoms.Data.Models
         //public int Likes { get; set; }
 
         //public int Dislikes { get; set; }
+        public string UserId { get; set; }
 
-        public int ExoticId { get; set; }
+        public IdentityUser User { get; set; }
+
+        public int WeaponId { get; set; }
 
         public ExoticWeapon Exotic { get; set; }
 

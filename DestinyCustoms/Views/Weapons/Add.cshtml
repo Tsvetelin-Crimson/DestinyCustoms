@@ -32,6 +32,11 @@
         <span asp-validation-for="CatalystEffect" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label asp-for="ImageUrl">ImageURL</label>
+        <input type="text" class="form-control" asp-for="ImageUrl" rows="5" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="ClassId">Weapon Class</label>
         <select class="form-control" asp-for="ClassId">
             @foreach (var weaponClass in Model.Classes)

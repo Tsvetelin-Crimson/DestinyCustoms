@@ -1,5 +1,7 @@
 using DestinyCustoms.Data;
 using DestinyCustoms.Infrastructure;
+using DestinyCustoms.Services.Comments;
+using DestinyCustoms.Services.Weapons;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +32,7 @@ namespace DestinyCustoms
 
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
@@ -40,6 +42,9 @@ namespace DestinyCustoms
             services
                 .AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+
+            services.AddTransient<IWeaponsService, WeaponsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

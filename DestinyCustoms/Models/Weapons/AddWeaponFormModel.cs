@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DestinyCustoms.Services.Weapons.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Models.Weapons
@@ -31,9 +32,13 @@ namespace DestinyCustoms.Models.Weapons
         [StringLength(MaxWeaponCatalystEffectLength, MinimumLength = MinWeaponCatalystEffectLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
         public string CatalystEffect { get; set; }
 
+        [Url]
+        public string ImageUrl { get; set; }
+
+
         [Display(Name = "Class")]
         public int ClassId { get; set; }
 
-        public IEnumerable<WeaponClassViewModel> Classes { get; set; }
+        public IEnumerable<WeaponClassServiceModel> Classes { get; set; }
     }
 }

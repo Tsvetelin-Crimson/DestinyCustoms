@@ -24,7 +24,7 @@ namespace DestinyCustoms.Infrastructure
 
         private static void SeedItemClasses(DestinyCustomsDbContext db)
         {
-            if (!db.ItemClasses.Any())
+            if (!db.WeaponClasses.Any())
             {
                 var weaponClasses = new List<WeaponClass>() 
                 {
@@ -41,7 +41,7 @@ namespace DestinyCustoms.Infrastructure
                     new WeaponClass() { Name = "Sword" },
                 };
 
-                db.ItemClasses.AddRange(weaponClasses);
+                db.WeaponClasses.AddRange(weaponClasses);
                 db.SaveChanges();
             }
         }

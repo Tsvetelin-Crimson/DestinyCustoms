@@ -13,6 +13,6 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxWeaponClassNameLength)]
         public string Name { get; set; }
 
-        public ICollection<ExoticWeapon> Exotics { get; set; }
+        public ICollection<ExoticWeapon> Weapons { get; set; }
     }
 }
