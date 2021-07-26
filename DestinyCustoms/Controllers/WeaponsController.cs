@@ -7,6 +7,8 @@ using DestinyCustoms.Services.Comments;
 
 namespace DestinyCustoms.Controllers
 {
+    using static Common.WebConstants;
+
     public class WeaponsController : Controller
     {
         private readonly IWeaponsService weaponsService;
@@ -113,6 +115,11 @@ namespace DestinyCustoms.Controllers
                 Classes = this.weaponsService.AllClasses()
             };
 
+            if (this.User.GetId() != weapon.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
             if (!this.weaponsService.WeaponClassExists(weapon.ClassId))
             {
                 this.ModelState.AddModelError(nameof(model.ClassId), "Weapon class does not exist");
@@ -131,11 +138,16 @@ namespace DestinyCustoms.Controllers
         [HttpPost]
         public IActionResult Edit(int id, AddWeaponFormModel newWeapon)
         {
-            var weaponId = this.weaponsService.GetIdById(id);
+            var weapon = this.weaponsService.GetIdAndUserIdById(id);  
 
-            if (weaponId == 0)
+            if (weapon == null)
             {
                 return NotFound();
+            }
+
+            if (this.User.GetId() != weapon.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
             }
 
             if (!this.weaponsService.WeaponClassExists(newWeapon.ClassId))
@@ -150,7 +162,7 @@ namespace DestinyCustoms.Controllers
             }
 
             this.weaponsService.Edit(
-                weaponId,
+                weapon.WeaponId,
                 newWeapon.Name,
                 newWeapon.IntrinsicName, 
                 newWeapon.IntrinsicDescription,
@@ -160,7 +172,27 @@ namespace DestinyCustoms.Controllers
                 newWeapon.ClassId,
                 newWeapon.ImageUrl);
 
-            return RedirectToAction("Details", "Weapons", new { id = weaponId });
+            return RedirectToAction("Details", "Weapons", new { id = weapon.WeaponId });
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var weapon = this.weaponsService.GetIdAndUserIdById(id);
+
+            if (weapon == null)
+            {
+                return NotFound();
+            }
+
+            if (this.User.GetId() != weapon.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
+            this.weaponsService.Delete(weapon.WeaponId);
+
+            return RedirectToAction("All", "Weapons");
         }
     }
 }

@@ -37,6 +37,7 @@ namespace DestinyCustoms
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DestinyCustomsDbContext>();
             
             services

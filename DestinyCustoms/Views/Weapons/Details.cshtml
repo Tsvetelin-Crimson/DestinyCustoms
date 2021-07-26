@@ -31,6 +31,15 @@
         </div>
     </div>
 </div>
+@if (this.User.GetId() == Model.Weapon.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+{
+<div class="row mt-3">
+    <div class="col-12 text-right">
+        <a class="btn btn-secondary mr-1" href="/Weapons/Edit/@Model.Weapon.Id">Edit</a>
+        <a class="btn btn-danger " href="/Weapons/Delete/@Model.Weapon.Id">Delete</a>
+    </div>
+</div>
+}
 
 <form asp-controller="Comments" asp-action="Add" method="post" class="mt-5 bg-light">
 

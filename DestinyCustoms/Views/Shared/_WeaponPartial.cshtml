@@ -1,6 +1,6 @@
 ﻿@model WeaponServiceModel
 
-<div class="col-xl-4 col-lg-5">
+<div class="col-xl-4 col-lg-6">
     <div class="card mb-4 box-shadow">
         <img class="card-img-top" alt="Thumbnail [100%x225]" style="height: 75%; width: 75%; display: block; align-self: center; margin-top: 20px" src="@Model.ImageUrl" data-holder-rendered="true">
         <div class="card-body">
@@ -11,10 +11,11 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="btn-group ">
                     <a class="btn btn-sm btn-outline-secondary " href="/Weapons/Details/@Model.Id">View</a>
-                    @if (this.User.GetId() == Model.UserId)
-                    {
+                @if (this.User.GetId() == Model.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+                {
                     <a class="btn btn-sm btn-outline-secondary " href="/Weapons/Edit/@Model.Id">Edit</a>
-                    }
+                    <a class="btn btn-sm btn-outline-danger " href="/Weapons/Delete/@Model.Id">Delete</a>
+                }
                 </div>
             </div>
         </div>

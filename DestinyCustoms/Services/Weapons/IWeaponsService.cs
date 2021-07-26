@@ -15,6 +15,11 @@ namespace DestinyCustoms.Services.Weapons
 
         DetailsWeaponServiceModel GetById(int id);
 
+        int GetIdById(int id);
+
+
+        public WeaponValidationServiceModel GetIdAndUserIdById(int id);
+
         int Create(
             string name,
             string intrinsicName,
@@ -37,7 +42,7 @@ namespace DestinyCustoms.Services.Weapons
             int classId,
             string imageUrl);
 
-        int GetIdById(int id);
+        public void Delete(int id);
 
         IEnumerable<string> AllWeaponTypes();
 

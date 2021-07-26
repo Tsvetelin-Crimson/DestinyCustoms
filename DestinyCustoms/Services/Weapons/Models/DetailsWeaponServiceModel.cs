@@ -2,7 +2,7 @@
 {
     public class DetailsWeaponServiceModel
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         public string Name { get; set; }
 
@@ -16,10 +16,12 @@
 
         public string CatalystEffect { get; set; }
 
-        public string ClassName { get; set; }
-
         public int ClassId { get; set; }
 
+        public string ClassName { get; set; }
+
         public string ImageUrl { get; set; }
+
+        public string UserId { get; init; }
     }
 }

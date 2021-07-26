@@ -11,13 +11,13 @@ namespace DestinyCustoms.Services.Weapons
     {
         private readonly DestinyCustomsDbContext db;
 
-        public WeaponsService(DestinyCustomsDbContext db) 
+        public WeaponsService(DestinyCustomsDbContext db)
             => this.db = db;
 
         public WeaponsQueryServiceModel All(
-            string searchTerm, 
-            string weaponType, 
-            int weaponsPerPage, 
+            string searchTerm,
+            string weaponType,
+            int weaponsPerPage,
             int currentPage)
         {
             var weaponsQuery = db.Weapons.AsQueryable();
@@ -67,6 +67,37 @@ namespace DestinyCustoms.Services.Weapons
             .Take(6)
             .ToList();
 
+        public DetailsWeaponServiceModel GetById(int id)
+                => db.Weapons
+                    .Where(w => w.Id == id)
+                    .Select(w => new DetailsWeaponServiceModel
+                    {
+                        Id = w.Id,
+                        Name = w.Name,
+                        IntrinsicName = w.WeaponIntrinsicName,
+                        IntrinsicDescription = w.WeaponIntrinsicDescription,
+                        CatalystName = w.CatalystName,
+                        CatalystCompletionRequirement = w.CatalystCompletionRequirement,
+                        CatalystEffect = w.CatalystEffect,
+                        ClassName = w.WeaponClass.Name,
+                        ClassId = w.WeaponClassId,
+                        ImageUrl = w.ImageURL,
+                        UserId = w.UserId,
+                    })
+                    .FirstOrDefault();
+
+        public int GetIdById(int id)
+            => db.Weapons
+                .Where(w => w.Id == id)
+                .Select(w => w.Id)
+                .FirstOrDefault();
+
+        public WeaponValidationServiceModel GetIdAndUserIdById(int id)
+            => db.Weapons
+                .Where(w => w.Id == id)
+                .Select(w => new WeaponValidationServiceModel { WeaponId = w.Id, UserId = w.UserId })
+                .FirstOrDefault();
+
         public int Create(
             string name,
             string intrinsicName,
@@ -103,12 +134,12 @@ namespace DestinyCustoms.Services.Weapons
 
         public int Edit(
             int id,
-            string name, 
-            string intrinsicName, 
-            string intrinsicDescription, 
-            string catalystName, 
-            string catalystCompletionRequirement, 
-            string catalystEffect, int classId, 
+            string name,
+            string intrinsicName,
+            string intrinsicDescription,
+            string catalystName,
+            string catalystCompletionRequirement,
+            string catalystEffect, int classId,
             string imageUrl)
         {
             var weapon = db.Weapons.Find(id);
@@ -128,29 +159,19 @@ namespace DestinyCustoms.Services.Weapons
             return id;
         }
 
-        public DetailsWeaponServiceModel GetById(int id)
-                => db.Weapons
-                    .Where(w => w.Id == id)
-                    .Select(w => new DetailsWeaponServiceModel
-                    {
-                        Id = w.Id,
-                        Name = w.Name,
-                        IntrinsicName = w.WeaponIntrinsicName,
-                        IntrinsicDescription = w.WeaponIntrinsicDescription,
-                        CatalystName = w.CatalystName,
-                        CatalystCompletionRequirement = w.CatalystCompletionRequirement,
-                        CatalystEffect = w.CatalystEffect,
-                        ClassName = w.WeaponClass.Name,
-                        ClassId = w.WeaponClassId,
-                        ImageUrl = w.ImageURL,
-                    })
-                    .FirstOrDefault();
-
-        public int GetIdById(int id)
-            => db.Weapons
+        public void Delete(int id)
+        {
+            var weapon = db.Weapons
                 .Where(w => w.Id == id)
-                .Select(w => w.Id)
                 .FirstOrDefault();
+
+            if (weapon != null)
+            {
+                db.Weapons.Remove(weapon);
+                db.SaveChanges();
+            }
+        }
+
 
         public IEnumerable<string> AllWeaponTypes()
             => db.WeaponClasses.Select(i => i.Name).ToList();
