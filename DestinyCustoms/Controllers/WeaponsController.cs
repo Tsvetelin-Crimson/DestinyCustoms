@@ -72,7 +72,7 @@ namespace DestinyCustoms.Controllers
         }
 
         [Authorize]
-        public IActionResult Details(int id)
+        public IActionResult Details(string id)
         {
             var weapon = this.weaponsService.GetById(id);
 
@@ -93,7 +93,7 @@ namespace DestinyCustoms.Controllers
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
             var weapon = this.weaponsService.GetById(id);
 
@@ -136,7 +136,7 @@ namespace DestinyCustoms.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(int id, AddWeaponFormModel newWeapon)
+        public IActionResult Edit(string id, AddWeaponFormModel newWeapon)
         {
             var weapon = this.weaponsService.GetIdAndUserIdById(id);  
 
@@ -176,7 +176,7 @@ namespace DestinyCustoms.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             var weapon = this.weaponsService.GetIdAndUserIdById(id);
 

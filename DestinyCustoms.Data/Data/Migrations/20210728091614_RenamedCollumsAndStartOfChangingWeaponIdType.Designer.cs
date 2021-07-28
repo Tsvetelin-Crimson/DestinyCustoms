@@ -4,14 +4,16 @@ using DestinyCustoms.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DestinyCustoms.Data.Migrations
 {
     [DbContext(typeof(DestinyCustomsDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210728091614_RenamedCollumsAndStartOfChangingWeaponIdType")]
+    partial class RenamedCollumsAndStartOfChangingWeaponIdType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace DestinyCustoms.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("ExoticId")
+                    b.Property<string>("ExoticWeaponId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
@@ -42,7 +44,7 @@ namespace DestinyCustoms.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExoticId");
+                    b.HasIndex("ExoticWeaponId");
 
                     b.HasIndex("UserId");
 
@@ -51,7 +53,7 @@ namespace DestinyCustoms.Data.Migrations
 
             modelBuilder.Entity("DestinyCustoms.Data.Models.ExoticWeapon", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("ExoticWeaponId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CatalystCompletionRequirement")
@@ -100,7 +102,7 @@ namespace DestinyCustoms.Data.Migrations
                     b.Property<int>("WeaponClassId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ExoticWeaponId");
 
                     b.HasIndex("WeaponClassId");
 
@@ -324,7 +326,7 @@ namespace DestinyCustoms.Data.Migrations
                 {
                     b.HasOne("DestinyCustoms.Data.Models.ExoticWeapon", "Exotic")
                         .WithMany("Comments")
-                        .HasForeignKey("ExoticId");
+                        .HasForeignKey("ExoticWeaponId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

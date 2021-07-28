@@ -20,7 +20,7 @@ namespace DestinyCustoms.Data.Models
 
         public IdentityUser User { get; set; }
 
-        public int WeaponId { get; set; }
+        public string WeaponId { get; set; }
 
         public ExoticWeapon Exotic { get; set; }
 

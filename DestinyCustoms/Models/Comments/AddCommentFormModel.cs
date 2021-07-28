@@ -11,6 +11,6 @@ namespace DestinyCustoms.Models.Comments
         public string Content { get; set; }
 
         [Required]
-        public int WeaponId { get; set; }
+        public string WeaponId { get; set; }
     }
 }

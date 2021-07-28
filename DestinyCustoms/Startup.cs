@@ -1,5 +1,6 @@
 using DestinyCustoms.Data;
 using DestinyCustoms.Infrastructure;
+using DestinyCustoms.Services;
 using DestinyCustoms.Services.Comments;
 using DestinyCustoms.Services.Weapons;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,13 @@ namespace DestinyCustoms
                 );
 
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddAutoMapper(typeof(ServicesMapperProfile));
+
+            //cfg =>
+            //{
+            //    cfg.AddProfile<ServicesMapperProfile>();
+            //}
 
             services.AddDefaultIdentity<IdentityUser>(options =>
             {

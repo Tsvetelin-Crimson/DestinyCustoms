@@ -13,14 +13,14 @@ namespace DestinyCustoms.Services.Weapons
 
         IEnumerable<WeaponServiceModel> MostRecentlyCreated();
 
-        DetailsWeaponServiceModel GetById(int id);
+        DetailsWeaponServiceModel GetById(string id);
 
-        int GetIdById(int id);
+        string GetIdById(string id);
 
 
-        public WeaponValidationServiceModel GetIdAndUserIdById(int id);
+        public WeaponValidationServiceModel GetIdAndUserIdById(string id);
 
-        int Create(
+        string Create(
             string name,
             string intrinsicName,
             string intrinsicDescription,
@@ -31,8 +31,8 @@ namespace DestinyCustoms.Services.Weapons
             string imageUrl,
             string userId);
 
-        int Edit(
-            int id,
+        string Edit(
+            string id,
             string name,
             string intrinsicName,
             string intrinsicDescription,
@@ -42,7 +42,7 @@ namespace DestinyCustoms.Services.Weapons
             int classId,
             string imageUrl);
 
-        public void Delete(int id);
+        public void Delete(string id);
 
         IEnumerable<string> AllWeaponTypes();
 

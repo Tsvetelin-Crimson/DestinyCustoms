@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Comments.Models;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace DestinyCustoms.Services.Comments
 {
     public class CommentsService : ICommentsService
     {
         private readonly DestinyCustomsDbContext db;
+        private readonly IConfigurationProvider mapper;
 
-        public CommentsService(DestinyCustomsDbContext db) 
-            => this.db = db;
 
-        public int Create(string content, int weaponId, string userId)
+        public CommentsService(DestinyCustomsDbContext db, IMapper mapper)
+        { 
+            this.db = db;
+            this.mapper = mapper.ConfigurationProvider;
+        }
+        public int Create(string content, string weaponId, string userId)
         {
             var comment = new Comment()
             {
@@ -27,14 +33,10 @@ namespace DestinyCustoms.Services.Comments
             return comment.Id;
         }
 
-        public IEnumerable<CommentServiceModel> GetByWeaponId(int WeaponId)
+        public IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId)
                 => db.Comments
                     .Where(c => c.WeaponId == WeaponId)
-                    .Select(c => new CommentServiceModel
-                    {
-                        Content =c.Content,
-                        UserUsername = c.User.UserName,
-                    })
+                    .ProjectTo<CommentServiceModel>(this.mapper)
                     .ToList();
     }
 }

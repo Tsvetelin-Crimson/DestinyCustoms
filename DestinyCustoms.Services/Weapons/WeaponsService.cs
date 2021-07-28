@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Weapons.Models;
@@ -10,9 +12,13 @@ namespace DestinyCustoms.Services.Weapons
     public class WeaponsService : IWeaponsService
     {
         private readonly DestinyCustomsDbContext db;
+        private readonly IConfigurationProvider mapper;
 
-        public WeaponsService(DestinyCustomsDbContext db)
-            => this.db = db;
+        public WeaponsService(DestinyCustomsDbContext db, IMapper mapper)
+        {
+            this.db = db;
+            this.mapper = mapper.ConfigurationProvider;
+        } 
 
         public WeaponsQueryServiceModel All(
             string searchTerm,
@@ -36,14 +42,7 @@ namespace DestinyCustoms.Services.Weapons
                 .OrderByDescending(w => w.Id)
                 .Skip(weaponsPerPage * (currentPage - 1))
                 .Take(weaponsPerPage)
-                .Select(w => new WeaponServiceModel
-                {
-                    Id = w.Id,
-                    Name = w.Name,
-                    ClassName = w.WeaponClass.Name,
-                    ImageUrl = w.ImageURL,
-                    UserId = w.UserId,
-                })
+                .ProjectTo<WeaponServiceModel>(this.mapper)
                 .ToList();
 
             return new WeaponsQueryServiceModel
@@ -56,49 +55,29 @@ namespace DestinyCustoms.Services.Weapons
         public IEnumerable<WeaponServiceModel> MostRecentlyCreated()
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)
-            .Select(w => new WeaponServiceModel
-            {
-                Id = w.Id,
-                Name = w.Name,
-                ClassName = w.WeaponClass.Name,
-                ImageUrl = w.ImageURL,
-                UserId = w.UserId,
-            })
+            .ProjectTo<WeaponServiceModel>(this.mapper)
             .Take(6)
             .ToList();
 
-        public DetailsWeaponServiceModel GetById(int id)
-                => db.Weapons
-                    .Where(w => w.Id == id)
-                    .Select(w => new DetailsWeaponServiceModel
-                    {
-                        Id = w.Id,
-                        Name = w.Name,
-                        IntrinsicName = w.WeaponIntrinsicName,
-                        IntrinsicDescription = w.WeaponIntrinsicDescription,
-                        CatalystName = w.CatalystName,
-                        CatalystCompletionRequirement = w.CatalystCompletionRequirement,
-                        CatalystEffect = w.CatalystEffect,
-                        ClassName = w.WeaponClass.Name,
-                        ClassId = w.WeaponClassId,
-                        ImageUrl = w.ImageURL,
-                        UserId = w.UserId,
-                    })
-                    .FirstOrDefault();
-
-        public int GetIdById(int id)
+        public DetailsWeaponServiceModel GetById(string id)
             => db.Weapons
-                .Where(w => w.Id == id)
-                .Select(w => w.Id)
-                .FirstOrDefault();
+            .Where(w => w.Id == id)
+            .ProjectTo<DetailsWeaponServiceModel>(this.mapper)
+            .FirstOrDefault();
 
-        public WeaponValidationServiceModel GetIdAndUserIdById(int id)
+        public string GetIdById(string id)
             => db.Weapons
-                .Where(w => w.Id == id)
-                .Select(w => new WeaponValidationServiceModel { WeaponId = w.Id, UserId = w.UserId })
-                .FirstOrDefault();
+            .Where(w => w.Id == id)
+            .Select(w => w.Id)
+            .FirstOrDefault();
 
-        public int Create(
+        public WeaponValidationServiceModel GetIdAndUserIdById(string id)
+            => db.Weapons
+            .Where(w => w.Id == id)
+            .Select(w => new WeaponValidationServiceModel { WeaponId = w.Id, UserId = w.UserId })
+            .FirstOrDefault();
+
+        public string Create(
             string name,
             string intrinsicName,
             string intrinsicDescription,
@@ -113,8 +92,8 @@ namespace DestinyCustoms.Services.Weapons
             var weaponData = new ExoticWeapon
             {
                 Name = name,
-                WeaponIntrinsicName = intrinsicName,
-                WeaponIntrinsicDescription = intrinsicDescription,
+                IntrinsicName = intrinsicName,
+                IntrinsicDescription = intrinsicDescription,
                 CatalystName = catalystName,
                 CatalystCompletionRequirement = catalystCompletionRequirement,
                 CatalystEffect = catalystEffect,
@@ -132,8 +111,8 @@ namespace DestinyCustoms.Services.Weapons
         }
 
 
-        public int Edit(
-            int id,
+        public string Edit(
+            string id,
             string name,
             string intrinsicName,
             string intrinsicDescription,
@@ -145,8 +124,8 @@ namespace DestinyCustoms.Services.Weapons
             var weapon = db.Weapons.Find(id);
 
             weapon.Name = name;
-            weapon.WeaponIntrinsicName = intrinsicName;
-            weapon.WeaponIntrinsicDescription = intrinsicDescription;
+            weapon.IntrinsicName = intrinsicName;
+            weapon.IntrinsicDescription = intrinsicDescription;
             weapon.CatalystName = catalystName;
             weapon.CatalystCompletionRequirement = catalystCompletionRequirement;
             weapon.CatalystEffect = catalystEffect;
@@ -159,7 +138,7 @@ namespace DestinyCustoms.Services.Weapons
             return id;
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var weapon = db.Weapons
                 .Where(w => w.Id == id)
@@ -178,12 +157,8 @@ namespace DestinyCustoms.Services.Weapons
 
         public IEnumerable<WeaponClassServiceModel> AllClasses()
             => db.WeaponClasses
-                .Select(x => new WeaponClassServiceModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                })
-                .ToList();
+            .ProjectTo<WeaponClassServiceModel>(this.mapper)
+            .ToList();
 
         public bool WeaponClassExists(int classId)
              => this.db.WeaponClasses.Any(c => c.Id == classId);

@@ -24,7 +24,7 @@ namespace DestinyCustoms.Controllers
         {
             var weaponId = weaponsService.GetIdById(fullModel.CommentToBeAdded.WeaponId);
 
-            if (weaponId == 0)
+            if (weaponId == null)
             {
                 this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.WeaponId), "Weapon does not exist");
             }

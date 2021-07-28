@@ -8,7 +8,8 @@ namespace DestinyCustoms.Data.Models
 
     public class ExoticWeapon
     {
-        public int Id { get; set; }
+        [Key]
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(MaxWeaponNameLength)]
@@ -16,11 +17,11 @@ namespace DestinyCustoms.Data.Models
 
         [Required]
         [MaxLength(MaxWeaponIntrinsicNameLength)]
-        public string WeaponIntrinsicName { get; set; }
+        public string IntrinsicName { get; set; }
 
         [Required]
         [MaxLength(MaxWeaponIntrinsicDescriptionLength)]
-        public string WeaponIntrinsicDescription { get; set; }
+        public string IntrinsicDescription { get; set; }
 
         public string ImageURL { get; set; }
 

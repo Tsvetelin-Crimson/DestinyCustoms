@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyCustoms.Common", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Services", "DestinyCustoms.Services\DestinyCustoms.Services.csproj", "{151C072F-C5FD-4446-B95B-E12D83B0AD86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Infrastructure", "DestinyCustoms.Infrastructure\DestinyCustoms.Infrastructure.csproj", "{AE41C971-033D-4777-BBD9-E13F06F44943}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AE41C971-033D-4777-BBD9-E13F06F44943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE41C971-033D-4777-BBD9-E13F06F44943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE41C971-033D-4777-BBD9-E13F06F44943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE41C971-033D-4777-BBD9-E13F06F44943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

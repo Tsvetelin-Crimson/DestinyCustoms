@@ -5,8 +5,8 @@ namespace DestinyCustoms.Services.Comments
 {
     public interface ICommentsService
     {
-        int Create(string content, int weaponId, string userId);
+        int Create(string content, string weaponId, string userId);
 
-        IEnumerable<CommentServiceModel> GetByWeaponId(int WeaponId);
+        IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId);
     }
 }
