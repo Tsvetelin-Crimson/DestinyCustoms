@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Data.Models
 {
-    using static Common.DataConstants;
+    using static Common.DataConstants.Comment;
 
     public class Comment
     {
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(MaxCommentContentLength)]
+        [MaxLength(MaxContentLength)]
         public string Content { get; set; }
 
         //public int Likes { get; set; }

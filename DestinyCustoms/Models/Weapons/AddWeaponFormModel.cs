@@ -4,32 +4,32 @@ using DestinyCustoms.Services.Weapons.Models;
 
 namespace DestinyCustoms.Models.Weapons
 {
-    using static Common.DataConstants;
+    using static Common.DataConstants.Weapon;
 
     public class AddWeaponFormModel
     {
         [Required]
-        [StringLength(MaxWeaponNameLength, MinimumLength = MinWeaponNameLength, ErrorMessage = "Exotic name must be between {2} and {1} symbols.")]
+        [StringLength(MaxNameLength, MinimumLength = MinNameLength, ErrorMessage = "Exotic name must be between {2} and {1} symbols.")]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponIntrinsicNameLength, MinimumLength = MinWeaponIntrinsicNameLength, ErrorMessage = "Intrinsic name must be between {2} and {1} symbols.")]
+        [StringLength(MaxIntrinsicNameLength, MinimumLength = MinIntrinsicNameLength, ErrorMessage = "Intrinsic name must be between {2} and {1} symbols.")]
         public string IntrinsicName { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponIntrinsicDescriptionLength, MinimumLength = MinWeaponIntrinsicDescriptionLength, ErrorMessage = "Intrinsic description must be between {2} and {1} symbols.")]
+        [StringLength(MaxIntrinsicDescriptionLength, MinimumLength = MinIntrinsicDescriptionLength, ErrorMessage = "Intrinsic description must be between {2} and {1} symbols.")]
         public string IntrinsicDescription { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponCatalystNameLength, MinimumLength = MinWeaponCatalystNameLength, ErrorMessage = "Catalyst name must be between {2} and {1} symbols.")]
+        [StringLength(MaxCatalystNameLength, MinimumLength = MinCatalystNameLength, ErrorMessage = "Catalyst name must be between {2} and {1} symbols.")]
         public string CatalystName { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponCatalystCompletionLength, MinimumLength = MinWeaponCatalystCompletionLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
+        [StringLength(MaxCatalystCompletionLength, MinimumLength = MinCatalystCompletionLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
         public string CatalystCompletionRequirement { get; set; }
 
         [Required]
-        [StringLength(MaxWeaponCatalystEffectLength, MinimumLength = MinWeaponCatalystEffectLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
+        [StringLength(MaxCatalystEffectLength, MinimumLength = MinCatalystEffectLength, ErrorMessage = "Catalyst description must be between {2} and {1} symbols.")]
         public string CatalystEffect { get; set; }
 
         [Url]

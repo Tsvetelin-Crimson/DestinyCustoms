@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DestinyCustoms.Data.Models
 {
-    using static Common.DataConstants;
+    using static Common.DataConstants.Weapon;
 
     public class ExoticWeapon
     {
@@ -12,15 +12,15 @@ namespace DestinyCustoms.Data.Models
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        [MaxLength(MaxWeaponNameLength)]
+        [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(MaxWeaponIntrinsicNameLength)]
+        [MaxLength(MaxIntrinsicNameLength)]
         public string IntrinsicName { get; set; }
 
         [Required]
-        [MaxLength(MaxWeaponIntrinsicDescriptionLength)]
+        [MaxLength(MaxIntrinsicDescriptionLength)]
         public string IntrinsicDescription { get; set; }
 
         public string ImageURL { get; set; }
@@ -28,15 +28,15 @@ namespace DestinyCustoms.Data.Models
         //TODO: Implement a rating system when you understand Identity and users
         //public int Rating { get; set; }
         [Required]
-        [MaxLength(MaxWeaponCatalystNameLength)]
+        [MaxLength(MaxCatalystNameLength)]
         public string CatalystName { get; set; }
 
         [Required]
-        [MaxLength(MaxWeaponCatalystCompletionLength)]
+        [MaxLength(MaxCatalystCompletionLength)]
         public string CatalystCompletionRequirement { get; set; }
 
         [Required]
-        [MaxLength(MaxWeaponCatalystEffectLength)]
+        [MaxLength(MaxCatalystEffectLength)]
         public string CatalystEffect { get; set; }
 
         public DateTime DateCreated { get; set; }
