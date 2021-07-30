@@ -52,21 +52,7 @@ namespace DestinyCustoms.Services.Comments
         public IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId)
             => db.Comments
                     .Where(c => c.WeaponId == WeaponId)
-                    .Select(c => new CommentServiceModel
-                    {
-                        Id = c.Id,
-                        Content = c.Content,
-                        UserUsername = c.User.UserName,
-                        Replies = c.Replies
-                        .Where(r => r.CommentId == c.Id)
-                        .Select(r => new ReplyServiceModel
-                        {
-                            Content = r.Content,
-                            UserUsername = r.User.UserName,
-                        })
-                        .ToList(),
-                    })
-                    //.ProjectTo<CommentServiceModel>(this.mapper)
+                    .ProjectTo<CommentServiceModel>(this.mapper)
                     .ToList();
         
     }
