@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace DestinyCustoms.Data.Models
 {
@@ -7,7 +8,7 @@ namespace DestinyCustoms.Data.Models
 
     public class Comment
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required]
         [MaxLength(MaxContentLength)]
@@ -16,14 +17,14 @@ namespace DestinyCustoms.Data.Models
         //public int Likes { get; set; }
 
         //public int Dislikes { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; init; }
 
-        public IdentityUser User { get; set; }
+        public IdentityUser User { get; init; }
 
-        public string WeaponId { get; set; }
+        public string WeaponId { get; init; }
 
-        public ExoticWeapon Exotic { get; set; }
+        public ExoticWeapon Exotic { get; init; }
 
-        // TODO: Add Replies
+        public ICollection<Reply> Replies { get; set; }
     }
 }

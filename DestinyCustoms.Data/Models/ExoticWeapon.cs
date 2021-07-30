@@ -9,7 +9,7 @@ namespace DestinyCustoms.Data.Models
     public class ExoticWeapon
     {
         [Key]
-        public string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; init; } = Guid.NewGuid().ToString();
 
         [Required]
         [MaxLength(MaxNameLength)]
@@ -39,17 +39,17 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxCatalystEffectLength)]
         public string CatalystEffect { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; init; }
 
         public DateTime DateModified { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; init; }
 
         public int WeaponClassId { get; set; }
 
         public WeaponClass WeaponClass { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; init; }
     }
 }

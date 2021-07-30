@@ -1,9 +1,15 @@
-﻿namespace DestinyCustoms.Services.Comments.Models
+﻿using System.Collections.Generic;
+
+namespace DestinyCustoms.Services.Comments.Models
 {
     public class CommentServiceModel
     {
-        public string Content { get; set; }
+        public int Id { get; init; }
 
-        public string UserUsername { get; set; }
+        public string Content { get; init; }
+
+        public string UserUsername { get; init; }
+
+        public IEnumerable<ReplyServiceModel> Replies { get; init; }
     }
 }

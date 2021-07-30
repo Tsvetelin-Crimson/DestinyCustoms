@@ -7,12 +7,12 @@ namespace DestinyCustoms.Data.Models
 
     public class WeaponClass
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
-        public ICollection<ExoticWeapon> Weapons { get; set; }
+        public ICollection<ExoticWeapon> Weapons { get; init; }
     }
 }

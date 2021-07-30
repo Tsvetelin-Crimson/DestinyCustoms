@@ -107,6 +107,33 @@ namespace DestinyCustoms.Data.Migrations
                     b.ToTable("Weapons");
                 });
 
+            modelBuilder.Entity("DestinyCustoms.Data.Models.Reply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Replies");
+                });
+
             modelBuilder.Entity("DestinyCustoms.Data.Models.WeaponClass", b =>
                 {
                     b.Property<int>("Id")
@@ -346,6 +373,23 @@ namespace DestinyCustoms.Data.Migrations
                     b.Navigation("WeaponClass");
                 });
 
+            modelBuilder.Entity("DestinyCustoms.Data.Models.Reply", b =>
+                {
+                    b.HasOne("DestinyCustoms.Data.Models.Comment", "Comment")
+                        .WithMany("Replies")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -395,6 +439,11 @@ namespace DestinyCustoms.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DestinyCustoms.Data.Models.Comment", b =>
+                {
+                    b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("DestinyCustoms.Data.Models.ExoticWeapon", b =>

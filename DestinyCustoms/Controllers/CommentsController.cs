@@ -41,5 +41,25 @@ namespace DestinyCustoms.Controllers
 
             return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.WeaponId}");
         }
+
+        [Authorize]
+        public IActionResult AddReply(FullWeaponDetailsViewModel fullModel)
+        {
+            var weaponId = weaponsService.GetIdById(fullModel.ReplyToBeAdded.WeaponId);
+
+            if (weaponId == null)
+            {
+                return BadRequest();
+            }
+
+            if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
+            {
+                return BadRequest();
+            }
+
+            this.commentsService.CreateReply(fullModel.ReplyToBeAdded.Content, fullModel.ReplyToBeAdded.CommentId, this.User.GetId());
+
+            return Redirect($"/Weapons/Details/{fullModel.ReplyToBeAdded.WeaponId}");
+        }
     }
 }

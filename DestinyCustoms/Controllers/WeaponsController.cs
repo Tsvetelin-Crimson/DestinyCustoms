@@ -85,6 +85,7 @@ namespace DestinyCustoms.Controllers
             {
                 Weapon = weapon,
                 Comments = this.commentsService.GetByWeaponId(id),
+                
             };
 
             //TODO: Remove unneeded classes in View

@@ -33,12 +33,12 @@
 </div>
 @if (this.User.GetId() == Model.Weapon.UserId || this.User.IsInRole(WebConstants.adminRoleName))
 {
-<div class="row mt-3">
-    <div class="col-12 text-right">
-        <a class="btn btn-secondary mr-1" href="/Weapons/Edit/@Model.Weapon.Id">Edit</a>
-        <a class="btn btn-danger " href="/Weapons/Delete/@Model.Weapon.Id">Delete</a>
+    <div class="row mt-3">
+        <div class="col-12 text-right">
+            <a class="btn btn-secondary mr-1" href="/Weapons/Edit/@Model.Weapon.Id">Edit</a>
+            <a class="btn btn-danger " href="/Weapons/Delete/@Model.Weapon.Id">Delete</a>
+        </div>
     </div>
-</div>
 }
 
 <form asp-controller="Comments" asp-action="Add" method="post" class="mt-5 bg-light">
@@ -77,10 +77,10 @@
                                     <span class="d-block font-weight-bold name">@comment.UserUsername</span><span class="date text-black-50">Jan 2020</span>
                                 </div>
                             </div>
-                            <div class="mt-2">
+                            <div class="mt-2 ml-2">
                                 <p>@comment.Content</p>
                             </div>
-                            <div class="bg-white">
+                            <div class="bg-white ml-2">
                                 <div class="d-flex flex-row fs-12">
                                     <button class="btn btn-primary btn-sm shadow-none mr-3" type="button">
                                         <i class="fa fa-commenting-o"></i><span class="ml-1">Comments</span>
@@ -96,13 +96,41 @@
                         </div>
 
                         <div class="bg-white p-2 ml-3" style="display: none;">
-                            <div class="d-flex flex-row align-items-start">
-                                <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                                <input type="text" class="form-control ml-1 shadow-none textarea" />
-                            </div>
-                            <div class="d-flex flex-row justify-content-start mt-1">
-                                <button class="btn btn-primary btn-sm shadow-none mr-3" type="button">Reply</button>
-                            </div>
+                            <form asp-controller="Comments" asp-action="AddReply" method="post" class=" ml-3 mr-4 mb-2">
+                                <div class="d-flex  flex-row align-items-start">
+                                    @*<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">*@
+                                    <span class="d-block font-weight-bold name">@User.Identity.Name</span>
+                                    <br />
+                                    <input type="text" asp-for="ReplyToBeAdded.Content" class="form-control ml-1 shadow-none textarea" />
+                                    <input type="number" asp-for="ReplyToBeAdded.CommentId" value="@comment.Id" hidden />
+                                    <input type="text" asp-for="ReplyToBeAdded.WeaponId" value="@Model.Weapon.Id" hidden />
+                                </div>
+                                <div class="d-flex flex-row justify-content-start mt-1">
+                                    <input type="submit" class="btn btn-primary btn-sm shadow-none mr-3 ml-2" value="Reply" />
+                                </div>
+                            </form>
+
+                            @foreach (var reply in comment.Replies)
+                            {
+                                <div class="bg-white p-2 mt-2 mb-3 border-top border-secondary ">
+                                    <div class="d-flex flex-row user-info ">
+                                        @*<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="50">*@
+                                        <div class="d-flex flex-column justify-content-start ml-2">
+                                            <span class="d-block font-weight-bold name">@reply.UserUsername</span>
+                                            <span class="text-black-50">Jan 2020</span>
+                                        </div>
+                                        <section class="ml-3 mt-1">
+                                            <button class="btn btn-primary btn-sm shadow-none mr-3" type="button">
+                                                <i class="fa fa-thumbs-o-up">
+                                                </i><span class="ml-1">Like</span>
+                                            </button>
+                                        </section>
+                                    </div>
+                                    <div class="mt-2 ml-2">
+                                        <p>@reply.Content</p>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
