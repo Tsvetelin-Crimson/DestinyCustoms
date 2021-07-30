@@ -31,7 +31,7 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
             {
-                return BadRequest();
+                return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.WeaponId}");
             }
 
             this.commentsService.Create(
@@ -54,7 +54,7 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
             {
-                return BadRequest();
+                return Redirect($"/Weapons/Details/{fullModel.ReplyToBeAdded.WeaponId}");
             }
 
             this.commentsService.CreateReply(fullModel.ReplyToBeAdded.Content, fullModel.ReplyToBeAdded.CommentId, this.User.GetId());
