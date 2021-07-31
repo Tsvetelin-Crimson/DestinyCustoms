@@ -25,6 +25,11 @@ namespace DestinyCustoms.Data.Models
 
         public ExoticWeapon Exotic { get; init; }
 
+        public string ArmorId { get; init; }
+
+        public ExoticArmor Armor { get; init; }
+
+
         public ICollection<Reply> Replies { get; set; }
     }
 }

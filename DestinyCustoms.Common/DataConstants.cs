@@ -18,6 +18,16 @@
             public const int MinCatalystEffectLength = 10;
         }
 
+        public class Armor
+        {
+            public const int MaxNameLength = 70;
+            public const int MinNameLength = 5;
+            public const int MaxIntrinsicNameLength = 40;
+            public const int MinIntrinsicNameLength = 5;
+            public const int MaxIntrinsicDescriptionLength = 500;
+            public const int MinIntrinsicDescriptionLength = 10;
+        }
+
         public class WeaponClass
         {
             public const int MaxNameLength = 30;

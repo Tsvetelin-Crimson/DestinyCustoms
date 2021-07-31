@@ -1,6 +1,7 @@
 using DestinyCustoms.Data;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Services;
+using DestinyCustoms.Services.Armors;
 using DestinyCustoms.Services.Comments;
 using DestinyCustoms.Services.Weapons;
 using Microsoft.AspNetCore.Builder;
@@ -54,6 +55,7 @@ namespace DestinyCustoms
 
             services.AddTransient<IWeaponsService, WeaponsService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IArmorsService, ArmorsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

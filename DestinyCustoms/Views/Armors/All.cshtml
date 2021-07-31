@@ -1,0 +1,81 @@
+﻿@model AllArmorsQueryModel
+
+@{
+    ViewBag.Title = "All Armors";
+}
+
+<div class="album py-5 bg-light">
+    <form method="get">
+        <div class="row form-group ml-2 mb-4">
+            <div class="col-5">
+                <label asp-for="SearchTerm">Armor name:</label>
+                <input type="text" class="form-control" asp-for="SearchTerm" />
+            </div>
+            <div class="col-4">
+                <label asp-for="Class">Character Class:</label>
+                <select class="form-control" asp-for="Class">
+                    <option value="All">All</option>
+                    @foreach (var currClass in Model.Classes)
+                    {
+                        <option value="@currClass">@currClass</option>
+                    }
+                </select>
+            </div>
+            <div class="col-2 text-center d-flex flex-column justify-content-end mr-1">
+                <input type="submit" class="btn btn-primary" placeholder="Verity's Brow..." value="Search">
+            </div>
+        </div>
+    </form>
+    @{
+        var previousPage = Model.CurrentPage - 1;
+
+        previousPage = previousPage <= 0 ?
+            1 :
+            previousPage;
+
+        var lastPage = (int)Math.Ceiling((double)Model.AllArmorsCount / Model.ArmorsPerPage);
+
+        lastPage = lastPage <= 0 ?
+            1 :
+            lastPage;
+    }
+
+    <div class="row">
+        <div class="col-6">
+
+            @if (Model.CurrentPage != 1)
+            {
+                <a asp-controller="Weapons"
+                   asp-action="All"
+                   asp-route-currentPage="@previousPage"
+                   asp-route-weaponType="@Model.Class"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   class="btn btn-primary">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            }
+        </div>
+        <div class="col-6">
+            @if (Model.CurrentPage != lastPage)
+            {
+                <a asp-controller="Weapons"
+                   asp-action="All"
+                   asp-route-currentPage="@(Model.CurrentPage + 1)"
+                   asp-route-weaponType="@Model.Class"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   class="float-right btn btn-primary">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            }
+        </div>
+
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (var armor in Model.Armors)
+            {
+                <partial name="_ArmorPartial" model="armor" />
+            }
+        </div>
+    </div>
+</div>

@@ -23,6 +23,17 @@
     </div>
     @if (User.Identity.IsAuthenticated)
     {
-        <h3>Want to add one yourself? Click <a href="/Weapons/Add">here.</a></h3>
+        <h3>Want to add one yourself? <a href="/Weapons/Add">Click here.</a></h3>
+    }
+    <h1>Most Recent Armors Added:</h1>
+    <div class="row">
+        @foreach (var armor in Model.Armors)
+        {
+            <partial name="_ArmorPartial" model="armor" />
+        }
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3>Want to add one yourself? <a href="/Armors/Add">Click here.</a></h3>
     }
 </div>

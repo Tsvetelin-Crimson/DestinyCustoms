@@ -53,6 +53,7 @@ namespace DestinyCustoms.Controllers
                     weapon.ImageUrl,
                     this.User.GetId());
 
+            //TODO: Redirect to details page of the weapon
             return RedirectToAction("Index", "Home");
         }
 

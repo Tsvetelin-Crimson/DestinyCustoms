@@ -23,7 +23,6 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxIntrinsicDescriptionLength)]
         public string IntrinsicDescription { get; set; }
 
-        public string ImageURL { get; set; }
 
         //TODO: Implement a rating system when you understand Identity and users
         //public int Rating { get; set; }
@@ -38,6 +37,8 @@ namespace DestinyCustoms.Data.Models
         [Required]
         [MaxLength(MaxCatalystEffectLength)]
         public string CatalystEffect { get; set; }
+
+        public string ImageURL { get; set; }
 
         public DateTime DateCreated { get; init; }
 

@@ -4,6 +4,7 @@ using DestinyCustoms.Services.Comments.Models;
 using DestinyCustoms.Services.Weapons.Models;
 using System.Linq;
 using AutoMapper.QueryableExtensions;
+using DestinyCustoms.Services.Armors.Models;
 
 namespace DestinyCustoms.Services
 {
@@ -15,10 +16,12 @@ namespace DestinyCustoms.Services
 
             this.CreateMap<ExoticWeapon, WeaponServiceModel>()
                 .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name));
-
             this.CreateMap<ExoticWeapon, DetailsWeaponServiceModel>()
                 .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
                 .ForMember(w => w.ClassId, cfg => cfg.MapFrom(w => w.WeaponClass.Id));
+
+            this.CreateMap<ExoticArmor, ArmorServiceModel>()
+                .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
 
             this.CreateMap<Comment, CommentServiceModel>()
                 .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id))); // add select here

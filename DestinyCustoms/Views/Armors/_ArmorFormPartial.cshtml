@@ -1,4 +1,4 @@
-﻿@model AddWeaponFormModel
+﻿@model AddArmorFormModel
 
 <form method="post">
     <div class="form-group">
@@ -17,34 +17,19 @@
         <span asp-validation-for="IntrinsicDescription" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="CatalystName"></label>
-        <input type="text" class="form-control" asp-for="CatalystName" placeholder="Wolfpack Rounds...">
-        <span asp-validation-for="CatalystName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CatalystCompletionRequirement"></label>
-        <textarea class="form-control" asp-for="CatalystCompletionRequirement" rows="5"></textarea>
-        <span asp-validation-for="CatalystCompletionRequirement" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="CatalystEffect"></label>
-        <textarea class="form-control" asp-for="CatalystEffect" rows="5"></textarea>
-        <span asp-validation-for="CatalystEffect" class="text-danger"></span>
-    </div>
-    <div class="form-group">
         <label asp-for="ImageUrl"></label>
         <input type="text" class="form-control" asp-for="ImageUrl" rows="5" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ClassId"></label>
-        <select class="form-control" asp-for="ClassId">
-            @foreach (var weaponClass in Model.Classes)
+        <label asp-for="Class"></label>
+        <select class="form-control" asp-for="Class">
+            @foreach (var characterClass in Enum.GetNames(typeof(CharacterClass)))
             {
-                <option value="@weaponClass.Id">@weaponClass.Name</option>
+                <option value="@characterClass">@characterClass</option>
             }
         </select>
-        <span asp-validation-for="ClassId" class="text-danger"></span>
+        <span asp-validation-for="Class" class="text-danger"></span>
     </div>
     <input type="submit" name="Submit" value="Submit" class="btn btn-primary" />
 </form>

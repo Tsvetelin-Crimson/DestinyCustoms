@@ -13,6 +13,8 @@ namespace DestinyCustoms.Data
 
         public DbSet<ExoticWeapon> Weapons { get; set; }
 
+        public DbSet<ExoticArmor> Armors { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Reply> Replies { get; set; }
