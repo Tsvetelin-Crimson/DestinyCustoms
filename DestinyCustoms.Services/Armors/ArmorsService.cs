@@ -15,7 +15,9 @@ namespace DestinyCustoms.Services.Armors
         private readonly DestinyCustomsDbContext db;
         private readonly IConfigurationProvider mapper;
 
-        public ArmorsService(DestinyCustomsDbContext db, IMapper mapper)
+        public ArmorsService(
+            DestinyCustomsDbContext db, 
+            IMapper mapper)
         {
             this.db = db;
             this.mapper = mapper.ConfigurationProvider;
@@ -53,6 +55,25 @@ namespace DestinyCustoms.Services.Armors
                 AllArmorsCount = armorsQuery.Count(),
             };
         }
+
+        public ArmorDetailsServiceModel GetById(string id)
+            => db.Armors
+            .Where(a => a.Id == id)
+            .ProjectTo<ArmorDetailsServiceModel>(this.mapper)
+            .FirstOrDefault();
+
+        public string GetIdById(string id)
+            => db.Armors
+            .Where(a => a.Id == id)
+            .Select(a => a.Id)
+            .FirstOrDefault();
+
+        public ArmorValidationServiceModel GetIdAndUserIdById(string id)
+        => db.Armors
+            .Where(a => a.Id == id)
+            .ProjectTo<ArmorValidationServiceModel>(this.mapper)
+            .FirstOrDefault();
+
         public IEnumerable<ArmorServiceModel> MostRecentlyCreated()
             => db.Armors
             .OrderByDescending(w => w.DateCreated)
@@ -89,7 +110,51 @@ namespace DestinyCustoms.Services.Armors
         }
 
 
+        public string Edit(
+            string id, 
+            string name, 
+            string intrinsicName, 
+            string intrinsicDescription,
+            CharacterClass classEnum,
+            string imageUrl)
+        {
+            var weapon = db.Armors.Find(id);
+
+            weapon.Name = name;
+            weapon.IntrinsicName = intrinsicName;
+            weapon.IntrinsicDescription = intrinsicDescription;
+            weapon.CharacterClass = classEnum;
+            weapon.ImageURL = imageUrl;
+            weapon.DateModified = DateTime.UtcNow;
+
+            db.SaveChanges();
+
+            return id;
+        }
+
+        public void Delete(string id)
+        {
+            var armor = db.Armors
+                .Where(w => w.Id == id)
+                .FirstOrDefault();
+
+            if (armor != null)
+            {
+                db.Armors.Remove(armor);
+                db.SaveChanges();
+            }
+        }
+
         public IEnumerable<string> AllClassNames()
             => Enum.GetNames(typeof(CharacterClass)).ToList();
+
+        public (bool, CharacterClass) IsCharacterClassNameValid(string name)
+        {
+            var isClassCorrect = Enum.TryParse(name, out CharacterClass classEnum);
+
+            return (isClassCorrect, classEnum);
+        }
+
+        
     }
 }

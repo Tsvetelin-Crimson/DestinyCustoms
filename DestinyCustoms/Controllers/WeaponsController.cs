@@ -86,7 +86,6 @@ namespace DestinyCustoms.Controllers
             {
                 Weapon = weapon,
                 Comments = this.commentsService.GetByWeaponId(id),
-                
             };
 
             //TODO: Remove unneeded classes in View
@@ -104,6 +103,11 @@ namespace DestinyCustoms.Controllers
                 return NotFound();
             }
 
+            if (this.User.GetId() != weapon.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
             var model = new AddWeaponFormModel
             {
                 Name = weapon.Name,
@@ -116,22 +120,6 @@ namespace DestinyCustoms.Controllers
                 ClassId = weapon.ClassId,
                 Classes = this.weaponsService.AllClasses()
             };
-
-            if (this.User.GetId() != weapon.UserId && !this.User.IsInRole(adminRoleName))
-            {
-                return Unauthorized();
-            }
-
-            if (!this.weaponsService.WeaponClassExists(weapon.ClassId))
-            {
-                this.ModelState.AddModelError(nameof(model.ClassId), "Weapon class does not exist");
-            }
-
-            if (!this.ModelState.IsValid)
-            {
-                model.Classes = this.weaponsService.AllClasses();
-                return View(weapon);
-            }
 
             return View(model);
         }
@@ -164,7 +152,7 @@ namespace DestinyCustoms.Controllers
             }
 
             this.weaponsService.Edit(
-                weapon.WeaponId,
+                weapon.Id,
                 newWeapon.Name,
                 newWeapon.IntrinsicName, 
                 newWeapon.IntrinsicDescription,
@@ -174,7 +162,7 @@ namespace DestinyCustoms.Controllers
                 newWeapon.ClassId,
                 newWeapon.ImageUrl);
 
-            return RedirectToAction("Details", "Weapons", new { id = weapon.WeaponId });
+            return RedirectToAction("Details", "Weapons", new { id = weapon.Id });
         }
 
         [Authorize]
@@ -192,7 +180,7 @@ namespace DestinyCustoms.Controllers
                 return Unauthorized();
             }
 
-            this.weaponsService.Delete(weapon.WeaponId);
+            this.weaponsService.Delete(weapon.Id);
 
             return RedirectToAction("All", "Weapons");
         }

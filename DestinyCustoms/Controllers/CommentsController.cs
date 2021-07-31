@@ -29,7 +29,7 @@ namespace DestinyCustoms.Controllers
                 this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.WeaponId), "Weapon does not exist");
             }
 
-            if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
+            if (!this.ModelState.IsValid)
             {
                 return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.WeaponId}");
             }
@@ -52,7 +52,7 @@ namespace DestinyCustoms.Controllers
                 return BadRequest();
             }
 
-            if (!this.ModelState.IsValid) //TODO: make it so it returns the page with an error message
+            if (!this.ModelState.IsValid)
             {
                 return Redirect($"/Weapons/Details/{fullModel.ReplyToBeAdded.WeaponId}");
             }

@@ -59,10 +59,10 @@ namespace DestinyCustoms.Services.Weapons
             .Take(6)
             .ToList();
 
-        public DetailsWeaponServiceModel GetById(string id)
+        public WeaponDetailsServiceModel GetById(string id)
             => db.Weapons
             .Where(w => w.Id == id)
-            .ProjectTo<DetailsWeaponServiceModel>(this.mapper)
+            .ProjectTo<WeaponDetailsServiceModel>(this.mapper)
             .FirstOrDefault();
 
         public string GetIdById(string id)
@@ -74,7 +74,7 @@ namespace DestinyCustoms.Services.Weapons
         public WeaponValidationServiceModel GetIdAndUserIdById(string id)
             => db.Weapons
             .Where(w => w.Id == id)
-            .Select(w => new WeaponValidationServiceModel { WeaponId = w.Id, UserId = w.UserId })
+            .Select(w => new WeaponValidationServiceModel { Id = w.Id, UserId = w.UserId }) //TODO: Add map? remove weapon in weapon id
             .FirstOrDefault();
 
         public string Create(

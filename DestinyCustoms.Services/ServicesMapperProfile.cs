@@ -16,12 +16,16 @@ namespace DestinyCustoms.Services
 
             this.CreateMap<ExoticWeapon, WeaponServiceModel>()
                 .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name));
-            this.CreateMap<ExoticWeapon, DetailsWeaponServiceModel>()
+            this.CreateMap<ExoticWeapon, WeaponDetailsServiceModel>()
                 .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
                 .ForMember(w => w.ClassId, cfg => cfg.MapFrom(w => w.WeaponClass.Id));
 
+            this.CreateMap<ExoticArmor, ArmorValidationServiceModel>();
             this.CreateMap<ExoticArmor, ArmorServiceModel>()
                 .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
+            this.CreateMap<ExoticArmor, ArmorDetailsServiceModel>()
+                .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
+
 
             this.CreateMap<Comment, CommentServiceModel>()
                 .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id))); // add select here

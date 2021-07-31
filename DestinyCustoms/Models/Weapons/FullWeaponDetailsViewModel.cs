@@ -7,7 +7,7 @@ namespace DestinyCustoms.Models.Weapons
 {
     public class FullWeaponDetailsViewModel
     {
-        public DetailsWeaponServiceModel Weapon { get; init; }
+        public WeaponDetailsServiceModel Weapon { get; init; }
 
         public AddCommentFormModel CommentToBeAdded { get; set; }
 

@@ -13,7 +13,7 @@ namespace DestinyCustoms.Services.Weapons
 
         IEnumerable<WeaponServiceModel> MostRecentlyCreated();
 
-        DetailsWeaponServiceModel GetById(string id);
+        WeaponDetailsServiceModel GetById(string id);
 
         string GetIdById(string id);
 

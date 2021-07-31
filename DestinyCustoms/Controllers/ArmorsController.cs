@@ -1,13 +1,13 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using DestinyCustoms.Models.Armors;
-using DestinyCustoms.Services.Armors;
-using DestinyCustoms.Common.Enums;
 using DestinyCustoms.Infrastructure;
+using DestinyCustoms.Services.Armors;
 
 namespace DestinyCustoms.Controllers
 {
+    using static Common.WebConstants;
+
     public class ArmorsController : Controller
     {
         private readonly IArmorsService armorsService;
@@ -42,7 +42,7 @@ namespace DestinyCustoms.Controllers
         [HttpPost]
         public IActionResult Add(AddArmorFormModel armor)
         {
-            var isClassCorrect = Enum.TryParse(armor.Class, out CharacterClass classEnum);
+            var (isClassCorrect, classEnum) = this.armorsService.IsCharacterClassNameValid(armor.Class);
 
             if (!isClassCorrect)
             {
@@ -65,6 +65,109 @@ namespace DestinyCustoms.Controllers
 
             //TODO: Redirect to details page of the armor
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Details(string id)
+        {
+            var armor = this.armorsService.GetById(id);
+
+            if (armor == null)
+            {
+                return NotFound();
+            }
+
+            var model = new FullArmorDetailsViewModel
+            {
+                Armor = armor,
+            };
+
+            return View(model);
+        }
+
+        [Authorize]
+        public IActionResult Edit(string id)
+        {
+            var armor = this.armorsService.GetById(id);
+
+            if (armor == null)
+            {
+                return NotFound();
+            }
+
+            if (this.User.GetId() != armor.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
+            var model = new AddArmorFormModel
+            {
+                Name = armor.Name,
+                IntrinsicName = armor.IntrinsicName,
+                IntrinsicDescription = armor.IntrinsicDescription,
+                ImageUrl = armor.ImageUrl,
+                Class = armor.ClassName,
+            };
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(string id, AddArmorFormModel newArmor)
+        {
+            var armor = this.armorsService.GetIdAndUserIdById(id);
+
+            if (armor == null)
+            {
+                return NotFound();
+            }
+
+            if (this.User.GetId() != armor.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
+            var (isClassCorrect, classEnum) = this.armorsService.IsCharacterClassNameValid(newArmor.Class);
+            if (!isClassCorrect)
+            {
+                this.ModelState.AddModelError(nameof(newArmor.Class), "Character class does not exist");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return View(newArmor);
+            }
+
+            this.armorsService.Edit(
+                armor.Id,
+                newArmor.Name,
+                newArmor.IntrinsicName,
+                newArmor.IntrinsicDescription,
+                classEnum,
+                newArmor.ImageUrl);
+
+            return RedirectToAction("Details", "Armors", new { id = armor.Id });
+        }
+
+
+        [Authorize]
+        public IActionResult Delete(string id)
+        {
+            var armor = this.armorsService.GetIdAndUserIdById(id);
+
+            if (armor == null)
+            {
+                return NotFound();
+            }
+
+            if (this.User.GetId() != armor.UserId && !this.User.IsInRole(adminRoleName))
+            {
+                return Unauthorized();
+            }
+
+            this.armorsService.Delete(armor.Id);
+
+            return RedirectToAction("All", "Armors");
         }
     }
 }

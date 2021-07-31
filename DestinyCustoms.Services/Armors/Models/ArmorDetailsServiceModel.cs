@@ -1,6 +1,6 @@
-﻿namespace DestinyCustoms.Services.Weapons.Models
+﻿namespace DestinyCustoms.Services.Armors.Models
 {
-    public class DetailsWeaponServiceModel
+    public class ArmorDetailsServiceModel
     {
         public string Id { get; init; }
 
@@ -9,14 +9,6 @@
         public string IntrinsicName { get; set; }
 
         public string IntrinsicDescription { get; set; }
-
-        public string CatalystName { get; set; }
-
-        public string CatalystCompletionRequirement { get; set; }
-
-        public string CatalystEffect { get; set; }
-
-        public int ClassId { get; set; }
 
         public string ClassName { get; set; }
 

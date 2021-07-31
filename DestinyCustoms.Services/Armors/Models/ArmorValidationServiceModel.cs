@@ -1,6 +1,6 @@
-﻿namespace DestinyCustoms.Services.Weapons.Models
+﻿namespace DestinyCustoms.Services.Armors.Models
 {
-    public class WeaponValidationServiceModel
+    public class ArmorValidationServiceModel
     {
         public string Id { get; set; }
 
