@@ -4,6 +4,7 @@ using DestinyCustoms.Services;
 using DestinyCustoms.Services.Armors;
 using DestinyCustoms.Services.Comments;
 using DestinyCustoms.Services.Weapons;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,11 +35,6 @@ namespace DestinyCustoms
 
             services.AddAutoMapper(typeof(ServicesMapperProfile));
 
-            //cfg =>
-            //{
-            //    cfg.AddProfile<ServicesMapperProfile>();
-            //}
-
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -50,7 +46,10 @@ namespace DestinyCustoms
                 .AddEntityFrameworkStores<DestinyCustomsDbContext>();
             
             services
-                .AddControllersWithViews()
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                })
                 .AddRazorRuntimeCompilation();
 
             services.AddTransient<IWeaponsService, WeaponsService>();

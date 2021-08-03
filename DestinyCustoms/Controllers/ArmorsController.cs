@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using DestinyCustoms.Models.Armors;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Services.Armors;
+using DestinyCustoms.Services.Comments;
 
 namespace DestinyCustoms.Controllers
 {
@@ -11,11 +12,14 @@ namespace DestinyCustoms.Controllers
     public class ArmorsController : Controller
     {
         private readonly IArmorsService armorsService;
+        private readonly ICommentsService commentsService;
 
         public ArmorsController(
-            IArmorsService armorsService)
+            IArmorsService armorsService,
+            ICommentsService commentsService)
         {
             this.armorsService = armorsService;
+            this.commentsService = commentsService;
         }
 
 
@@ -79,6 +83,7 @@ namespace DestinyCustoms.Controllers
             var model = new FullArmorDetailsViewModel
             {
                 Armor = armor,
+                Comments = this.commentsService.GetByArmorId(id),
             };
 
             return View(model);

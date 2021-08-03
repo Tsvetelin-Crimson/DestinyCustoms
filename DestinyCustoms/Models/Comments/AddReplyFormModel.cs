@@ -7,13 +7,16 @@ namespace DestinyCustoms.Models.Comments
     public class AddReplyFormModel
     {
         [Required]
-        [StringLength(MaxContentLength, MinimumLength = MinContentLength, ErrorMessage = "Reply must be between {2} and {1} symbols.")]
+        [StringLength(
+            MaxContentLength, 
+            MinimumLength = MinContentLength, 
+            ErrorMessage = "Reply must be between {2} and {1} symbols.")]
         public string Content { get; set; }
 
         [Required]
         public int CommentId { get; set; }
 
         [Required]
-        public string WeaponId { get; set; }
+        public string ItemId { get; set; }
     }
 }

@@ -7,10 +7,13 @@ namespace DestinyCustoms.Models.Comments
     public class AddCommentFormModel
     {
         [Required]
-        [StringLength(MaxContentLength, MinimumLength = MinContentLength, ErrorMessage = "Comment must be between {2} and {1} symbols.")]
+        [StringLength(
+            MaxContentLength, 
+            MinimumLength = MinContentLength, 
+            ErrorMessage = "Comment must be between {2} and {1} symbols.")]
         public string Content { get; set; }
 
         [Required]
-        public string WeaponId { get; set; }
+        public string ItemId { get; set; }
     }
 }

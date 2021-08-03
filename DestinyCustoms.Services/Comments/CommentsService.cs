@@ -19,12 +19,26 @@ namespace DestinyCustoms.Services.Comments
             this.db = db;
             this.mapper = mapper.ConfigurationProvider;
         }
-        public int Create(string content, string weaponId, string userId)
+        public int CreateWeaponComment(string content, string weaponId, string userId)
         {
             var comment = new Comment()
             {
                 Content = content,
                 WeaponId = weaponId,
+                UserId = userId,
+            };
+            db.Comments.Add(comment);
+            db.SaveChanges();
+
+            return comment.Id;
+        }
+
+        public int CreateArmorComment(string content, string armorId, string userId)
+        {
+            var comment = new Comment()
+            {
+                Content = content,
+                ArmorId = armorId,
                 UserId = userId,
             };
             db.Comments.Add(comment);
@@ -48,12 +62,16 @@ namespace DestinyCustoms.Services.Comments
             return reply.Id;
         }
 
-
-        public IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId)
+        public IEnumerable<CommentServiceModel> GetByWeaponId(string weaponId)
             => db.Comments
-                    .Where(c => c.WeaponId == WeaponId)
+                    .Where(c => c.WeaponId == weaponId)
                     .ProjectTo<CommentServiceModel>(this.mapper)
                     .ToList();
-        
+
+        public IEnumerable<CommentServiceModel> GetByArmorId(string armorId)
+            => db.Comments
+                    .Where(c => c.ArmorId == armorId)
+                    .ProjectTo<CommentServiceModel>(this.mapper)
+                    .ToList();
     }
 }
