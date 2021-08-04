@@ -189,5 +189,9 @@ namespace DestinyCustoms.Controllers
 
             return RedirectToAction("All", "Armors");
         }
+
+        [Authorize]
+        public IActionResult MyArmors()
+                => View(this.armorsService.AllUserOwned(this.User.GetId()));
     }
 }

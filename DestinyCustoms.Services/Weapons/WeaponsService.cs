@@ -52,6 +52,12 @@ namespace DestinyCustoms.Services.Weapons
             };
         }
 
+        public IEnumerable<WeaponServiceModel> AllUserOwned(string userId)
+            => db.Weapons
+            .Where(w => w.UserId == userId)
+            .ProjectTo<WeaponServiceModel>(this.mapper)
+            .ToList();
+
         public IEnumerable<WeaponServiceModel> MostRecentlyCreated()
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)

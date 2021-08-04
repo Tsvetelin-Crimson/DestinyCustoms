@@ -12,6 +12,8 @@ namespace DestinyCustoms.Services.Armors
             int armorsPerPage,
             int currentPage);
 
+        IEnumerable<ArmorServiceModel> AllUserOwned(string userId);
+
         ArmorDetailsServiceModel GetById(string id);
 
         string GetIdById(string id);

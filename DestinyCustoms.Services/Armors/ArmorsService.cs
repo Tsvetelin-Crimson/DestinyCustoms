@@ -56,6 +56,12 @@ namespace DestinyCustoms.Services.Armors
             };
         }
 
+        public IEnumerable<ArmorServiceModel> AllUserOwned(string userId)
+            => db.Armors
+            .Where(w => w.UserId == userId)
+            .ProjectTo<ArmorServiceModel>(this.mapper)
+            .ToList();
+
         public ArmorDetailsServiceModel GetById(string id)
             => db.Armors
             .Where(a => a.Id == id)

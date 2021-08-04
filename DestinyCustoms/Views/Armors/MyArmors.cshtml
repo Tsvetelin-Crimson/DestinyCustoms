@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ArmorServiceModel>
+
+@{
+    ViewBag.Title = "My Armors";
+}
+
+<div class="album py-5 bg-transparent">
+    <div class="container mt-4 bg-transparent">
+        @if (!Model.Any())
+        {
+            <h2 class="text-center">You do not have any armors yet!</h2>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var armor in Model)
+                {
+                    <partial name="_ArmorPartial" model="armor" />
+                }
+            </div>
+        }
+    </div>
+</div>

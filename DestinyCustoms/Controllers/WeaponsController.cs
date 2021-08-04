@@ -82,6 +82,7 @@ namespace DestinyCustoms.Controllers
             {
                 return NotFound();
             }
+
             //TODO: Add DateCreated and DateModified(?) to comments
             var model = new FullWeaponDetailsViewModel
             {
@@ -199,5 +200,9 @@ namespace DestinyCustoms.Controllers
 
             return RedirectToAction("All", "Weapons");
         }
+
+        [Authorize]
+        public IActionResult MyWeapons() 
+            => View(this.weaponsService.AllUserOwned(this.User.GetId()));
     }
 }

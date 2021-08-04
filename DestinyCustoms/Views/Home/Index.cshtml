@@ -5,16 +5,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4 text-primary">Welcome</h1>
 </div>
 
 
 <div>
     @if (!User.Identity.IsAuthenticated)
     {
-        <h5>Not registered? Click <a href="/Account/Register">here.</a></h5>
+        <h5 class="text-info">Not registered? Click <a href="/Account/Register">here.</a></h5>
     }
-    <h1>Most Recent Weapons Added:</h1>
+    <h1 class="text-primary">Most Recent Weapons Added</h1>
     <div class="row">
         @foreach (var weapon in Model.Weapons)
         {
@@ -23,9 +23,9 @@
     </div>
     @if (User.Identity.IsAuthenticated)
     {
-        <h3>Want to add one yourself? <a href="/Weapons/Add">Click here.</a></h3>
+        <h3 class="text-info">Want to add one yourself? <a href="/Weapons/Add">Click here.</a></h3>
     }
-    <h1>Most Recent Armors Added:</h1>
+    <h1 class="text-primary">Most Recent Armors Added</h1>
     <div class="row">
         @foreach (var armor in Model.Armors)
         {
@@ -34,6 +34,6 @@
     </div>
     @if (User.Identity.IsAuthenticated)
     {
-        <h3>Want to add one yourself? <a href="/Armors/Add">Click here.</a></h3>
+        <h3 class="text-info">Want to add one yourself? <a href="/Armors/Add">Click here.</a></h3>
     }
 </div>

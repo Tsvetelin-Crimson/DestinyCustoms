@@ -8,11 +8,13 @@
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body style="background: radial-gradient(ellipse at top, #4e3863, transparent), radial-gradient(ellipse at bottom, #ff9340, transparent)">
+@*radial-gradient(ellipse at top, #4e3863, transparent), radial-gradient(ellipse at bottom, #ff9340, transparent)*@
+@*radial-gradient(#ff8000, #4e3863 50%)*@ @*#4e3863  #570c94*@
+<body style="background: radial-gradient(#570c94 10%,#4e3863 100%) ">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Destiny Customs</a>
+                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Destiny Customs</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,9 +26,13 @@
                                 <button class="btn dropdown-toggle btn-secondary" type="button" data-toggle="dropdown">
                                     Weapons
                                 </button>
-                                <div class="dropdown-menu" style="width: 100px;" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link text-dark" asp-controller="Weapons" asp-action="All">All</a>
-                                    <a class="nav-link text-dark" asp-controller="Weapons" asp-action="Add">Add</a>
+                                <div class="dropdown-menu bg-dark" style="width: 100px;" aria-labelledby="dropdownMenuButton">
+                                    <a class="nav-link text-light" asp-controller="Weapons" asp-action="All">All</a>
+                                    <a class="nav-link text-light" asp-controller="Weapons" asp-action="Add">Add</a>
+                                    @if (this.User.GetId() != null)
+                                    {
+                                        <a class="nav-link text-light" asp-controller="Weapons" asp-action="MyWeapons">My Weapons</a>
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -35,9 +41,13 @@
                                 <button class="btn dropdown-toggle btn-secondary" type="button" data-toggle="dropdown">
                                     Armors
                                 </button>
-                                <div class="dropdown-menu" style="width: 100px;" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link text-dark" asp-controller="Armors" asp-action="All">All</a>
-                                    <a class="nav-link text-dark" asp-controller="Armors" asp-action="Add">Add</a>
+                                <div class="dropdown-menu bg-dark" style="width: 100px;" aria-labelledby="dropdownMenuButton">
+                                    <a class="nav-link text-light" asp-controller="Armors" asp-action="All">All</a>
+                                    <a class="nav-link text-light" asp-controller="Armors" asp-action="Add">Add</a>
+                                    @if (this.User.GetId() != null)
+                                    {
+                                        <a class="nav-link text-light" asp-controller="Armors" asp-action="MyArmors">My Armors</a>
+                                    }
                                 </div>
                             </div>
                         </li>
@@ -48,13 +58,13 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3" >
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top footer text-muted bg-dark">
+        <div class="container text-light">
             &copy; 2021 - DestinyCustoms
         </div>
     </footer>

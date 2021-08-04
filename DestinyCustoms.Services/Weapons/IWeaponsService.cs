@@ -11,6 +11,8 @@ namespace DestinyCustoms.Services.Weapons
             int weaponsPerPage,
             int currentPage);
 
+        IEnumerable<WeaponServiceModel> AllUserOwned(string userId);
+
         IEnumerable<WeaponServiceModel> MostRecentlyCreated();
 
         WeaponDetailsServiceModel GetById(string id);
