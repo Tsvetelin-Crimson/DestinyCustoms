@@ -4,6 +4,7 @@ using DestinyCustoms.Models.Armors;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Services.Armors;
 using DestinyCustoms.Services.Comments;
+using DestinyCustoms.Models.Comments;
 
 namespace DestinyCustoms.Controllers
 {
@@ -83,7 +84,21 @@ namespace DestinyCustoms.Controllers
             var model = new FullArmorDetailsViewModel
             {
                 Armor = armor,
-                Comments = this.commentsService.GetByArmorId(id),
+                CommentToBeAdded = new AddCommentFormModel
+                {
+                    ItemId = armor.Id,
+                    AspActionCommentString = nameof(CommentsController.AddArmorComment),
+                },
+                CommentClass = new CommentViewModel
+                {
+                    Comments = this.commentsService.GetByArmorId(id),
+                    ItemId = armor.Id,
+                    ReplyToBeAdded = new AddReplyFormModel
+                    {
+                        ItemId = armor.Id,
+                        AspActionReplyString = nameof(CommentsController.AddArmorReply),
+                    },
+                },
             };
 
             return View(model);

@@ -6,6 +6,8 @@ namespace DestinyCustoms.Models.Comments
 
     public class AddReplyFormModel
     {
+        public string AspActionReplyString { get; set; }
+
         [Required]
         [StringLength(
             MaxContentLength, 

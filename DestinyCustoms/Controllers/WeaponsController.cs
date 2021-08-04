@@ -4,6 +4,7 @@ using DestinyCustoms.Models.Weapons;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Services.Weapons;
 using DestinyCustoms.Services.Comments;
+using DestinyCustoms.Models.Comments;
 
 namespace DestinyCustoms.Controllers
 {
@@ -85,7 +86,21 @@ namespace DestinyCustoms.Controllers
             var model = new FullWeaponDetailsViewModel
             {
                 Weapon = weapon,
-                Comments = this.commentsService.GetByWeaponId(id),
+                CommentToBeAdded = new AddCommentFormModel
+                {
+                    ItemId = weapon.Id,
+                    AspActionCommentString = nameof(CommentsController.AddWeaponComment),
+                },
+                CommentClass = new CommentViewModel
+                {
+                    Comments = this.commentsService.GetByWeaponId(id),
+                    ItemId = weapon.Id,
+                    ReplyToBeAdded = new AddReplyFormModel 
+                    {
+                        ItemId = weapon.Id,
+                        AspActionReplyString = nameof(CommentsController.AddWeaponReply),
+                    },
+                },
             };
 
             //TODO: Remove unneeded classes in View

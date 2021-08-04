@@ -1,0 +1,53 @@
+﻿@model CommentViewModel
+
+
+<div class="row mt-5 bg-light">
+    <div class="container mt-5" id="comments-button">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="d-flex justify-content-center row">
+                <div class="col-12">
+                    <div class="d-flex flex-column ">
+                        <div class="bg-white p-2 mt-2 mb-3">
+                            <div class="d-flex flex-row user-info ">
+                                @*<img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="50">*@
+                                <div class="d-flex flex-column justify-content-start ml-2">
+                                    <span class="d-block font-weight-bold name">@comment.UserUsername</span><span class="date text-black-50">Jan 2020</span>
+                                </div>
+                            </div>
+                            <div class="mt-2 ml-2">
+                                <p>@comment.Content</p>
+                            </div>
+                            <div class="bg-white ml-2">
+                                <div class="d-flex flex-row fs-12">
+                                    <button class="btn btn-primary btn-sm shadow-none mr-3" type="button">
+                                        <i class="fa fa-commenting-o"></i><span class="ml-1">Comments</span>
+                                    </button>
+                                    <section>
+                                        <button class="btn btn-primary btn-sm shadow-none mr-3" type="button">
+                                            <i class="fa fa-thumbs-o-up">
+                                            </i><span class="ml-1">Like</span>
+                                        </button>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-2 ml-3" style="display: none;">
+                            
+                            @{ 
+                                Model.ReplyToBeAdded.CommentId = comment.Id;
+                            }
+                            <partial name="_ReplyFormPartial" model="@Model.ReplyToBeAdded" />
+
+                            @foreach (var reply in comment.Replies)
+                            {
+                                <partial name="_ReplyPartial" model="reply" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -11,8 +11,6 @@ namespace DestinyCustoms.Models.Armors
 
         public AddCommentFormModel CommentToBeAdded { get; set; }
 
-        public IEnumerable<CommentServiceModel> Comments { get; set; }
-
-        public AddReplyFormModel ReplyToBeAdded { get; set; }
+        public CommentViewModel CommentClass { get; set; }
     }
 }

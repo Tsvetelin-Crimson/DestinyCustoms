@@ -62,6 +62,12 @@ namespace DestinyCustoms.Services.Comments
             return reply.Id;
         }
 
+        public CommentServiceModel GetById(int Id)
+            => db.Comments
+                    .Where(c => c.Id == Id)
+                    .ProjectTo<CommentServiceModel>(this.mapper)
+                    .FirstOrDefault();
+
         public IEnumerable<CommentServiceModel> GetByWeaponId(string weaponId)
             => db.Comments
                     .Where(c => c.WeaponId == weaponId)

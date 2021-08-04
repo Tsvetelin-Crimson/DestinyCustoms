@@ -11,6 +11,8 @@ namespace DestinyCustoms.Services.Comments
 
         int CreateReply(string content, int commentId, string userId);
 
+        CommentServiceModel GetById(int Id);
+
         IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId);
 
         IEnumerable<CommentServiceModel> GetByArmorId(string armorId);

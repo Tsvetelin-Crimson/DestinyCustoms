@@ -6,6 +6,7 @@ using DestinyCustoms.Services.Comments;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Models.Armors;
 using DestinyCustoms.Services.Armors;
+using DestinyCustoms.Models.Comments;
 
 namespace DestinyCustoms.Controllers
 {
@@ -27,81 +28,89 @@ namespace DestinyCustoms.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddWeaponComment(FullWeaponDetailsViewModel fullModel)
+        public IActionResult AddWeaponComment(AddCommentFormModel comment)
         {
-            var weaponId = weaponsService.GetIdById(fullModel.CommentToBeAdded.ItemId);
+            var weaponId = this.weaponsService.GetIdById(comment.ItemId);
 
             if (weaponId == null)
             {
-                this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.ItemId), "Weapon does not exist");
+                this.ModelState.AddModelError(nameof(comment.ItemId), "Weapon does not exist");
             }
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.ItemId}");
+                return Redirect($"/Weapons/Details/{comment.ItemId}");
             }
 
             this.commentsService.CreateWeaponComment(
-                fullModel.CommentToBeAdded.Content,
-                fullModel.CommentToBeAdded.ItemId,
+                comment.Content,
+                comment.ItemId,
                 this.User.GetId());
 
-            return Redirect($"/Weapons/Details/{fullModel.CommentToBeAdded.ItemId}");
+            return Redirect($"/Weapons/Details/{comment.ItemId}");
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddWeaponReply(FullWeaponDetailsViewModel fullModel)
+        public IActionResult AddWeaponReply(AddReplyFormModel reply)
         {
-            var weaponId = weaponsService.GetIdById(fullModel.ReplyToBeAdded.ItemId);
+            var weaponId = this.weaponsService.GetIdById(reply.ItemId);
 
             if (weaponId == null)
             {
                 return BadRequest();
             }
 
+            var commentId = this.commentsService.GetById(reply.CommentId);
+
+            if (commentId == null)
+            {
+                return BadRequest();
+            }
+
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Weapons/Details/{fullModel.ReplyToBeAdded.ItemId}");
+                return Redirect($"/Weapons/Details/{reply.ItemId}");
             }
 
             this.commentsService.CreateReply(
-                fullModel.ReplyToBeAdded.Content, 
-                fullModel.ReplyToBeAdded.CommentId, 
+                reply.Content,
+                reply.CommentId,
                 this.User.GetId());
 
-            return Redirect($"/Weapons/Details/{fullModel.ReplyToBeAdded.ItemId}");
+            return Redirect($"/Weapons/Details/{reply.ItemId}");
+
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddArmorComment(FullArmorDetailsViewModel fullModel)
+        public IActionResult AddArmorComment(AddCommentFormModel comment)
         {
-            var armorId = armorsService.GetIdById(fullModel.CommentToBeAdded.ItemId);
+            var armorId = armorsService.GetIdById(comment.ItemId);
 
             if (armorId == null)
             {
-                this.ModelState.AddModelError(nameof(fullModel.CommentToBeAdded.ItemId), "Armor does not exist");
+                this.ModelState.AddModelError(nameof(comment.ItemId), "Armor does not exist");
             }
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Armors/Details/{fullModel.CommentToBeAdded.ItemId}");
+                return Redirect($"/Armors/Details/{comment.ItemId}");
             }
 
             this.commentsService.CreateArmorComment(
-                fullModel.CommentToBeAdded.Content,
-                fullModel.CommentToBeAdded.ItemId,
+                comment.Content,
+                comment.ItemId,
                 this.User.GetId());
 
-            return Redirect($"/Armors/Details/{fullModel.CommentToBeAdded.ItemId}");
+            return Redirect($"/Armors/Details/{comment.ItemId}");
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddArmorReply(FullArmorDetailsViewModel fullModel)
+        public IActionResult AddArmorReply(AddReplyFormModel reply)
         {
-            var armorId = armorsService.GetIdById(fullModel.ReplyToBeAdded.ItemId);
+            var armorId = armorsService.GetIdById(reply.ItemId);
 
             if (armorId == null)
             {
@@ -110,15 +119,15 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Armors/Details/{fullModel.ReplyToBeAdded.ItemId}");
+                return Redirect($"/Armors/Details/{reply.ItemId}");
             }
 
             this.commentsService.CreateReply(
-                fullModel.ReplyToBeAdded.Content,
-                fullModel.ReplyToBeAdded.CommentId,
+                reply.Content,
+                reply.CommentId,
                 this.User.GetId());
 
-            return Redirect($"/Armors/Details/{fullModel.ReplyToBeAdded.ItemId}");
+            return Redirect($"/Armors/Details/{reply.ItemId}");
         }
     }
 }
