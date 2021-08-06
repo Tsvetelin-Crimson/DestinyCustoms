@@ -18,23 +18,23 @@ namespace DestinyCustoms.Tests.Controllers
         public void AllReturnsViewWithCorrectModel()
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(FiveBlankWeaponsWithWeaponClass()))
+                                    .WithData(TenBlankWeaponsWithWeaponClass()))
                 .Calling(c => c.All(new AllWeaponsQueryModel()))
                 .ShouldReturn()
                 .View(view => view
                             .WithModelOfType<AllWeaponsQueryModel>()
                             .Passing(m =>
                             {
-                                Assert.Equal(5, m.AllWeapons);
+                                Assert.Equal(10, m.AllWeapons);
                                 Assert.Equal(3, m.Weapons.Count);
-                                Assert.Equal(5, m.WeaponTypes.Count);
+                                Assert.Equal(10, m.WeaponTypes.Count);
                             }));
 
         [Fact]
         public void GetAddReturnsViewWithCorrectModel()
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(FiveBlankWeaponClasses())
+                                    .WithData(TenBlankWeaponClasses())
                                     .AndAlso()
                                     .WithUser())
                 .Calling(c => c.Add())
@@ -47,7 +47,7 @@ namespace DestinyCustoms.Tests.Controllers
                             .WithModelOfType<AddWeaponFormModel>()
                             .Passing(m =>
                             {
-                                Assert.Equal(5, m.Classes.Count);
+                                Assert.Equal(10, m.Classes.Count);
                             }));
 
         [Theory]
@@ -71,7 +71,7 @@ namespace DestinyCustoms.Tests.Controllers
             int classId)
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(FiveBlankWeaponClasses())
+                                    .WithData(TenBlankWeaponClasses())
                                     .AndAlso()
                                     .WithUser())
                 .Calling(c => c.Add(new AddWeaponFormModel()

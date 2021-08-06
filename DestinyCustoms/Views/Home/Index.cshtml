@@ -5,16 +5,22 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4 text-primary">Welcome</h1>
+    <h1 class="display-4 text-info">Welcome</h1>
+    <h2 class="text-light">In this site you can see the creativity of the destiny community and/or you can become part of that community.</h2>
+
 </div>
 
 
-<div>
+<div class="mt-5">
+
     @if (!User.Identity.IsAuthenticated)
     {
         <h5 class="text-info">Not registered? Click <a href="/Account/Register">here.</a></h5>
     }
-    <h1 class="text-primary">Most Recent Weapons Added</h1>
+    <h2 class="text-info text-center">
+        See some of the most recent creations
+    </h2>
+    <h1 class="text-primary text-center mt-4">Most Recent Weapons Added</h1>
     <div class="row">
         @foreach (var weapon in Model.Weapons)
         {
@@ -25,7 +31,7 @@
     {
         <h3 class="text-info">Want to add one yourself? <a href="/Weapons/Add">Click here.</a></h3>
     }
-    <h1 class="text-primary">Most Recent Armors Added</h1>
+    <h1 class="text-primary text-center mt-5">Most Recent Armors Added</h1>
     <div class="row">
         @foreach (var armor in Model.Armors)
         {

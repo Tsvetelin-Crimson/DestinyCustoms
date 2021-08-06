@@ -84,7 +84,7 @@ namespace DestinyCustoms.Services.Armors
             => db.Armors
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<ArmorServiceModel>(this.mapper)
-            .Take(4)
+            .Take(6)
             .ToList();
 
 

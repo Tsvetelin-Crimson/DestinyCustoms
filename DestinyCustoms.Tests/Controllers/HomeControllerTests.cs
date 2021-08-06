@@ -15,17 +15,17 @@ namespace DestinyCustoms.Tests.Controllers
         public void IndexReturnsCorrectViewWithCorrectAmountOfArmorsInTheModel()
             => MyController<HomeController>
                 .Instance(controller => controller
-                    .WithData(FiveBlankArmors())
+                    .WithData(TenBlankArmors())
                     .AndAlso()
-                    .WithData(FiveBlankWeaponsWithWeaponClass()))
+                    .WithData(TenBlankWeaponsWithWeaponClass()))
                 .Calling(c => c.Index())
                 .ShouldReturn()
                 .View(view => view
                     .WithModelOfType<HomeViewModel>()
                     .Passing(m =>
                     {
-                        Assert.Equal(4, m.Armors.Count());
-                        Assert.Equal(4, m.Weapons.Count());
+                        Assert.Equal(6, m.Armors.Count());
+                        Assert.Equal(6, m.Weapons.Count());
                     }));
 
         [Fact]

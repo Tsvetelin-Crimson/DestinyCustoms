@@ -4,16 +4,16 @@
     ViewBag.Title = "All Weapons";
 }
 
-<div class="album py-5 bg-light">
+<div class="album py-5 bg-transparent">
     <form method="get">
         <div class="row form-group ml-2 mb-4">
             <div class="col-5">
-                <label asp-for="SearchTerm">Weapon name:</label>
-                <input type="text" class="form-control" asp-for="SearchTerm" />
+                <label class="text-light" asp-for="SearchTerm">Weapon name:</label>
+                <input type="text" class="form-control bg-dark text-light" asp-for="SearchTerm" />
             </div>
             <div class="col-4">
-                <label asp-for="WeaponType">Weapon Class:</label>
-                <select class="form-control" asp-for="WeaponType">
+                <label class="text-light" asp-for="WeaponType">Weapon Class:</label>
+                <select class="form-control bg-dark text-light" asp-for="WeaponType">
                     <option value="All">All</option>
                     @foreach (var weaponClass in Model.WeaponTypes)
                     {

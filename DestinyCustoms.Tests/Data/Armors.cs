@@ -6,8 +6,8 @@ namespace DestinyCustoms.Tests.Data
 {
     public static class Armors
     {
-        public static IEnumerable<ExoticArmor> FiveBlankArmors()
-            => Enumerable.Range(0, 5)
+        public static IEnumerable<ExoticArmor> TenBlankArmors()
+            => Enumerable.Range(0, 10)
             .Select(w => new ExoticArmor());
     }
 }

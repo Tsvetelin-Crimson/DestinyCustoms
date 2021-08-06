@@ -62,7 +62,7 @@ namespace DestinyCustoms.Services.Weapons
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<WeaponServiceModel>(this.mapper)
-            .Take(4)
+            .Take(6)
             .ToList();
 
         public WeaponDetailsServiceModel GetById(string id)
