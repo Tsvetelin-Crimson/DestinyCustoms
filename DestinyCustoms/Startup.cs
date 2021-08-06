@@ -28,8 +28,7 @@ namespace DestinyCustoms
         {
             services.AddDbContext<DestinyCustomsDbContext>(options =>
                 options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                );
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

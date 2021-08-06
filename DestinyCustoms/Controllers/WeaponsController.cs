@@ -24,6 +24,21 @@ namespace DestinyCustoms.Controllers
             this.commentsService = commentsService;
         }
 
+        public IActionResult All([FromQuery] AllWeaponsQueryModel query)
+        {
+            var weapons = this.weaponsService.All(
+                        query.SearchTerm,
+                        query.WeaponType,
+                        query.WeaponsPerPage,
+                        query.CurrentPage);
+
+            query.Weapons = weapons.Weapons;
+            query.WeaponTypes = this.weaponsService.AllWeaponTypes();
+            query.AllWeapons = weapons.AllWeapons;
+
+            return View(query);
+        }
+
         [Authorize]
         public IActionResult Add()
             => View(new AddWeaponFormModel { Classes = this.weaponsService.AllClasses() });
@@ -56,21 +71,6 @@ namespace DestinyCustoms.Controllers
 
             //TODO: Redirect to details page of the weapon
             return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult All([FromQuery]AllWeaponsQueryModel query)
-        {
-            var weapons = this.weaponsService.All(
-                        query.SearchTerm, 
-                        query.WeaponType, 
-                        query.WeaponsPerPage,
-                        query.CurrentPage);
-
-            query.Weapons = weapons.Weapons;
-            query.WeaponTypes = this.weaponsService.AllWeaponTypes();
-            query.AllWeapons = weapons.AllWeapons;
-
-            return View(query);
         }
 
         [Authorize]

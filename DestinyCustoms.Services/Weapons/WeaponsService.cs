@@ -27,7 +27,7 @@ namespace DestinyCustoms.Services.Weapons
             int currentPage)
         {
             var weaponsQuery = db.Weapons.AsQueryable();
-
+ 
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 weaponsQuery = weaponsQuery.Where(w => w.Name.Contains(searchTerm));
@@ -47,22 +47,22 @@ namespace DestinyCustoms.Services.Weapons
 
             return new WeaponsQueryServiceModel
             {
-                Weapons = weapons,
+                Weapons = weapons.ToList(),
                 AllWeapons = weaponsQuery.Count(),
             };
         }
 
-        public IEnumerable<WeaponServiceModel> AllUserOwned(string userId)
+        public List<WeaponServiceModel> AllUserOwned(string userId)
             => db.Weapons
             .Where(w => w.UserId == userId)
             .ProjectTo<WeaponServiceModel>(this.mapper)
             .ToList();
 
-        public IEnumerable<WeaponServiceModel> MostRecentlyCreated()
+        public List<WeaponServiceModel> MostRecentlyCreated()
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<WeaponServiceModel>(this.mapper)
-            .Take(6)
+            .Take(4)
             .ToList();
 
         public WeaponDetailsServiceModel GetById(string id)
@@ -158,10 +158,10 @@ namespace DestinyCustoms.Services.Weapons
         }
 
 
-        public IEnumerable<string> AllWeaponTypes()
+        public List<string> AllWeaponTypes()
             => db.WeaponClasses.Select(i => i.Name).ToList();
 
-        public IEnumerable<WeaponClassServiceModel> AllClasses()
+        public List<WeaponClassServiceModel> AllClasses()
             => db.WeaponClasses
             .ProjectTo<WeaponClassServiceModel>(this.mapper)
             .ToList();

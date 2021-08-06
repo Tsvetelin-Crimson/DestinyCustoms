@@ -46,6 +46,6 @@ namespace DestinyCustoms.Models.Weapons
         [Display(Name = "Weapon Class")]
         public int ClassId { get; set; }
 
-        public IEnumerable<WeaponClassServiceModel> Classes { get; set; }
+        public ICollection<WeaponClassServiceModel> Classes { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace DestinyCustoms.Services.Weapons.Models
     {
         public int AllWeapons { get; set; }
 
-        public IEnumerable<WeaponServiceModel> Weapons { get; set; }
+        public List<WeaponServiceModel> Weapons { get; set; }
     }
 }

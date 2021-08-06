@@ -11,9 +11,9 @@ namespace DestinyCustoms.Services.Weapons
             int weaponsPerPage,
             int currentPage);
 
-        IEnumerable<WeaponServiceModel> AllUserOwned(string userId);
+        List<WeaponServiceModel> AllUserOwned(string userId);
 
-        IEnumerable<WeaponServiceModel> MostRecentlyCreated();
+        List<WeaponServiceModel> MostRecentlyCreated();
 
         WeaponDetailsServiceModel GetById(string id);
 
@@ -46,10 +46,10 @@ namespace DestinyCustoms.Services.Weapons
 
         public void Delete(string id);
 
-        IEnumerable<string> AllWeaponTypes();
+        List<string> AllWeaponTypes();
 
         bool WeaponClassExists(int classId);
 
-        IEnumerable<WeaponClassServiceModel> AllClasses();
+        List<WeaponClassServiceModel> AllClasses();
     }
 }

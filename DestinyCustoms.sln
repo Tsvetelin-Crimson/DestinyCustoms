@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyCustoms.Data", "Dest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyCustoms.Common", "DestinyCustoms.Common\DestinyCustoms.Common.csproj", "{D0AD6760-CE99-47FF-8EE6-C8D35D390334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Services", "DestinyCustoms.Services\DestinyCustoms.Services.csproj", "{151C072F-C5FD-4446-B95B-E12D83B0AD86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DestinyCustoms.Services", "DestinyCustoms.Services\DestinyCustoms.Services.csproj", "{151C072F-C5FD-4446-B95B-E12D83B0AD86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DestinyCustoms.Tests", "DestinyCustoms.Tests\DestinyCustoms.Tests.csproj", "{D2C04AFE-4792-4C1F-B3ED-47589A10909B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151C072F-C5FD-4446-B95B-E12D83B0AD86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C04AFE-4792-4C1F-B3ED-47589A10909B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C04AFE-4792-4C1F-B3ED-47589A10909B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C04AFE-4792-4C1F-B3ED-47589A10909B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C04AFE-4792-4C1F-B3ED-47589A10909B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
