@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-@*radial-gradient(ellipse at top, #4e3863, transparent), radial-gradient(ellipse at bottom, #ff9340, transparent)*@
-@*radial-gradient(#ff8000, #4e3863 50%)*@ @*#4e3863  #570c94*@
 <body style="background: radial-gradient(#570c94 10%,#4e3863 100%) ">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
@@ -29,7 +27,7 @@
                                 <div class="dropdown-menu bg-dark" style="width: 100px;" aria-labelledby="dropdownMenuButton">
                                     <a class="nav-link text-light" asp-controller="Weapons" asp-action="All">All</a>
                                     <a class="nav-link text-light" asp-controller="Weapons" asp-action="Add">Add</a>
-                                    @if (this.User.GetId() != null)
+                                    @if (this.User.Identity.IsAuthenticated)
                                     {
                                         <a class="nav-link text-light" asp-controller="Weapons" asp-action="MyWeapons">My Weapons</a>
                                     }
