@@ -60,7 +60,7 @@ namespace DestinyCustoms.Controllers
                 return View(armor);
             }
 
-            this.armorsService.Create(
+            var armorId = this.armorsService.Create(
                 armor.Name, 
                 armor.IntrinsicName, 
                 armor.IntrinsicDescription, 
@@ -68,8 +68,10 @@ namespace DestinyCustoms.Controllers
                 armor.ImageUrl, 
                 this.User.GetId());
 
-            //TODO: Redirect to details page of the armor
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(
+                nameof(ArmorsController.Details),
+                nameof(ArmorsController).RemoveControllerFromString(),
+                new { id = armorId });
         }
 
         public IActionResult Details(string id)
@@ -166,7 +168,10 @@ namespace DestinyCustoms.Controllers
                 classEnum,
                 newArmor.ImageUrl);
 
-            return RedirectToAction("Details", "Armors", new { id = armor.Id });
+            return RedirectToAction(
+                nameof(ArmorsController.Details),
+                nameof(ArmorsController).RemoveControllerFromString(),
+                new { id = armor.Id });
         }
 
 
@@ -187,7 +192,7 @@ namespace DestinyCustoms.Controllers
 
             this.armorsService.Delete(armor.Id);
 
-            return RedirectToAction("All", "Armors");
+            return RedirectToAction(nameof(ArmorsController.All), nameof(ArmorsController).RemoveControllerFromString());
         }
 
         [Authorize]

@@ -39,7 +39,10 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Weapons/Details/{comment.ItemId}");
+                return RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
             }
 
             this.commentsService.CreateWeaponComment(
@@ -47,7 +50,10 @@ namespace DestinyCustoms.Controllers
                 comment.ItemId,
                 this.User.GetId());
 
-            return Redirect($"/Weapons/Details/{comment.ItemId}");
+            return RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
         }
 
         [Authorize]
@@ -70,7 +76,10 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Weapons/Details/{reply.ItemId}");
+                return RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = reply.ItemId }); ;
             }
 
             this.commentsService.CreateReply(
@@ -78,7 +87,10 @@ namespace DestinyCustoms.Controllers
                 reply.CommentId,
                 this.User.GetId());
 
-            return Redirect($"/Weapons/Details/{reply.ItemId}");
+            return RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = reply.ItemId }); ;
 
         }
 
@@ -95,7 +107,10 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Armors/Details/{comment.ItemId}");
+                return RedirectToAction(
+                    nameof(ArmorsController.Details),
+                    nameof(ArmorsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
             }
 
             this.commentsService.CreateArmorComment(
@@ -103,7 +118,10 @@ namespace DestinyCustoms.Controllers
                 comment.ItemId,
                 this.User.GetId());
 
-            return Redirect($"/Armors/Details/{comment.ItemId}");
+            return RedirectToAction(
+                    nameof(ArmorsController.Details),
+                    nameof(ArmorsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
         }
 
         [Authorize]
@@ -119,7 +137,10 @@ namespace DestinyCustoms.Controllers
 
             if (!this.ModelState.IsValid)
             {
-                return Redirect($"/Armors/Details/{reply.ItemId}");
+                return RedirectToAction(
+                    nameof(ArmorsController.Details),
+                    nameof(ArmorsController).RemoveControllerFromString(),
+                    new { id = reply.ItemId });
             }
 
             this.commentsService.CreateReply(
@@ -127,7 +148,10 @@ namespace DestinyCustoms.Controllers
                 reply.CommentId,
                 this.User.GetId());
 
-            return Redirect($"/Armors/Details/{reply.ItemId}");
+            return RedirectToAction(
+                    nameof(ArmorsController.Details),
+                    nameof(ArmorsController).RemoveControllerFromString(),
+                    new { id = reply.ItemId });
         }
     }
 }

@@ -58,7 +58,7 @@ namespace DestinyCustoms.Controllers
                 return View(weapon);
             }
 
-            this.weaponsService.Create(
+            var weaponId = this.weaponsService.Create(
                     weapon.Name,
                     weapon.IntrinsicName,
                     weapon.IntrinsicDescription,
@@ -69,8 +69,10 @@ namespace DestinyCustoms.Controllers
                     weapon.ImageUrl,
                     this.User.GetId());
 
-            //TODO: Redirect to details page of the weapon
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(
+                nameof(WeaponsController.Details),
+                nameof(WeaponsController).RemoveControllerFromString(), 
+                new { id = weaponId });
         }
 
         [Authorize]
@@ -178,7 +180,10 @@ namespace DestinyCustoms.Controllers
                 newWeapon.ClassId,
                 newWeapon.ImageUrl);
 
-            return RedirectToAction("Details", "Weapons", new { id = weapon.Id });
+            return RedirectToAction(
+                nameof(WeaponsController.Details), 
+                nameof(WeaponsController).RemoveControllerFromString(), 
+                new { id = weapon.Id });
         }
 
         [Authorize]
@@ -198,7 +203,7 @@ namespace DestinyCustoms.Controllers
 
             this.weaponsService.Delete(weapon.Id);
 
-            return RedirectToAction("All", "Weapons");
+            return RedirectToAction(nameof(WeaponsController.All), nameof(WeaponsController).RemoveControllerFromString());
         }
 
         [Authorize]

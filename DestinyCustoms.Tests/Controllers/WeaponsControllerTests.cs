@@ -1,11 +1,11 @@
-﻿using DestinyCustoms.Controllers;
+﻿using System.Linq;
+using System.Collections.Generic;
+using DestinyCustoms.Controllers;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Models.Weapons;
 using DestinyCustoms.Services.Weapons.Models;
 using MyTested.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace DestinyCustoms.Tests.Controllers
@@ -103,7 +103,7 @@ namespace DestinyCustoms.Tests.Controllers
                 .AndAlso()
                 .ShouldReturn()
                 .Redirect(redirect => redirect
-                                        .To<HomeController>(c => c.Index()));
+                                        .To<WeaponsController>(c => c.Details(With.Any<string>())));
 
         [Theory]
         [InlineData("WeaponGuid")]
