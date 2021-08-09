@@ -58,7 +58,7 @@ namespace DestinyCustoms.Services.Armors
             };
         }
 
-        public IEnumerable<ArmorServiceModel> AllUserOwned(string userId)
+        public List<ArmorServiceModel> AllUserOwned(string userId)
             => db.Armors
             .Where(w => w.UserId == userId)
             .ProjectTo<ArmorServiceModel>(this.mapper)
@@ -82,7 +82,7 @@ namespace DestinyCustoms.Services.Armors
             .ProjectTo<ArmorValidationServiceModel>(this.mapper)
             .FirstOrDefault();
 
-        public IEnumerable<ArmorServiceModel> MostRecentlyCreated()
+        public List<ArmorServiceModel> MostRecentlyCreated()
             => db.Armors
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<ArmorServiceModel>(this.mapper)
@@ -158,7 +158,7 @@ namespace DestinyCustoms.Services.Armors
             }
         }
 
-        public IEnumerable<string> AllClassNames()
+        public List<string> AllClassNames()
             => Enum.GetNames(typeof(CharacterClass)).ToList();
 
         public (bool, CharacterClass) IsCharacterClassNameValid(string name)

@@ -12,13 +12,13 @@ namespace DestinyCustoms.Models.Armors
 
         public int AllArmorsCount { get; set; }
 
-        public IEnumerable<string> Classes { get; set; }
+        public List<string> Classes { get; set; }
 
         public string Class { get; set; }
 
         [Display(Name = "Search by weapon name:")]
         public string SearchTerm { get; set; }
 
-        public IEnumerable<ArmorServiceModel> Armors { get; set; }
+        public List<ArmorServiceModel> Armors { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace DestinyCustoms.Data.Models
 
         public string WeaponId { get; init; }
 
-        public ExoticWeapon Exotic { get; init; }
+        public ExoticWeapon Weapon { get; init; }
 
         public string ArmorId { get; init; }
 

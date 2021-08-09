@@ -10,6 +10,6 @@ namespace DestinyCustoms.Services.Armors.Models
     {
         public int AllArmorsCount { get; set; }
 
-        public IEnumerable<ArmorServiceModel> Armors { get; set; }
+        public List<ArmorServiceModel> Armors { get; set; }
     }
 }

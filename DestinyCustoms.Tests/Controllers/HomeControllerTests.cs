@@ -17,7 +17,7 @@ namespace DestinyCustoms.Tests.Controllers
                 .Instance(controller => controller
                     .WithData(TenBlankArmors())
                     .AndAlso()
-                    .WithData(TenBlankWeaponsWithWeaponClass()))
+                    .WithData(TenBlankWeapons()))
                 .Calling(c => c.Index())
                 .ShouldReturn()
                 .View(view => view

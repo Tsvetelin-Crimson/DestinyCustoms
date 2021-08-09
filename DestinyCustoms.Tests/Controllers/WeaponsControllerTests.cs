@@ -18,7 +18,7 @@ namespace DestinyCustoms.Tests.Controllers
         public void AllReturnsViewWithCorrectModel()
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(TenBlankWeaponsWithWeaponClass()))
+                                    .WithData(TenBlankWeapons()))
                 .Calling(c => c.All(new AllWeaponsQueryModel()))
                 .ShouldReturn()
                 .View(view => view
@@ -96,6 +96,7 @@ namespace DestinyCustoms.Tests.Controllers
                                             w.Name == name &&
                                             w.IntrinsicName == intrinsicName &&
                                             w.IntrinsicDescription == intrinsicDescription &&
+                                            w.CatalystName == catalystName &&
                                             w.CatalystCompletionRequirement == catalystCompletionRequirement &&
                                             w.CatalystEffect == catalystEffect &&
                                             w.ImageURL == imageUrl &&
@@ -110,13 +111,9 @@ namespace DestinyCustoms.Tests.Controllers
         public void DetailsReturnsViewWithCorrectModel(string weaponId) //TODO: Add Comments to test as well
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(OneWeaponsWithWeaponClassAndSetId(weaponId))
+                                    .WithData(OneWeaponWithSetId(weaponId))
                                     .WithUser())
                 .Calling(c => c.Details(weaponId))
-                .ShouldHave()
-                .ActionAttributes(attributes => attributes
-                                        .RestrictingForAuthorizedRequests())
-                .AndAlso()
                 .ShouldReturn()
                 .View(view => view
                             .WithModelOfType<FullWeaponDetailsViewModel>()
@@ -130,7 +127,8 @@ namespace DestinyCustoms.Tests.Controllers
         public void GetEditReturnsViewWithCorrectModel(string weaponId, string name)
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(OneWeaponsWithWeaponClassAndSetId(weaponId, name))
+                                    .WithData(OneWeaponWithSetId(weaponId, name))
+                                    .AndAlso()
                                     .WithUser())
                 .Calling(c => c.Edit(weaponId))
                 .ShouldHave()
@@ -156,7 +154,8 @@ namespace DestinyCustoms.Tests.Controllers
             "CatalystEff",
             "https://i.kym-cdn.com/photos/images/newsfeed/001/006/166/66f.png",
             1)]
-        public void PostEditEditsWeaponCorrectlyAndReturnsRedirect(string weaponId,
+        public void PostEditEditsWeaponCorrectlyAndReturnsRedirect(
+            string weaponId,
             string name,
             string intrinsicName,
             string intrinsicDescription,
@@ -167,7 +166,7 @@ namespace DestinyCustoms.Tests.Controllers
             int classId)
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(OneWeaponsWithWeaponClassAndSetId(weaponId))
+                                    .WithData(OneWeaponWithSetId(weaponId))
                                     .WithUser())
                 .Calling(c => c.Edit(weaponId, new AddWeaponFormModel
                 {
@@ -179,20 +178,20 @@ namespace DestinyCustoms.Tests.Controllers
                     CatalystEffect = catalystEffect,
                     ImageUrl = imageUrl,
                     ClassId = classId,
-                }
-                         ))
+                }))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
                                         .RestrictingForAuthorizedRequests())
                 .Data(db => db
                             .WithSet<ExoticWeapon>(weapons => weapons
                                             .Any(w => w.Name == name &&
-                                                        w.IntrinsicName == intrinsicName &&
-                                                        w.IntrinsicDescription == intrinsicDescription &&
-                                                        w.CatalystCompletionRequirement == catalystCompletionRequirement &&
-                                                        w.CatalystEffect == catalystEffect &&
-                                                        w.ImageURL == imageUrl &&
-                                                        w.WeaponClassId == classId)))
+                                                      w.IntrinsicName == intrinsicName &&
+                                                      w.IntrinsicDescription == intrinsicDescription &&
+                                                      w.CatalystName == catalystName &&
+                                                      w.CatalystCompletionRequirement == catalystCompletionRequirement &&
+                                                      w.CatalystEffect == catalystEffect &&
+                                                      w.ImageURL == imageUrl &&
+                                                      w.WeaponClassId == classId)))
                 .AndAlso()
                 .ShouldReturn()
                 .RedirectToAction(nameof(WeaponsController.Details), nameof(WeaponsController).RemoveControllerFromString(), new { id = weaponId });
@@ -205,7 +204,7 @@ namespace DestinyCustoms.Tests.Controllers
                 .Instance(controller => controller
                                             .WithUser()
                                             .AndAlso()
-                                            .WithData(OneWeaponsWithWeaponClassAndSetId(weaponId)))
+                                            .WithData(OneWeaponWithSetId(weaponId)))
                 .Calling(c => c.Delete(weaponId))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
@@ -217,13 +216,14 @@ namespace DestinyCustoms.Tests.Controllers
                 .RedirectToAction(nameof(WeaponsController.All), nameof(WeaponsController).RemoveControllerFromString());
 
         [Theory]
-        [InlineData("WeaponId")]
-        public void MyWeaponsReturnsCorrectView(string weaponId) //TODO: Change so this test uses 2 weapons aka add a new method in data/weapons
+        [InlineData("WeaponId", "SecondUserId")]
+        public void MyWeaponsReturnsCorrectView(string weaponId, string userId)
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                            .WithUser()
+                                            .WithUser(u => 
+                                                u.WithIdentifier(userId))
                                             .AndAlso()
-                                            .WithData(OneWeaponsWithWeaponClassAndSetId(weaponId)))
+                                            .WithData(ThreeWeaponsOneUserOwned(weaponId, userId)))
                 .Calling(c => c.MyWeapons())
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes

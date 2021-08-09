@@ -12,7 +12,7 @@ namespace DestinyCustoms.Services.Armors
             int armorsPerPage,
             int currentPage);
 
-        IEnumerable<ArmorServiceModel> AllUserOwned(string userId);
+        List<ArmorServiceModel> AllUserOwned(string userId);
 
         ArmorDetailsServiceModel GetById(string id);
 
@@ -21,7 +21,7 @@ namespace DestinyCustoms.Services.Armors
 
         ArmorValidationServiceModel GetIdAndUserIdById(string id);
 
-        IEnumerable<ArmorServiceModel> MostRecentlyCreated();
+        List<ArmorServiceModel> MostRecentlyCreated();
 
         string Create(
             string name,
@@ -41,7 +41,7 @@ namespace DestinyCustoms.Services.Armors
 
         void Delete(string id);
 
-        IEnumerable<string> AllClassNames();
+        List<string> AllClassNames();
 
         (bool, CharacterClass) IsCharacterClassNameValid(string name);
 
