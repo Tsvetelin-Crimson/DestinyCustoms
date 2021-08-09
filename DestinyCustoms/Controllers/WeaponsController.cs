@@ -75,7 +75,6 @@ namespace DestinyCustoms.Controllers
                 new { id = weaponId });
         }
 
-        [Authorize]
         public IActionResult Details(string id)
         {
             var weapon = this.weaponsService.GetById(id);

@@ -9,6 +9,8 @@ using DestinyCustoms.Services.Weapons.Models;
 
 namespace DestinyCustoms.Services.Weapons
 {
+
+    using static Common.DataConstants.Weapon;
     public class WeaponsService : IWeaponsService
     {
         private readonly DestinyCustomsDbContext db;
@@ -95,6 +97,11 @@ namespace DestinyCustoms.Services.Weapons
             string userId)
         {
             // TODO: Add default Image URL If null
+            if (imageUrl == null)
+            {
+                imageUrl = DefaultImageUrl;
+            }
+
             var weaponData = new ExoticWeapon
             {
                 Name = name,
@@ -136,7 +143,7 @@ namespace DestinyCustoms.Services.Weapons
             weapon.CatalystCompletionRequirement = catalystCompletionRequirement;
             weapon.CatalystEffect = catalystEffect;
             weapon.WeaponClassId = classId;
-            weapon.ImageURL = imageUrl;
+            weapon.ImageURL = imageUrl ?? DefaultImageUrl;
             weapon.DateModified = DateTime.UtcNow;
 
             db.SaveChanges();

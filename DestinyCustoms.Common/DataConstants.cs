@@ -16,6 +16,8 @@
             public const int MinCatalystCompletionLength = 10;
             public const int MaxCatalystEffectLength = 100;
             public const int MinCatalystEffectLength = 10;
+
+            public const string DefaultImageUrl = "https://w7.pngwing.com/pngs/552/585/png-transparent-computer-icons-rifle-weapon-firearm-pistol-military-rifle-icon-miscellaneous-angle-hand-thumbnail.png";
         }
 
         public class Armor
@@ -26,6 +28,8 @@
             public const int MinIntrinsicNameLength = 5;
             public const int MaxIntrinsicDescriptionLength = 500;
             public const int MinIntrinsicDescriptionLength = 10;
+
+            public const string DefaultImageUrl = "https://image.flaticon.com/icons/png/512/2147/2147193.png";
         }
 
         public class WeaponClass

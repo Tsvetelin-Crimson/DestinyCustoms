@@ -10,6 +10,8 @@ using DestinyCustoms.Data.Models;
 
 namespace DestinyCustoms.Services.Armors
 {
+
+    using static Common.DataConstants.Armor;
     public class ArmorsService : IArmorsService
     {
         private readonly DestinyCustomsDbContext db;
@@ -97,6 +99,11 @@ namespace DestinyCustoms.Services.Armors
             string userId)
         {
             // TODO: Add default Image URL If null
+            if (imageUrl == null)
+            {
+                imageUrl = DefaultImageUrl;
+            }
+
             var armor = new ExoticArmor
             {
                 Name = name,
@@ -130,7 +137,7 @@ namespace DestinyCustoms.Services.Armors
             weapon.IntrinsicName = intrinsicName;
             weapon.IntrinsicDescription = intrinsicDescription;
             weapon.CharacterClass = classEnum;
-            weapon.ImageURL = imageUrl;
+            weapon.ImageURL = imageUrl ?? DefaultImageUrl;
             weapon.DateModified = DateTime.UtcNow;
 
             db.SaveChanges();
@@ -160,7 +167,5 @@ namespace DestinyCustoms.Services.Armors
 
             return (isClassCorrect, classEnum);
         }
-
-        
     }
 }

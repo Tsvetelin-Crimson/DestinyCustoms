@@ -24,18 +24,22 @@
         </div>
     </div>
 </div>
-@if (this.User.GetId() == Model.Armor.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+@if (this.User.Identity.IsAuthenticated)
 {
-    <div class="row mt-3">
-        <div class="col-12 text-right">
-            <a class="btn btn-secondary mr-1" href="/Armors/Edit/@Model.Armor.Id">Edit</a>
-            <a class="btn btn-danger " href="/Armors/Delete/@Model.Armor.Id">Delete</a>
+
+    @if (this.User.GetId() == Model.Armor.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+    {
+        <div class="row mt-3">
+            <div class="col-12 text-right">
+                <a class="btn btn-secondary mr-1" href="/Armors/Edit/@Model.Armor.Id">Edit</a>
+                <a class="btn btn-danger " href="/Armors/Delete/@Model.Armor.Id">Delete</a>
+            </div>
         </div>
-    </div>
+    }
+
+
+    <partial name="_CommentFormPartial" model="@Model.CommentToBeAdded" />
 }
-
-
-<partial name="_CommentFormPartial" model="@Model.CommentToBeAdded" />
 
 
 <partial name="_CommentPartial" model="@Model.CommentClass" />

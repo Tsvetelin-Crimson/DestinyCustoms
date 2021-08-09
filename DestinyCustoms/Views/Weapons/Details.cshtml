@@ -1,5 +1,4 @@
 ﻿@model FullWeaponDetailsViewModel
-@using DestinyCustoms.Controllers
 
 @{
     ViewBag.Title = "Weapon Details";
@@ -32,20 +31,22 @@
         </div>
     </div>
 </div>
-@if (this.User.GetId() == Model.Weapon.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+@if (this.User.Identity.IsAuthenticated)
 {
-    <div class="row mt-3">
-        <div class="col-12 text-right">
-            <a class="btn btn-secondary mr-1" href="/Weapons/Edit/@Model.Weapon.Id">Edit</a>
-            <a class="btn btn-danger " href="/Weapons/Delete/@Model.Weapon.Id">Delete</a>
+    @if (this.User.GetId() == Model.Weapon.UserId || this.User.IsInRole(WebConstants.adminRoleName))
+    {
+        <div class="row mt-3">
+            <div class="col-12 text-right">
+                <a class="btn btn-secondary mr-1" href="/Weapons/Edit/@Model.Weapon.Id">Edit</a>
+                <a class="btn btn-danger " href="/Weapons/Delete/@Model.Weapon.Id">Delete</a>
+            </div>
         </div>
-    </div>
+    }
+
+    <partial name="_CommentFormPartial" model="@Model.CommentToBeAdded" />
 }
 
-<partial name="_CommentFormPartial" model="@Model.CommentToBeAdded" />
-
-
-<partial name="_CommentPartial" model="@Model.CommentClass" />
+    <partial name="_CommentPartial" model="@Model.CommentClass" />
 
 
 @section Scripts {
