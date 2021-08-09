@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -46,6 +47,8 @@ namespace DestinyCustoms.Data.Models
 
         [Required]
         public string UserId { get; init; }
+
+        public IdentityUser User { get; set; }
 
         public int WeaponClassId { get; set; }
 

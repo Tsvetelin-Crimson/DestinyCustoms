@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DestinyCustoms.Services.CommonModels;
 using DestinyCustoms.Services.Weapons.Models;
 
 namespace DestinyCustoms.Services.Weapons
@@ -15,10 +16,11 @@ namespace DestinyCustoms.Services.Weapons
 
         List<WeaponServiceModel> MostRecentlyCreated();
 
+        List<AdminMostRecentServiceModel> AdminMostRecentlyModified();
+
         WeaponDetailsServiceModel GetById(string id);
 
         string GetIdById(string id);
-
 
         public WeaponValidationServiceModel GetIdAndUserIdById(string id);
 

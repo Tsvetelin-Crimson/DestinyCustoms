@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DestinyCustoms.Common.Enums;
 using DestinyCustoms.Services.Armors.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services.Armors
 {
@@ -18,10 +19,11 @@ namespace DestinyCustoms.Services.Armors
 
         string GetIdById(string id);
 
-
         ArmorValidationServiceModel GetIdAndUserIdById(string id);
 
         List<ArmorServiceModel> MostRecentlyCreated();
+
+        List<AdminMostRecentServiceModel> AdminMostRecentlyModified();
 
         string Create(
             string name,

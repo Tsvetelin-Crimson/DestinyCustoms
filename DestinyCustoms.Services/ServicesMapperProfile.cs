@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Comments.Models;
 using DestinyCustoms.Services.Weapons.Models;
-using System.Linq;
-using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Services.Armors.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services
 {
@@ -19,6 +20,9 @@ namespace DestinyCustoms.Services
             this.CreateMap<ExoticWeapon, WeaponDetailsServiceModel>()
                 .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
                 .ForMember(w => w.ClassId, cfg => cfg.MapFrom(w => w.WeaponClass.Id));
+
+            this.CreateMap<ExoticWeapon, AdminMostRecentServiceModel>();
+            this.CreateMap<ExoticArmor, AdminMostRecentServiceModel>();
 
             this.CreateMap<ExoticArmor, ArmorValidationServiceModel>();
             this.CreateMap<ExoticArmor, ArmorServiceModel>()

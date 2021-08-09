@@ -7,11 +7,12 @@ using DestinyCustoms.Common.Enums;
 using DestinyCustoms.Data;
 using DestinyCustoms.Services.Armors.Models;
 using DestinyCustoms.Data.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services.Armors
 {
-
     using static Common.DataConstants.Armor;
+    using static Common.WebConstants;
     public class ArmorsService : IArmorsService
     {
         private readonly DestinyCustomsDbContext db;
@@ -86,9 +87,16 @@ namespace DestinyCustoms.Services.Armors
             => db.Armors
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<ArmorServiceModel>(this.mapper)
-            .Take(6)
+            .Take(HomePageNumberOfItems)
             .ToList();
 
+
+
+        public List<AdminMostRecentServiceModel> AdminMostRecentlyModified()
+            => db.Armors
+                .OrderByDescending(w => w.DateCreated)
+                .ProjectTo<AdminMostRecentServiceModel>(this.mapper)
+                .ToList();
 
         public string Create(
             string name, 
@@ -157,7 +165,6 @@ namespace DestinyCustoms.Services.Armors
                 db.SaveChanges();
             }
         }
-
         public List<string> AllClassNames()
             => Enum.GetNames(typeof(CharacterClass)).ToList();
 

@@ -6,11 +6,13 @@ using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Weapons.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services.Weapons
 {
 
     using static Common.DataConstants.Weapon;
+    using static Common.WebConstants;
     public class WeaponsService : IWeaponsService
     {
         private readonly DestinyCustomsDbContext db;
@@ -64,9 +66,14 @@ namespace DestinyCustoms.Services.Weapons
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)
             .ProjectTo<WeaponServiceModel>(this.mapper)
-            .Take(6)
+            .Take(HomePageNumberOfItems)
             .ToList();
 
+        public List<AdminMostRecentServiceModel> AdminMostRecentlyModified()
+            => db.Weapons
+                .OrderByDescending(w => w.DateModified)
+                .ProjectTo<AdminMostRecentServiceModel>(this.mapper)
+                .ToList();
         public WeaponDetailsServiceModel GetById(string id)
             => db.Weapons
             .Where(w => w.Id == id)

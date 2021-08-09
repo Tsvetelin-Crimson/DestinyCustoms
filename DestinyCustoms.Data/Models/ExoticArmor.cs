@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using DestinyCustoms.Common.Enums;
 
 namespace DestinyCustoms.Data.Models
@@ -32,6 +33,8 @@ namespace DestinyCustoms.Data.Models
 
         [Required]
         public string UserId { get; init; }
+
+        public IdentityUser User { get; set; }
 
         [Required]
         public CharacterClass CharacterClass { get; set; }

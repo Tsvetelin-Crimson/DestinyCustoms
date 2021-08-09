@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DestinyCustoms.Common\DestinyCustoms.Common.csproj" />
     <ProjectReference Include="..\DestinyCustoms.Data\DestinyCustoms.Data.csproj" />
   </ItemGroup>
 
