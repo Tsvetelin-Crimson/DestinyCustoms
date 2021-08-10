@@ -30,7 +30,7 @@ namespace DestinyCustoms.Models.Armors
         public string IntrinsicDescription { get; set; }
 
         [Url]
-        [Display(Name = "ImageUrl for the Armor (Leave empty to use the default one)")]
+        [Display(Name = "ImageUrl for the Armor (Optional)")]
         public string ImageUrl { get; set; }
 
         [Required]

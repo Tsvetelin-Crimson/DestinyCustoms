@@ -57,7 +57,7 @@ namespace DestinyCustoms.Models.Weapons
         public string CatalystEffect { get; set; }
 
         [Url]
-        [Display(Name = "ImageUrl for the weapon (Leave empty to use the default one)")]
+        [Display(Name = "ImageUrl for the weapon (Optional)")]
         public string ImageUrl { get; set; }
 
 

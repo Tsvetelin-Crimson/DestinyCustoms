@@ -1,35 +1,39 @@
 ﻿@model AddArmorFormModel
 
 <form method="post">
-    <div class="form-group">
-        <label class="text-light" asp-for="Name"></label>
-        <input type="text" class="form-control bg-dark text-light" asp-for="Name" placeholder="Verity's Brow...">
-        <span asp-validation-for="Name" class="text-danger"></span>
+    <div class="row">
+        <div class="form-group col-12">
+            <label class="text-light" asp-for="Name"></label>
+            <input type="text" class="form-control bg-dark text-light" asp-for="Name" placeholder="Verity's Brow...">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label class="text-light" asp-for="IntrinsicName"></label>
+            <input type="text" class="form-control bg-dark text-light" asp-for="IntrinsicName" placeholder="The Fourth Magic...">
+            <span asp-validation-for="IntrinsicName" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label class="text-light" asp-for="IntrinsicDescription"></label>
+            <textarea class="form-control bg-dark text-light" asp-for="IntrinsicDescription" rows="5"></textarea>
+            <span asp-validation-for="IntrinsicDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label class="text-light" asp-for="ImageUrl"></label>
+            <input type="text" class="form-control bg-dark text-light" asp-for="ImageUrl" rows="5" />
+            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        </div>
+        <div class="form-group col-12">
+            <label class="text-light" asp-for="Class"></label>
+            <select class="form-control bg-dark text-light" asp-for="Class">
+                @foreach (var characterClass in Enum.GetNames(typeof(CharacterClass)))
+                {
+                    <option value="@characterClass">@characterClass</option>
+                }
+            </select>
+            <span asp-validation-for="Class" class="text-danger"></span>
+        </div>
     </div>
-    <div class="form-group">
-        <label class="text-light" asp-for="IntrinsicName"></label>
-        <input type="text" class="form-control bg-dark text-light" asp-for="IntrinsicName" placeholder="The Fourth Magic...">
-        <span asp-validation-for="IntrinsicName" class="text-danger"></span>
+    <div class="d-flex  justify-content-center">
+        <input type="submit" name="Submit" value="Submit" class="btn btn-primary col-4 " />
     </div>
-    <div class="form-group">
-        <label class="text-light" asp-for="IntrinsicDescription"></label>
-        <textarea class="form-control bg-dark text-light" asp-for="IntrinsicDescription" rows="5"></textarea>
-        <span asp-validation-for="IntrinsicDescription" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label class="text-light" asp-for="ImageUrl"></label>
-        <input type="text" class="form-control bg-dark text-light" asp-for="ImageUrl" rows="5" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label class="text-light" asp-for="Class"></label>
-        <select class="form-control bg-dark text-light" asp-for="Class">
-            @foreach (var characterClass in Enum.GetNames(typeof(CharacterClass)))
-            {
-                <option value="@characterClass">@characterClass</option>
-            }
-        </select>
-        <span asp-validation-for="Class" class="text-danger"></span>
-    </div>
-    <input type="submit" name="Submit" value="Submit" class="btn btn-primary" />
 </form>
