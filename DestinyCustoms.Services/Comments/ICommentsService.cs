@@ -11,6 +11,10 @@ namespace DestinyCustoms.Services.Comments
 
         int CreateReply(string content, int commentId, string userId);
 
+        public bool DeleteComment(int id);
+
+        public bool DeleteReply(int id);
+
         CommentServiceModel GetById(int Id);
 
         IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId);

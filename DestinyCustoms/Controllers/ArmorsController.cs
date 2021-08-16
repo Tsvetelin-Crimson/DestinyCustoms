@@ -89,12 +89,17 @@ namespace DestinyCustoms.Controllers
                 CommentToBeAdded = new AddCommentFormModel
                 {
                     ItemId = armor.Id,
-                    AspActionCommentString = nameof(CommentsController.AddArmorComment),
+                    AspActionString = nameof(CommentsController.AddArmorComment),
                 },
                 CommentClass = new CommentViewModel
                 {
                     Comments = this.commentsService.GetByArmorId(id),
                     ItemId = armor.Id,
+                    DeleteModel = new DeleteCommentFormModel
+                    {
+                        ItemId = armor.Id,
+                        AspActionString = nameof(CommentsController.DeleteArmorComment),
+                    },
                     ReplyToBeAdded = new AddReplyFormModel
                     {
                         ItemId = armor.Id,

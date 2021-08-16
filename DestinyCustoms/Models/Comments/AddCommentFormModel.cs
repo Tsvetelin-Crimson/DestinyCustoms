@@ -16,6 +16,6 @@ namespace DestinyCustoms.Models.Comments
         [Required]
         public string ItemId { get; set; }
 
-        public string AspActionCommentString { get; init; }
+        public string AspActionString { get; init; }
     }
 }

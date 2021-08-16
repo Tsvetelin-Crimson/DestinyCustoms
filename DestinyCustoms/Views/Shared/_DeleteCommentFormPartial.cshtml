@@ -1,0 +1,7 @@
+﻿@model DeleteCommentFormModel
+
+<form asp-controller="Comments" asp-action="@Model.AspActionString" method="post">
+    <input asp-for="@Model.ItemId" type="text" value="@Model.ItemId" hidden />
+    <input asp-for="@Model.CommentId" type="number" value="@Model.CommentId" hidden />
+    <input type="submit" class="btn btn-danger " value="Delete" />
+</form>

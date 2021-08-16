@@ -84,19 +84,23 @@ namespace DestinyCustoms.Controllers
                 return NotFound();
             }
 
-            //TODO: Add DateCreated and DateModified(?) to comments
             var model = new FullWeaponDetailsViewModel
             {
                 Weapon = weapon,
                 CommentToBeAdded = new AddCommentFormModel
                 {
                     ItemId = weapon.Id,
-                    AspActionCommentString = nameof(CommentsController.AddWeaponComment),
+                    AspActionString = nameof(CommentsController.AddWeaponComment),
                 },
                 CommentClass = new CommentViewModel
                 {
                     Comments = this.commentsService.GetByWeaponId(id),
                     ItemId = weapon.Id,
+                    DeleteModel = new DeleteCommentFormModel
+                    {
+                        ItemId = weapon.Id,
+                        AspActionString = nameof(CommentsController.DeleteWeaponComment),
+                    },
                     ReplyToBeAdded = new AddReplyFormModel 
                     {
                         ItemId = weapon.Id,

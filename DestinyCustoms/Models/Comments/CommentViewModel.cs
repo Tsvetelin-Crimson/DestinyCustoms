@@ -9,6 +9,8 @@ namespace DestinyCustoms.Models.Comments
 
         public AddReplyFormModel ReplyToBeAdded { get; set; }
 
+        public DeleteCommentFormModel DeleteModel { get; set; }
+
         public string ItemId { get; set; }
 
     }

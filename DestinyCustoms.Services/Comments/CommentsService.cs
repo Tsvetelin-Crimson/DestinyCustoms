@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -19,11 +20,13 @@ namespace DestinyCustoms.Services.Comments
             this.db = db;
             this.mapper = mapper.ConfigurationProvider;
         }
+        
         public int CreateWeaponComment(string content, string weaponId, string userId)
         {
             var comment = new Comment()
             {
                 Content = content,
+                DateCreated = DateTime.UtcNow,
                 WeaponId = weaponId,
                 UserId = userId,
             };
@@ -38,6 +41,7 @@ namespace DestinyCustoms.Services.Comments
             var comment = new Comment()
             {
                 Content = content,
+                DateCreated = DateTime.UtcNow,
                 ArmorId = armorId,
                 UserId = userId,
             };
@@ -52,6 +56,7 @@ namespace DestinyCustoms.Services.Comments
             var reply = new Reply()
             {
                 Content = content,
+                DateCreated = DateTime.UtcNow,
                 CommentId = commentId,
                 UserId = userId,
             };
@@ -60,6 +65,37 @@ namespace DestinyCustoms.Services.Comments
             db.SaveChanges();
 
             return reply.Id;
+        }
+
+        public bool DeleteComment(int id)
+        {
+            var comment = db.Comments.FirstOrDefault(c => c.Id == id);
+            if (comment == null)
+            {
+                return false;
+            }
+
+            var replies = db.Replies.Where(r => r.CommentId == comment.Id);
+
+            db.Replies.RemoveRange(replies);
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+            return true;
+        }
+
+        public bool DeleteReply(int id)
+        {
+            var reply = db.Replies.FirstOrDefault(c => c.Id == id);
+            if (reply == null)
+            {
+                return false;
+            }
+
+            db.Replies.Remove(reply);
+            db.SaveChanges();
+
+            return true;
         }
 
         public CommentServiceModel GetById(int Id)

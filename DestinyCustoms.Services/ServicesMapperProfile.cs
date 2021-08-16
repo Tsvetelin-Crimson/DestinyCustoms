@@ -30,8 +30,10 @@ namespace DestinyCustoms.Services
 
             //Comments and Replies Maps
             this.CreateMap<Comment, CommentServiceModel>()
-                .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id)));
-            this.CreateMap<Reply, ReplyServiceModel>();
+                .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id)))
+                .ForMember(c => c.CreatedOn, cfg => cfg.MapFrom(c => c.DateCreated.ToString("yyyy MMMM dd")));
+            this.CreateMap<Reply, ReplyServiceModel>()
+                .ForMember(r => r.CreatedOn, cfg => cfg.MapFrom(r => r.DateCreated.ToString("yyyy MMMM dd")));
 
             // Extra Maps
             this.CreateMap<WeaponClass, WeaponClassServiceModel>();

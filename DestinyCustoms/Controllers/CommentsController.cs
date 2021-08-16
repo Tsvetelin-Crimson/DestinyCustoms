@@ -56,6 +56,36 @@ namespace DestinyCustoms.Controllers
                     new { id = comment.ItemId });
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteWeaponComment(DeleteCommentFormModel comment)
+        {
+            var weaponId = this.weaponsService.GetIdById(comment.ItemId);
+
+            if (weaponId == null)
+            {
+                return BadRequest();
+            }
+            var currComment = this.commentsService.GetById(comment.CommentId);
+
+            if (currComment == null)
+            {
+                return BadRequest();
+            }
+
+            if (this.User.GetId() != currComment.UserId)
+            {
+                return Unauthorized();
+            }
+
+            this.commentsService.DeleteComment(comment.CommentId);
+
+            return RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
+        }
+
         [Authorize]
         [HttpPost]
         public IActionResult AddWeaponReply(AddReplyFormModel reply)
@@ -117,6 +147,36 @@ namespace DestinyCustoms.Controllers
                 comment.Content,
                 comment.ItemId,
                 this.User.GetId());
+
+            return RedirectToAction(
+                    nameof(ArmorsController.Details),
+                    nameof(ArmorsController).RemoveControllerFromString(),
+                    new { id = comment.ItemId });
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult DeleteArmorComment(DeleteCommentFormModel comment)
+        {
+            var weaponId = this.armorsService.GetIdById(comment.ItemId);
+
+            if (weaponId == null)
+            {
+                return BadRequest();
+            }
+            var currComment = this.commentsService.GetById(comment.CommentId);
+
+            if (currComment == null)
+            {
+                return BadRequest();
+            }
+
+            if (this.User.GetId() != currComment.UserId)
+            {
+                return Unauthorized();
+            }
+
+            this.commentsService.DeleteComment(comment.CommentId);
 
             return RedirectToAction(
                     nameof(ArmorsController.Details),

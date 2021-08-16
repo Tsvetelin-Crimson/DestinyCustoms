@@ -10,6 +10,10 @@ namespace DestinyCustoms.Services.Comments.Models
 
         public string UserUsername { get; init; }
 
+        public string UserId { get; init; }
+
+        public string CreatedOn { get; set; }
+
         public IEnumerable<ReplyServiceModel> Replies { get; init; }
     }
 }

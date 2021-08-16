@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,9 +15,10 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxContentLength)]
         public string Content { get; set; }
 
-        //public int Likes { get; set; }
+        public DateTime DateCreated { get; init; }
 
-        //public int Dislikes { get; set; }
+        public DateTime DateModified { get; set; }
+
         public string UserId { get; init; }
 
         public IdentityUser User { get; init; }
@@ -28,7 +30,6 @@ namespace DestinyCustoms.Data.Models
         public string ArmorId { get; init; }
 
         public ExoticArmor Armor { get; init; }
-
 
         public ICollection<Reply> Replies { get; set; }
     }
