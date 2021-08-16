@@ -105,8 +105,6 @@ namespace DestinyCustoms.Controllers
                 },
             };
 
-            //TODO: Remove unneeded classes in View
-            //TODO: Ask for opinions on the Views
             return View(model);
         }
 

@@ -1,5 +1,4 @@
 ﻿using DestinyCustoms.Data.Models;
-using System.Collections.Generic;
 
 namespace DestinyCustoms.Tests.Data
 {

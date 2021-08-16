@@ -1,18 +1,19 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using MyTested.AspNetCore.Mvc;
+using Xunit;
 using DestinyCustoms.Controllers;
 using DestinyCustoms.Common.Enums;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Models.Armors;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Services.Armors.Models;
-using MyTested.AspNetCore.Mvc;
-using Xunit;
 
 namespace DestinyCustoms.Tests.Controllers
 {
 
     using static Data.Armors;
+    using static Data.Comments;
     public class ArmorControllerTests
     {
         [Fact]
@@ -90,11 +91,13 @@ namespace DestinyCustoms.Tests.Controllers
                                         .To<ArmorsController>(c => c.Details(With.Any<string>())));
 
         [Theory]
-        [InlineData("ArmorGuid")]
-        public void DetailsReturnsViewWithCorrectModel(string armorId) //TODO: Add Comments to test as well
+        [InlineData("ArmorGuid", 1)]
+        public void DetailsReturnsViewWithCorrectModel(string armorId, int commentId)
             => MyController<ArmorsController>
                 .Instance(controller => controller
-                                    .WithData(OneArmorWithSetId(armorId))
+                                    .WithData(
+                                        OneArmorWithSetId(armorId), 
+                                        OneCommentWithSetId(commentId, armorId: armorId))
                                     .WithUser())
                 .Calling(c => c.Details(armorId))
                 .ShouldReturn()
@@ -102,7 +105,8 @@ namespace DestinyCustoms.Tests.Controllers
                             .WithModelOfType<FullArmorDetailsViewModel>()
                             .Passing(m =>
                             {
-                                Assert.NotNull(m.Armor);
+                                Assert.Equal(armorId ,m.Armor.Id);
+                                Assert.Equal(commentId, m.CommentClass.Comments.FirstOrDefault().Id);
                             }));
 
         [Theory]

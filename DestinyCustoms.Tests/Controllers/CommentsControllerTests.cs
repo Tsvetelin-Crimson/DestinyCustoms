@@ -1,11 +1,10 @@
-﻿ 
+﻿using System.Linq;
+using MyTested.AspNetCore.Mvc;
+using Xunit;
 using DestinyCustoms.Controllers;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Models.Comments;
-using MyTested.AspNetCore.Mvc;
-using System.Linq;
-using Xunit;
 
 namespace DestinyCustoms.Tests.Controllers
 {

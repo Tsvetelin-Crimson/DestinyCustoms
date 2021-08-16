@@ -6,5 +6,6 @@
         public const string adminAreaName = "Admin";
 
         public const int HomePageNumberOfItems = 6;
+        public const int AdminHomePageNumberOfItems = 20;
     }
 }

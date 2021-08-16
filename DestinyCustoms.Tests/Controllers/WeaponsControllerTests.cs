@@ -1,16 +1,17 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using MyTested.AspNetCore.Mvc;
+using Xunit;
 using DestinyCustoms.Controllers;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Models.Weapons;
 using DestinyCustoms.Services.Weapons.Models;
-using MyTested.AspNetCore.Mvc;
-using Xunit;
 
 namespace DestinyCustoms.Tests.Controllers
 {
     using static Data.Weapons;
+    using static Data.Comments;
 
     public class WeaponsControllerTests
     {
@@ -107,11 +108,13 @@ namespace DestinyCustoms.Tests.Controllers
                                         .To<WeaponsController>(c => c.Details(With.Any<string>())));
 
         [Theory]
-        [InlineData("WeaponGuid")]
-        public void DetailsReturnsViewWithCorrectModel(string weaponId) //TODO: Add Comments to test as well
+        [InlineData("WeaponGuid", 1)]
+        public void DetailsReturnsViewWithCorrectModel(string weaponId, int commentId)
             => MyController<WeaponsController>
                 .Instance(controller => controller
-                                    .WithData(OneWeaponWithSetId(weaponId))
+                                    .WithData(
+                                        OneWeaponWithSetId(weaponId),
+                                        OneCommentWithSetId(commentId, weapondId: weaponId))
                                     .WithUser())
                 .Calling(c => c.Details(weaponId))
                 .ShouldReturn()
@@ -119,7 +122,8 @@ namespace DestinyCustoms.Tests.Controllers
                             .WithModelOfType<FullWeaponDetailsViewModel>()
                             .Passing(m =>
                             {
-                                Assert.NotNull(m.Weapon);
+                                Assert.Equal(weaponId ,m.Weapon.Id);
+                                Assert.Equal(commentId, m.CommentClass.Comments.FirstOrDefault().Id);
                             }));
 
         [Theory]

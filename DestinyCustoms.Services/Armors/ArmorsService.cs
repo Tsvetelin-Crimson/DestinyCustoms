@@ -90,12 +90,11 @@ namespace DestinyCustoms.Services.Armors
             .Take(HomePageNumberOfItems)
             .ToList();
 
-
-
         public List<AdminMostRecentServiceModel> AdminMostRecentlyModified()
             => db.Armors
                 .OrderByDescending(w => w.DateCreated)
                 .ProjectTo<AdminMostRecentServiceModel>(this.mapper)
+                .Take(AdminHomePageNumberOfItems)
                 .ToList();
 
         public string Create(
@@ -106,7 +105,6 @@ namespace DestinyCustoms.Services.Armors
             string imageUrl,
             string userId)
         {
-            // TODO: Add default Image URL If null
             if (imageUrl == null)
             {
                 imageUrl = DefaultImageUrl;

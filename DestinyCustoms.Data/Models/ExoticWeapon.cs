@@ -24,9 +24,6 @@ namespace DestinyCustoms.Data.Models
         [MaxLength(MaxIntrinsicDescriptionLength)]
         public string IntrinsicDescription { get; set; }
 
-
-        //TODO: Implement a rating system when you understand Identity and users
-        //public int Rating { get; set; }
         [Required]
         [MaxLength(MaxCatalystNameLength)]
         public string CatalystName { get; set; }

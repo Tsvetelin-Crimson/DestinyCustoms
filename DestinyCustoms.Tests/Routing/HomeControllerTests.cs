@@ -1,6 +1,6 @@
-﻿using DestinyCustoms.Controllers;
-using Xunit;
+﻿using Xunit;
 using MyTested.AspNetCore.Mvc;
+using DestinyCustoms.Controllers;
 
 namespace DestinyCustoms.Tests.Routing
 {

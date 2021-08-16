@@ -1,7 +1,7 @@
-﻿using DestinyCustoms.Controllers;
-using DestinyCustoms.Models.Weapons;
-using Xunit;
+﻿using Xunit;
 using MyTested.AspNetCore.Mvc;
+using DestinyCustoms.Controllers;
+using DestinyCustoms.Models.Weapons;
 
 namespace DestinyCustoms.Tests.Routing
 {

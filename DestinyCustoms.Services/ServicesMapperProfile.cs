@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Comments.Models;
 using DestinyCustoms.Services.Weapons.Models;
@@ -13,29 +12,33 @@ namespace DestinyCustoms.Services
     {
         public ServicesMapperProfile()
         {
-            this.CreateMap<WeaponClass, WeaponClassServiceModel>();
 
+            // Weapon Maps
+            this.CreateMap<ExoticWeapon, WeaponValidationServiceModel>();
             this.CreateMap<ExoticWeapon, WeaponServiceModel>()
-                .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name));
+                .ForMember(ws => ws.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name));
             this.CreateMap<ExoticWeapon, WeaponDetailsServiceModel>()
-                .ForMember(w => w.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
-                .ForMember(w => w.ClassId, cfg => cfg.MapFrom(w => w.WeaponClass.Id));
+                .ForMember(wds => wds.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
+                .ForMember(wds => wds.ClassId, cfg => cfg.MapFrom(w => w.WeaponClass.Id));
 
-            this.CreateMap<ExoticWeapon, AdminMostRecentServiceModel>();
-            this.CreateMap<ExoticArmor, AdminMostRecentServiceModel>();
-
+            // Armor Maps
             this.CreateMap<ExoticArmor, ArmorValidationServiceModel>();
             this.CreateMap<ExoticArmor, ArmorServiceModel>()
                 .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
             this.CreateMap<ExoticArmor, ArmorDetailsServiceModel>()
                 .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
 
-
+            //Comments and Replies Maps
             this.CreateMap<Comment, CommentServiceModel>()
-                .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id))); // add select here
-
+                .ForMember(c => c.Replies, cfg => cfg.MapFrom(c => c.Replies.Where(r => r.CommentId == c.Id)));
             this.CreateMap<Reply, ReplyServiceModel>();
 
+            // Extra Maps
+            this.CreateMap<WeaponClass, WeaponClassServiceModel>();
+
+            // Admin Maps
+            this.CreateMap<ExoticWeapon, AdminMostRecentServiceModel>();
+            this.CreateMap<ExoticArmor, AdminMostRecentServiceModel>();
         }
     }
 }

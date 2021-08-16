@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using DestinyCustoms.Models.Comments;
+﻿using DestinyCustoms.Models.Comments;
 using DestinyCustoms.Services.Weapons.Models;
-using DestinyCustoms.Services.Comments.Models;
 
 namespace DestinyCustoms.Models.Weapons
 {

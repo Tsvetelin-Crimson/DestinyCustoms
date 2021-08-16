@@ -19,7 +19,7 @@ namespace DestinyCustoms.Areas.Admin.Controllers
         }
 
         public IActionResult MostRecentWeapons() 
-            => View(new MostRecentItemsViewModel 
+            => View(new MostRecentItemsViewModel
             {
                 Items = weaponsService.AdminMostRecentlyModified(),
                 ItemLocation = nameof(WeaponsController).RemoveControllerFromString(),

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DestinyCustoms.Data;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Services.Comments.Models;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 
 namespace DestinyCustoms.Services.Comments
 {

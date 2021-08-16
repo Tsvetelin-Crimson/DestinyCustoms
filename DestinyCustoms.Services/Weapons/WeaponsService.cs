@@ -69,11 +69,13 @@ namespace DestinyCustoms.Services.Weapons
             .Take(HomePageNumberOfItems)
             .ToList();
 
-        public List<AdminMostRecentServiceModel> AdminMostRecentlyModified()
+        public List<AdminMostRecentServiceModel> AdminMostRecentlyModified() 
             => db.Weapons
-                .OrderByDescending(w => w.DateModified)
-                .ProjectTo<AdminMostRecentServiceModel>(this.mapper)
-                .ToList();
+            .OrderByDescending(w => w.DateModified)
+            .ProjectTo<AdminMostRecentServiceModel>(this.mapper)
+            .Take(AdminHomePageNumberOfItems)
+            .ToList();
+
         public WeaponDetailsServiceModel GetById(string id)
             => db.Weapons
             .Where(w => w.Id == id)
@@ -89,7 +91,7 @@ namespace DestinyCustoms.Services.Weapons
         public WeaponValidationServiceModel GetIdAndUserIdById(string id)
             => db.Weapons
             .Where(w => w.Id == id)
-            .Select(w => new WeaponValidationServiceModel { Id = w.Id, UserId = w.UserId }) //TODO: Add map? remove weapon in weapon id
+            .ProjectTo<WeaponValidationServiceModel>(this.mapper)
             .FirstOrDefault();
 
         public string Create(
@@ -103,7 +105,6 @@ namespace DestinyCustoms.Services.Weapons
             string imageUrl,
             string userId)
         {
-            // TODO: Add default Image URL If null
             if (imageUrl == null)
             {
                 imageUrl = DefaultImageUrl;

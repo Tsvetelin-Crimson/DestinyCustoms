@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using DestinyCustoms.Controllers;
-using DestinyCustoms.Models.Home;
 using MyTested.AspNetCore.Mvc;
 using Xunit;
+using DestinyCustoms.Controllers;
+using DestinyCustoms.Models.Home;
 
 namespace DestinyCustoms.Tests.Controllers
 {

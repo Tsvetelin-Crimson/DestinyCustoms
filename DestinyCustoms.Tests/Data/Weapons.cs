@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
-using DestinyCustoms.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using MyTested.AspNetCore.Mvc;
+using DestinyCustoms.Data.Models;
 
 namespace DestinyCustoms.Tests.Data
 {
@@ -12,6 +14,15 @@ namespace DestinyCustoms.Tests.Data
             .Select(w => new ExoticWeapon() 
             { 
                 WeaponClass = new WeaponClass()
+            });
+
+        public static IEnumerable<ExoticWeapon> ThirtyBlankWeapons()
+            => Enumerable.Range(0, 30)
+            .Select(w => new ExoticWeapon()
+            {
+                WeaponClass = new WeaponClass(),
+                User = new IdentityUser(),
+                DateModified = DateTime.UtcNow,
             });
 
         public static IEnumerable<WeaponClass> TenBlankWeaponClasses()
