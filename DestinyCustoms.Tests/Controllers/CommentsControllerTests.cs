@@ -82,6 +82,35 @@ namespace DestinyCustoms.Tests.Controllers
                     new { id = weaponId });
 
         [Theory]
+        [InlineData(1, "WeaponId")]
+        public void DeleteWeaponCommentShouldRemoveCorrectCommentAndReturnRedirect(int commentId, string weaponId)
+            => MyController<CommentsController>
+                .Instance(controller => controller
+                                .WithData(
+                                        OneWeaponWithSetId(weaponId), 
+                                        OneCommentWithSetId(commentId, weapondId: weaponId))
+                                .AndAlso()
+                                .WithUser())
+                .Calling(c => c.DeleteWeaponComment(new DeleteCommentFormModel 
+                {
+                    CommentId = commentId,
+                    ItemId = weaponId,
+                }))
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes
+                                                .RestrictingForHttpMethod(HttpMethod.Post)
+                                                .RestrictingForAuthorizedRequests())
+                .ValidModelState()
+                .Data(db => db
+                            .WithSet<Comment>(comments => !comments.Any()))
+                .AndAlso()
+                .ShouldReturn()
+                .RedirectToAction(
+                    nameof(WeaponsController.Details),
+                    nameof(WeaponsController).RemoveControllerFromString(),
+                    new { id = weaponId });
+
+        [Theory]
         [InlineData("EVEN MORE 10 MINUTES OF CONTENT", "ArmorId")]
         public void AddArmorCommentShouldAddCorrectCommentAndReturnRedirect(string content, string armorId)
             => MyController<CommentsController>
@@ -141,6 +170,35 @@ namespace DestinyCustoms.Tests.Controllers
                                 .WithSet<Reply>(replies => replies
                                                                 .Any(r => r.Content == content &&
                                                                           r.CommentId == commentId)))
+                    .AndAlso()
+                    .ShouldReturn()
+                    .RedirectToAction(
+                        nameof(ArmorsController.Details),
+                        nameof(ArmorsController).RemoveControllerFromString(),
+                        new { id = armorId });
+
+        [Theory]
+        [InlineData(1, "Armor")]
+        public void DeleteArmorCommentShouldRemoveCorrectCommentAndReturnRedirect(int commentId, string armorId)
+                => MyController<CommentsController>
+                    .Instance(controller => controller
+                                    .WithData(
+                                            OneArmorWithSetId(armorId),
+                                            OneCommentWithSetId(commentId, armorId: armorId))
+                                    .AndAlso()
+                                    .WithUser())
+                    .Calling(c => c.DeleteArmorComment(new DeleteCommentFormModel
+                    {
+                        CommentId = commentId,
+                        ItemId = armorId,
+                    }))
+                    .ShouldHave()
+                    .ActionAttributes(attributes => attributes
+                                                    .RestrictingForHttpMethod(HttpMethod.Post)
+                                                    .RestrictingForAuthorizedRequests())
+                    .ValidModelState()
+                    .Data(db => db
+                                .WithSet<Comment>(comments => !comments.Any()))
                     .AndAlso()
                     .ShouldReturn()
                     .RedirectToAction(

@@ -1,4 +1,5 @@
-﻿using DestinyCustoms.Data.Models;
+﻿using MyTested.AspNetCore.Mvc;
+using DestinyCustoms.Data.Models;
 
 namespace DestinyCustoms.Tests.Data
 {
@@ -10,6 +11,7 @@ namespace DestinyCustoms.Tests.Data
                 Id = id,
                 WeaponId = weapondId,
                 ArmorId = armorId,
+                UserId = TestUser.Identifier,
             };
 
     }
