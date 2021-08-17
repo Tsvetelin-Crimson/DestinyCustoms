@@ -72,9 +72,17 @@
 </div>
     <div class="container mt-4">
         <div class="row">
-            @foreach (var weapon in Model.Weapons)
+            @if (!Model.Weapons.Any())
             {
-                <partial name="_WeaponPartial" model="weapon" />
+                <div class="col-3"></div>
+                <h4 class="text-light mt-5">No weapons were found with those conditions!</h4>
+            }
+            else
+            {
+                @foreach (var weapon in Model.Weapons)
+                {
+                    <partial name="_WeaponPartial" model="weapon" />
+                }
             }
         </div>
     </div>

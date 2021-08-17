@@ -72,10 +72,19 @@
     </div>
     <div class="container mt-4">
         <div class="row">
-            @foreach (var armor in Model.Armors)
+            @if (!Model.Armors.Any())
             {
-                <partial name="_ArmorPartial" model="armor" />
+            <div class="col-3"></div>
+            <h4 class="text-light mt-5">No armors were found with those conditions!</h4>
             }
+            else
+            {
+                @foreach (var armor in Model.Armors)
+                {
+                    <partial name="_ArmorPartial" model="armor" />
+                }
+            }
+
         </div>
     </div>
 </div>

@@ -10,6 +10,5 @@ namespace DestinyCustoms.Models.Weapons
         public AddCommentFormModel CommentToBeAdded { get; set; }
 
         public CommentViewModel CommentClass { get; set; }
-
     }
 }

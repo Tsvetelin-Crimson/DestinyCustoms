@@ -1,7 +1,7 @@
 ﻿@model FullArmorDetailsViewModel
 
 @{
-    ViewBag.Title = "Armor Details";
+    ViewBag.Title = $"{Model.Armor.Name} Details";
 }
 
 <div class="container bg-transparent">
@@ -12,16 +12,17 @@
                 <div class="team-single-img ">
                     <img src="@Model.Armor.ImageUrl" class="mx-auto d-block img-fluid rounded" style="height: 100%; width: 100%; display: block; margin-top: 20px ">
                 </div>
-                <p><h4 class="text-light">Weapon class:</h4><div class="text-light"> @Model.Armor.ClassName</div></p>
+                <p><h4 class="text-primary">Guardian class:</h4><div class="text-light h5"> @Model.Armor.ClassName</div></p>
             </div>
         </div>
 
-        <div class="col-lg-8 col-md-7">
+        <div class="col-lg-8 col-md-7 d-flex align-items-start flex-column mt-5">
             <div class="">
-                <h4 class="text-light" style="margin-top: 10px;">Intrinsic: <br />&nbsp;@Model.Armor.IntrinsicName</h4>
+                <h4 class="text-primary" style="margin-top: 10px;">Intrinsic: <strong class="text-info">@Model.Armor.IntrinsicName</strong></h4>
                 <p class="text-light" style="margin-left: 10px">@Model.Armor.IntrinsicDescription </p>
             </div>
         </div>
+        <h3 class="text-warning">Created by: @Model.Armor.UserUsername</h3>
     </div>
 </div>
 @if (this.User.Identity.IsAuthenticated)

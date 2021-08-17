@@ -15,5 +15,7 @@
         public string ImageUrl { get; set; }
 
         public string UserId { get; init; }
+
+        public string UserUsername { get; init; }
     }
 }

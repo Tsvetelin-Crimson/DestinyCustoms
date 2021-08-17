@@ -1,35 +1,37 @@
 ﻿@model FullWeaponDetailsViewModel
 
 @{
-    ViewBag.Title = "Weapon Details";
+    ViewBag.Title = $"{Model.Weapon.Name} Details";
 }
 
 <div class="container bg-transparent">
     <div class="row">
         <div class="col-lg-4 col-md-5">
-            <div class="bg-light-gray text-center" style="margin-top: 10px;">
-                <h4 class="text-light">@Model.Weapon.Name</h4>
+            <div class="text-center" style="margin-top: 10px;">
+                <h3 class="text-light">@Model.Weapon.Name</h3>
                 <div>
                     <img src="@Model.Weapon.ImageUrl" class="mx-auto d-block img-fluid rounded" style="height: 100%; width: 100%; display: block; margin-top: 20px ">
                 </div>
-                <p><h4 class="text-light">Weapon class:</h4> <div class="text-light">@Model.Weapon.ClassName</div></p>
+                <p><h4 class="text-primary">Weapon class:</h4> <div class="text-light h5">@Model.Weapon.ClassName</div></p>
             </div>
         </div>
 
-        <div class="col-lg-8 col-md-7">
+        <div class="col-lg-8 col-md-7 ">
             <div>
-                <h4 class="text-light" style="margin-top: 10px;">Intrinsic: @Model.Weapon.IntrinsicName</h4>
+                <h4 class="text-primary" style="margin-top: 10px;">Intrinsic: <strong class="text-info">@Model.Weapon.IntrinsicName</strong></h4>
                 <p style="margin-left: 10px"><div class="text-light">@Model.Weapon.IntrinsicDescription</div></p>
             </div>
             <div>
-                <h4 class="text-light">Catalyst: @Model.Weapon.CatalystName</h4>
-                <h6 class="text-light" style="margin-left: 10px; outline-offset: 100px">How to complete Catalyst:</h6>
+                <h4 class="text-primary">Catalyst: <strong class="text-info">@Model.Weapon.CatalystName</strong></h4>
+                <h6 class="text-primary" style="margin-left: 10px; outline-offset: 100px">How to complete Catalyst:</h6>
                 <p class="text-light" style="margin-left: 10px">@Model.Weapon.CatalystCompletionRequirement </p>
-                <h6 class="text-light" style="margin-left: 10px">What the Catalyst does:</h6>
+                <h6 class="text-primary" style="margin-left: 10px">What the Catalyst does:</h6>
                 <p class="text-light" style="margin-left: 10px">@Model.Weapon.CatalystEffect </p>
             </div>
         </div>
     </div>
+    <h3 class="text-warning">Created by: @Model.Weapon.UserUsername</h3>
+
 </div>
 @if (this.User.Identity.IsAuthenticated)
 {
@@ -46,7 +48,7 @@
     <partial name="_CommentFormPartial" model="@Model.CommentToBeAdded" />
 }
 
-    <partial name="_CommentPartial" model="@Model.CommentClass" />
+<partial name="_CommentPartial" model="@Model.CommentClass" />
 
 
 @section Scripts {

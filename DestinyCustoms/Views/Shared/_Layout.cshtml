@@ -3,12 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Destiny Customs</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body style="background: radial-gradient(#570c94 10%, #4e3863 100%) ">
+@*  old#570c94 10%, #4e3863 100%   new #3a00ad 10%, #24006b 70%*@
+<body style="background: radial-gradient(#3a00ad 10%, #24006b 100%) ">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
@@ -25,11 +26,11 @@
                                     Weapons
                                 </button>
                                 <div class="dropdown-menu bg-dark" style="width: 100px;" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link text-light" asp-controller="Weapons" asp-action="All">All</a>
-                                    <a class="nav-link text-light" asp-controller="Weapons" asp-action="Add">Add</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Weapons" asp-action="All">All</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Weapons" asp-action="Add">Add</a>
                                     @if (this.User.Identity.IsAuthenticated)
                                     {
-                                        <a class="nav-link text-light" asp-controller="Weapons" asp-action="MyWeapons">My Weapons</a>
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Weapons" asp-action="MyWeapons">My Weapons</a>
                                     }
                                 </div>
                             </div>
@@ -40,11 +41,11 @@
                                     Armors
                                 </button>
                                 <div class="dropdown-menu bg-dark" style="width: 100px;" aria-labelledby="dropdownMenuButton">
-                                    <a class="nav-link text-light" asp-controller="Armors" asp-action="All">All</a>
-                                    <a class="nav-link text-light" asp-controller="Armors" asp-action="Add">Add</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Armors" asp-action="All">All</a>
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Armors" asp-action="Add">Add</a>
                                     @if (this.User.GetId() != null)
                                     {
-                                        <a class="nav-link text-light" asp-controller="Armors" asp-action="MyArmors">My Armors</a>
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Armors" asp-action="MyArmors">My Armors</a>
                                     }
                                 </div>
                             </div>

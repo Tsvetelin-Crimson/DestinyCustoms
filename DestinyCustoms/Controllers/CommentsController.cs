@@ -9,6 +9,7 @@ using DestinyCustoms.Services.Comments.Models;
 
 namespace DestinyCustoms.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private readonly IWeaponsService weaponsService;
@@ -26,7 +27,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult AddWeaponComment(AddCommentFormModel comment)
         {
             var weaponId = this.weaponsService.GetIdById(comment.ItemId);
@@ -56,7 +56,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult DeleteWeaponComment(DeleteCommentFormModel comment)
         {
             var weaponId = this.weaponsService.GetIdById(comment.ItemId);
@@ -85,7 +84,6 @@ namespace DestinyCustoms.Controllers
                     new { id = comment.ItemId });
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult AddWeaponReply(AddReplyFormModel reply)
         {
@@ -124,7 +122,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult DeleteWeaponReply(DeleteReplyServiceModel reply)
         {
             var weaponId = this.weaponsService.GetIdById(reply.ItemId);
@@ -159,7 +156,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult AddArmorComment(AddCommentFormModel comment)
         {
             var armorId = armorsService.GetIdById(comment.ItemId);
@@ -189,7 +185,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult DeleteArmorComment(DeleteCommentFormModel comment)
         {
             var weaponId = this.armorsService.GetIdById(comment.ItemId);
@@ -218,7 +213,6 @@ namespace DestinyCustoms.Controllers
                     new { id = comment.ItemId });
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult AddArmorReply(AddReplyFormModel reply)
         {
@@ -249,7 +243,6 @@ namespace DestinyCustoms.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult DeleteArmorReply(DeleteReplyServiceModel reply)
         {
             var armorId = this.armorsService.GetIdById(reply.ItemId);
