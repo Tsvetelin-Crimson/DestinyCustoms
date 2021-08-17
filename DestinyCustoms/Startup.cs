@@ -33,6 +33,7 @@ namespace DestinyCustoms
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddAutoMapper(typeof(ServicesMapperProfile));
+            services.AddMemoryCache();
 
             services.AddDefaultIdentity<IdentityUser>(options =>
             {

@@ -7,5 +7,11 @@
 
         public const int HomePageNumberOfItems = 6;
         public const int AdminHomePageNumberOfItems = 20;
+
+        public class Cache
+        {
+            public const string LatestWeaponsCacheKey = nameof(LatestWeaponsCacheKey); 
+            public const string LatestArmorsCacheKey = nameof(LatestArmorsCacheKey);
+        }
     }
 }
