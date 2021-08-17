@@ -33,7 +33,7 @@
 
                                     @if (this.User.GetId() == comment.UserId)
                                     {
-
+                                        
                                         Model.DeleteModel.CommentId = comment.Id;
                                         <div>
                                             <partial name="_DeleteCommentFormPartial" model="@Model.DeleteModel" />
@@ -57,7 +57,10 @@
                             <h3 class="text-light">Replies</h3>
                             @foreach (var reply in comment.Replies)
                             {
-                                
+                                reply.DeleteModel.CommentId = comment.Id;
+                                reply.DeleteModel.ReplyId = reply.Id;
+                                reply.DeleteModel.ItemId = Model.ItemId;
+                                reply.DeleteModel.AspActionString = Model.DeleteModel.AspActionString.Replace("Comment", "Reply");
                                 <partial name="_ReplyPartial" model="reply" />
                             }
                         </div>

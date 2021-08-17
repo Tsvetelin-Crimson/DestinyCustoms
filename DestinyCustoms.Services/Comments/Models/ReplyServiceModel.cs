@@ -11,5 +11,7 @@
         public string UserId { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public DeleteReplyServiceModel DeleteModel { get; set; } = new();
     }
 }

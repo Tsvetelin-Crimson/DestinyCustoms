@@ -20,5 +20,7 @@ namespace DestinyCustoms.Services.Comments
         IEnumerable<CommentServiceModel> GetByWeaponId(string WeaponId);
 
         IEnumerable<CommentServiceModel> GetByArmorId(string armorId);
+
+        ReplyServiceModel GetReplyById(int Id);
     }
 }

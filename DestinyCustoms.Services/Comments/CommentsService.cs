@@ -115,5 +115,11 @@ namespace DestinyCustoms.Services.Comments
                     .Where(c => c.ArmorId == armorId)
                     .ProjectTo<CommentServiceModel>(this.mapper)
                     .ToList();
+
+        public ReplyServiceModel GetReplyById(int Id)
+            => db.Replies
+                    .Where(r => r.Id == Id)
+                    .ProjectTo<ReplyServiceModel>(this.mapper)
+                    .FirstOrDefault();
     }
 }

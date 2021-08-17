@@ -10,4 +10,13 @@
     <div class="mt-2 ml-2 text-light">
         <p>@Model.Content</p>
     </div>
+    @if (this.User.GetId() == Model.UserId)
+    {
+        Model.DeleteModel.UserId = Model.UserId;
+        <div class="float-right">
+            <partial name="_DeleteReplyFormPartial" model="@Model.DeleteModel" />
+        </div>
+    }
+
+
 </div>

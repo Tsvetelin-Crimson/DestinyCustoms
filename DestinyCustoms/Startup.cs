@@ -1,9 +1,3 @@
-using DestinyCustoms.Data;
-using DestinyCustoms.Infrastructure;
-using DestinyCustoms.Services;
-using DestinyCustoms.Services.Armors;
-using DestinyCustoms.Services.Comments;
-using DestinyCustoms.Services.Weapons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DestinyCustoms.Data;
+using DestinyCustoms.Infrastructure;
+using DestinyCustoms.Services;
+using DestinyCustoms.Services.Armors;
+using DestinyCustoms.Services.Weapons;
+using DestinyCustoms.Services.Comments;
 
 namespace DestinyCustoms
 {
