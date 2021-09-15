@@ -87,7 +87,6 @@ namespace DestinyCustoms.Infrastructure
                 })
             .GetAwaiter()
             .GetResult();
-
         }
     }
 }

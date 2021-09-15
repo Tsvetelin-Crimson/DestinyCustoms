@@ -15,7 +15,6 @@ namespace DestinyCustoms.Controllers
         private readonly IWeaponsService weaponsService;
         private readonly ICommentsService commentsService;
 
-
         public WeaponsController(
             IWeaponsService weaponsService, 
             ICommentsService commentsService)

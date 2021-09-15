@@ -23,7 +23,6 @@ namespace DestinyCustoms.Controllers
             this.commentsService = commentsService;
         }
 
-
         public IActionResult All([FromQuery]AllArmorsQueryModel query)
         {
             var armors = this.armorsService.All(
