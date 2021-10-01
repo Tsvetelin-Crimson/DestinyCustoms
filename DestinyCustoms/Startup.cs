@@ -28,7 +28,7 @@ namespace DestinyCustoms
         {
             services.AddDbContext<DestinyCustomsDbContext>(options =>
                 options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                .UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgre")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

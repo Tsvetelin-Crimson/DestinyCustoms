@@ -5,8 +5,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace DestinyCustoms.Data.Data
 {
-
-
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DestinyCustomsDbContext>
     {
         public DestinyCustomsDbContext CreateDbContext(string[] args)
@@ -17,8 +15,8 @@ namespace DestinyCustoms.Data.Data
                 .Build();
 
             var builder = new DbContextOptionsBuilder<DestinyCustomsDbContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            builder.UseSqlServer(connectionString);
+            var connectionString = configuration.GetConnectionString("DefaultConnectionPostgre");
+            builder.UseNpgsql(connectionString);
 
             return new DestinyCustomsDbContext(builder.Options);
         }
