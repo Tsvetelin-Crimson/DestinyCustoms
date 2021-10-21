@@ -13,7 +13,7 @@ namespace DestinyCustoms.Services.Armors
             int armorsPerPage,
             int currentPage);
 
-        List<ArmorServiceModel> AllUserOwned(string userId);
+        List<ItemServiceModel> AllUserOwned(string userId);
 
         ArmorDetailsServiceModel GetById(string id);
 
@@ -21,7 +21,7 @@ namespace DestinyCustoms.Services.Armors
 
         ArmorValidationServiceModel GetIdAndUserIdById(string id);
 
-        List<ArmorServiceModel> MostRecentlyCreated();
+        List<ItemServiceModel> MostRecentlyCreated();
 
         List<AdminMostRecentServiceModel> AdminMostRecentlyModified();
 

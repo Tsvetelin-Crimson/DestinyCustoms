@@ -6,7 +6,7 @@ using DestinyCustoms.Controllers;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Infrastructure;
 using DestinyCustoms.Models.Weapons;
-using DestinyCustoms.Services.Weapons.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Tests.Controllers
 {
@@ -217,7 +217,7 @@ namespace DestinyCustoms.Tests.Controllers
                     .WithSet<ExoticWeapon>(weapons => !weapons.Any()))
                 .AndAlso()
                 .ShouldReturn()
-                .RedirectToAction(nameof(WeaponsController.All), nameof(WeaponsController).RemoveControllerFromString());
+                .RedirectToAction(nameof(WeaponsController.MyWeapons), nameof(WeaponsController).RemoveControllerFromString());
 
         [Theory]
         [InlineData("WeaponId", "SecondUserId")]
@@ -235,7 +235,7 @@ namespace DestinyCustoms.Tests.Controllers
                 .AndAlso()
                 .ShouldReturn()
                 .View(view => view
-                                .WithModelOfType<List<WeaponServiceModel>>()
+                                .WithModelOfType<List<ItemServiceModel>>()
                                 .Passing(m => Assert.Single(m)));
 
     }

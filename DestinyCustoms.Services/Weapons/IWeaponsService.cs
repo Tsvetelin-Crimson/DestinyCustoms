@@ -12,9 +12,9 @@ namespace DestinyCustoms.Services.Weapons
             int weaponsPerPage,
             int currentPage);
 
-        List<WeaponServiceModel> AllUserOwned(string userId);
+        List<ItemServiceModel> AllUserOwned(string userId);
 
-        List<WeaponServiceModel> MostRecentlyCreated();
+        List<ItemServiceModel> MostRecentlyCreated();
 
         List<AdminMostRecentServiceModel> AdminMostRecentlyModified();
 

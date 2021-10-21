@@ -49,7 +49,7 @@ namespace DestinyCustoms.Services.Armors
                 .OrderByDescending(w => w.Id)
                 .Skip(armorsPerPage * (currentPage - 1))
                 .Take(armorsPerPage)
-                .ProjectTo<ArmorServiceModel>(this.mapper)
+                .ProjectTo<ItemServiceModel>(this.mapper)
                 .ToList();
 
             return new ArmorsQueryServiceModel
@@ -59,10 +59,10 @@ namespace DestinyCustoms.Services.Armors
             };
         }
 
-        public List<ArmorServiceModel> AllUserOwned(string userId)
+        public List<ItemServiceModel> AllUserOwned(string userId)
             => db.Armors
             .Where(w => w.UserId == userId)
-            .ProjectTo<ArmorServiceModel>(this.mapper)
+            .ProjectTo<ItemServiceModel>(this.mapper)
             .ToList();
 
         public ArmorDetailsServiceModel GetById(string id)
@@ -83,10 +83,10 @@ namespace DestinyCustoms.Services.Armors
             .ProjectTo<ArmorValidationServiceModel>(this.mapper)
             .FirstOrDefault();
 
-        public List<ArmorServiceModel> MostRecentlyCreated()
+        public List<ItemServiceModel> MostRecentlyCreated()
             => db.Armors
             .OrderByDescending(w => w.DateCreated)
-            .ProjectTo<ArmorServiceModel>(this.mapper)
+            .ProjectTo<ItemServiceModel>(this.mapper)
             .Take(HomePageNumberOfItems)
             .ToList();
 

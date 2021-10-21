@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using MyTested.AspNetCore.Mvc;
 using DestinyCustoms.Data.Models;
+using DestinyCustoms.Common.Enums;
 
 namespace DestinyCustoms.Tests.Data
 {
@@ -21,11 +22,16 @@ namespace DestinyCustoms.Tests.Data
 
         public static ExoticArmor OneArmorWithSetId(string id, string name = null)
             => new()
-            {
-                Id = id,
-                Name = name,
-                UserId = TestUser.Identifier,
-            };
+                {
+                    Id = id,
+                    Name = name,
+                    UserId = TestUser.Identifier,
+                    User = new IdentityUser
+                    {
+                        Id = TestUser.Identifier
+                    },
+                    CharacterClass = CharacterClass.Hunter,
+                };
 
         public static IEnumerable<ExoticArmor> ThreeArmorsOneUserOwned(string id, string userId)
         {

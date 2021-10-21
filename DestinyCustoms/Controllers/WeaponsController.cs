@@ -203,7 +203,7 @@ namespace DestinyCustoms.Controllers
 
             this.weaponsService.Delete(weapon.Id);
 
-            return RedirectToAction(nameof(WeaponsController.All), nameof(WeaponsController).RemoveControllerFromString());
+            return RedirectToAction(nameof(WeaponsController.MyWeapons), nameof(WeaponsController).RemoveControllerFromString());
         }
 
         [Authorize]

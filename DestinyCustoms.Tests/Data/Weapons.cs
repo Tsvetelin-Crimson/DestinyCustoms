@@ -35,7 +35,11 @@ namespace DestinyCustoms.Tests.Data
                 Id = id,
                 Name = name,
                 WeaponClass = new WeaponClass(),
-                UserId = TestUser.Identifier
+                UserId = TestUser.Identifier,
+                User = new IdentityUser
+                {
+                    Id = TestUser.Identifier
+                },
             };
 
         public static IEnumerable<ExoticWeapon> ThreeWeaponsOneUserOwned(string id, string userId)

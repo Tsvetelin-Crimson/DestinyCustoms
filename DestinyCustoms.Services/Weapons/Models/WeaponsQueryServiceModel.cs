@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services.Weapons.Models
 {
@@ -6,6 +7,6 @@ namespace DestinyCustoms.Services.Weapons.Models
     {
         public int AllWeapons { get; set; }
 
-        public List<WeaponServiceModel> Weapons { get; set; }
+        public List<ItemServiceModel> Weapons { get; set; }
     }
 }

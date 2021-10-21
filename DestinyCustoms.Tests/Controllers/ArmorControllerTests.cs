@@ -7,7 +7,7 @@ using DestinyCustoms.Common.Enums;
 using DestinyCustoms.Data.Models;
 using DestinyCustoms.Models.Armors;
 using DestinyCustoms.Infrastructure;
-using DestinyCustoms.Services.Armors.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Tests.Controllers
 {
@@ -51,7 +51,7 @@ namespace DestinyCustoms.Tests.Controllers
             "Exotic",
             "Intrinsic",
             "IntrinsicD",
-            "https://i.kym-cdn.com/photos/images/newsfeed/001/006/166/66f.png",  //Maybe change to the default image url in common fole
+            "https://i.kym-cdn.com/photos/images/newsfeed/001/006/166/66f.png",  //Maybe change to the default image url in common file
             CharacterClass.Warlock)]
         public void PostAddCreatesArmorCorrectlyAndReturnsRedirect(
             string name,
@@ -188,7 +188,7 @@ namespace DestinyCustoms.Tests.Controllers
                         .WithSet<ExoticArmor>(armors => !armors.Any()))
                     .AndAlso()
                     .ShouldReturn()
-                    .RedirectToAction(nameof(ArmorsController.All), nameof(ArmorsController).RemoveControllerFromString());
+                    .RedirectToAction(nameof(ArmorsController.MyArmors), nameof(ArmorsController).RemoveControllerFromString());
 
         [Theory]
         [InlineData("ArmorId", "SecondUserId")]
@@ -206,7 +206,7 @@ namespace DestinyCustoms.Tests.Controllers
                     .AndAlso()
                     .ShouldReturn()
                     .View(view => view
-                                    .WithModelOfType<List<ArmorServiceModel>>()
+                                    .WithModelOfType<List<ItemServiceModel>>()
                                     .Passing(m => Assert.Single(m)));
     }
 }

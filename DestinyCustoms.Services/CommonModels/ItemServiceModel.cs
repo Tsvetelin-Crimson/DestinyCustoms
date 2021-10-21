@@ -1,6 +1,6 @@
-﻿namespace DestinyCustoms.Services.Armors.Models
+﻿namespace DestinyCustoms.Services.CommonModels
 {
-    public class ArmorServiceModel
+    public class ItemServiceModel
     {
         public string Id { get; set; }
 

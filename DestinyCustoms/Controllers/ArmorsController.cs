@@ -196,7 +196,7 @@ namespace DestinyCustoms.Controllers
 
             this.armorsService.Delete(armor.Id);
 
-            return RedirectToAction(nameof(ArmorsController.All), nameof(ArmorsController).RemoveControllerFromString());
+            return RedirectToAction(nameof(ArmorsController.MyArmors), nameof(ArmorsController).RemoveControllerFromString());
         }
 
         [Authorize]

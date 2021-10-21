@@ -14,6 +14,12 @@ namespace DestinyCustoms.Tests.Controllers
 
     public class CommentsControllerTests
     {
+        [Fact]
+        public void CommentsControllerShouldHaveGlobalAuthorizeAttribute()
+            => MyController<CommentsController>
+                .ShouldHave()
+                .Attributes(b => b.RestrictingForAuthorizedRequests());
+
         [Theory]
         [InlineData("10 MINUTES OF CONTENT", "WeaponId")]
         public void AddWeaponCommentShouldAddCorrectCommentAndReturnRedirect(string content, string weaponId)
@@ -29,8 +35,7 @@ namespace DestinyCustoms.Tests.Controllers
                 }))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
-                                                .RestrictingForHttpMethod(HttpMethod.Post)
-                                                .RestrictingForAuthorizedRequests())
+                                                .RestrictingForHttpMethod(HttpMethod.Post))
                 .ValidModelState()
                 .Data(db => db
                             .WithSet<Comment>(comments => comments
@@ -67,8 +72,7 @@ namespace DestinyCustoms.Tests.Controllers
                 }))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
-                                                .RestrictingForHttpMethod(HttpMethod.Post)
-                                                .RestrictingForAuthorizedRequests())
+                                                .RestrictingForHttpMethod(HttpMethod.Post))
                 .ValidModelState()
                 .Data(db => db
                             .WithSet<Reply>(replies => replies
@@ -98,8 +102,7 @@ namespace DestinyCustoms.Tests.Controllers
                 }))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
-                                                .RestrictingForHttpMethod(HttpMethod.Post)
-                                                .RestrictingForAuthorizedRequests())
+                                                .RestrictingForHttpMethod(HttpMethod.Post))
                 .ValidModelState()
                 .Data(db => db
                             .WithSet<Comment>(comments => !comments.Any()))
@@ -125,8 +128,7 @@ namespace DestinyCustoms.Tests.Controllers
                 }))
                 .ShouldHave()
                 .ActionAttributes(attributes => attributes
-                                                .RestrictingForHttpMethod(HttpMethod.Post)
-                                                .RestrictingForAuthorizedRequests())
+                                                .RestrictingForHttpMethod(HttpMethod.Post))
                 .ValidModelState()
                 .Data(db => db
                             .WithSet<Comment>(comments => comments
@@ -163,8 +165,7 @@ namespace DestinyCustoms.Tests.Controllers
                     }))
                     .ShouldHave()
                     .ActionAttributes(attributes => attributes
-                                                    .RestrictingForHttpMethod(HttpMethod.Post)
-                                                    .RestrictingForAuthorizedRequests())
+                                                    .RestrictingForHttpMethod(HttpMethod.Post))
                     .ValidModelState()
                     .Data(db => db
                                 .WithSet<Reply>(replies => replies
@@ -194,8 +195,7 @@ namespace DestinyCustoms.Tests.Controllers
                     }))
                     .ShouldHave()
                     .ActionAttributes(attributes => attributes
-                                                    .RestrictingForHttpMethod(HttpMethod.Post)
-                                                    .RestrictingForAuthorizedRequests())
+                                                    .RestrictingForHttpMethod(HttpMethod.Post))
                     .ValidModelState()
                     .Data(db => db
                                 .WithSet<Comment>(comments => !comments.Any()))

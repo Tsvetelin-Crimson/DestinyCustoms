@@ -46,7 +46,7 @@ namespace DestinyCustoms.Services.Weapons
                 .OrderByDescending(w => w.Id)
                 .Skip(weaponsPerPage * (currentPage - 1))
                 .Take(weaponsPerPage)
-                .ProjectTo<WeaponServiceModel>(this.mapper)
+                .ProjectTo<ItemServiceModel>(this.mapper)
                 .ToList();
 
             return new WeaponsQueryServiceModel
@@ -56,16 +56,16 @@ namespace DestinyCustoms.Services.Weapons
             };
         }
 
-        public List<WeaponServiceModel> AllUserOwned(string userId)
+        public List<ItemServiceModel> AllUserOwned(string userId)
             => db.Weapons
             .Where(w => w.UserId == userId)
-            .ProjectTo<WeaponServiceModel>(this.mapper)
+            .ProjectTo<ItemServiceModel>(this.mapper)
             .ToList();
 
-        public List<WeaponServiceModel> MostRecentlyCreated()
+        public List<ItemServiceModel> MostRecentlyCreated()
             => db.Weapons
             .OrderByDescending(w => w.DateCreated)
-            .ProjectTo<WeaponServiceModel>(this.mapper)
+            .ProjectTo<ItemServiceModel>(this.mapper)
             .Take(HomePageNumberOfItems)
             .ToList();
 

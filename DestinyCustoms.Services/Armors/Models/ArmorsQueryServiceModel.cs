@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Services.Armors.Models
 {
@@ -6,6 +7,6 @@ namespace DestinyCustoms.Services.Armors.Models
     {
         public int AllArmorsCount { get; set; }
 
-        public List<ArmorServiceModel> Armors { get; set; }
+        public List<ItemServiceModel> Armors { get; set; }
     }
 }

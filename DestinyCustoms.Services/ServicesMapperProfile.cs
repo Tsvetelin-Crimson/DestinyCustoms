@@ -15,7 +15,7 @@ namespace DestinyCustoms.Services
 
             // Weapon Maps
             this.CreateMap<ExoticWeapon, WeaponValidationServiceModel>();
-            this.CreateMap<ExoticWeapon, WeaponServiceModel>()
+            this.CreateMap<ExoticWeapon, ItemServiceModel>()
                 .ForMember(ws => ws.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name));
             this.CreateMap<ExoticWeapon, WeaponDetailsServiceModel>()
                 .ForMember(wds => wds.ClassName, cfg => cfg.MapFrom(w => w.WeaponClass.Name))
@@ -23,7 +23,7 @@ namespace DestinyCustoms.Services
 
             // Armor Maps
             this.CreateMap<ExoticArmor, ArmorValidationServiceModel>();
-            this.CreateMap<ExoticArmor, ArmorServiceModel>()
+            this.CreateMap<ExoticArmor, ItemServiceModel>()
                 .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));
             this.CreateMap<ExoticArmor, ArmorDetailsServiceModel>()
                 .ForMember(a => a.ClassName, cfg => cfg.MapFrom(a => a.CharacterClass.ToString()));

@@ -5,9 +5,8 @@ using Microsoft.Extensions.Caching.Memory;
 using DestinyCustoms.Models;
 using DestinyCustoms.Models.Home;
 using DestinyCustoms.Services.Weapons;
-using DestinyCustoms.Services.Weapons.Models;
 using DestinyCustoms.Services.Armors;
-using DestinyCustoms.Services.Armors.Models;
+using DestinyCustoms.Services.CommonModels;
 using System.Collections.Generic;
 
 namespace DestinyCustoms.Controllers
@@ -32,8 +31,8 @@ namespace DestinyCustoms.Controllers
 
         public IActionResult Index()
         {
-            var weapons = this.cache.Get<List<WeaponServiceModel>>(LatestWeaponsCacheKey);
-            var armors = this.cache.Get<List<ArmorServiceModel>>(LatestArmorsCacheKey);
+            var weapons = this.cache.Get<List<ItemServiceModel>>(LatestWeaponsCacheKey);
+            var armors = this.cache.Get<List<ItemServiceModel>>(LatestArmorsCacheKey);
 
             if (weapons == null)
             {

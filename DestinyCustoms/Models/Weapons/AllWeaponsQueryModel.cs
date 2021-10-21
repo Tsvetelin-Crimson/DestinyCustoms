@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DestinyCustoms.Services.Weapons.Models;
+using DestinyCustoms.Services.CommonModels;
 
 namespace DestinyCustoms.Models.Weapons
 {
@@ -19,6 +19,6 @@ namespace DestinyCustoms.Models.Weapons
         [Display(Name = "Search by weapon name:")]
         public string SearchTerm { get; set; }
 
-        public List<WeaponServiceModel> Weapons { get; set; }
+        public List<ItemServiceModel> Weapons { get; set; }
     }
 }
